@@ -5,5 +5,5 @@
 
 mvn clean
 mvn release:clean
-mvn release:prepare
-mvn release:perform
+mvn release:prepare -Prelease
+mvn release:perform -Prelease
