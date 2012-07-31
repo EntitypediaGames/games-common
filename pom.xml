@@ -33,8 +33,8 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:svn:http://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk/project</connection>
-        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk/project</developerConnection>
+        <connection>scm:svn:http://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</connection>
+        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</developerConnection>
         <url>https://dev.entitypedia.org/svn/</url>
     </scm>
 
