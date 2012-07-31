@@ -1,4 +1,4 @@
-package org.entitypedia.games.gameframework.common.model;
+package org.entitypedia.games.common.model;
 
 import java.util.List;
 

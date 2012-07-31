@@ -1,4 +1,4 @@
-package org.entitypedia.games.gameframework.common.util;
+package org.entitypedia.games.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate3.Hibernate3Module;

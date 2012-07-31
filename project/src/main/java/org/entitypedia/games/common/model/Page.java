@@ -1,4 +1,4 @@
-package org.entitypedia.games.gameframework.common.model;
+package org.entitypedia.games.common.model;
 
 /**
  * Bean used to represent the how a result set page should be retrieved.

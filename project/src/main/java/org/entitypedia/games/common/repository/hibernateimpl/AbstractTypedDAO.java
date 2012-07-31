@@ -1,7 +1,7 @@
-package org.entitypedia.games.gameframework.common.repository.hibernateimpl;
+package org.entitypedia.games.common.repository.hibernateimpl;
 
-import org.entitypedia.games.gameframework.common.model.Page;
-import org.entitypedia.games.gameframework.common.repository.ITypedDAO;
+import org.entitypedia.games.common.model.Page;
+import org.entitypedia.games.common.repository.ITypedDAO;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 
