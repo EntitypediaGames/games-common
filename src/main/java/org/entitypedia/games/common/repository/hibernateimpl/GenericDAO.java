@@ -9,6 +9,8 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -27,6 +29,7 @@ public abstract class GenericDAO extends HibernateDaoSupport implements IGeneric
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public <T> T create(T object) {
         Serializable id = getHibernateTemplate().save(object);
         if (null == id) {
@@ -37,27 +40,32 @@ public abstract class GenericDAO extends HibernateDaoSupport implements IGeneric
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public <T> T update(T object) {
         return getHibernateTemplate().merge(object);
     }
 
     @Override
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public <T> T read(Class<T> targetType, Serializable id) {
         return getHibernateTemplate().get(targetType, id);
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
     public <T> void delete(T object) {
         getHibernateTemplate().delete(object);
     }
 
     @Override
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public <T> long count(Class<T> targetType) {
         return (Long) createCriteria(targetType).setProjection(Projections.rowCount()).uniqueResult();
     }
 
     @Override
     @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria) {
         return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria.toArray(new Criterion[criteria.size()])), sortCriteria), page).setCacheable(true).list();
     }
