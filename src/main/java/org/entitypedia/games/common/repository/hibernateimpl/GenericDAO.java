@@ -70,25 +70,25 @@ public abstract class GenericDAO extends HibernateDaoSupport implements IGeneric
         return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria.toArray(new Criterion[criteria.size()])), sortCriteria), page).setCacheable(true).list();
     }
 
-    private <T> Criteria createCriteria(Class<T> targetType) {
+    protected  <T> Criteria createCriteria(Class<T> targetType) {
         return getSessionFactory().getCurrentSession().createCriteria(targetType).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     }
 
-    private Criteria addCriterion(Criteria query, Criterion... criteria) {
+    protected Criteria addCriterion(Criteria query, Criterion... criteria) {
         for (Criterion criterion : criteria) {
             query = query.add(criterion);
         }
         return query;
     }
 
-    private Criteria addOrder(Criteria query, Order... sortCriteria) {
+    protected Criteria addOrder(Criteria query, Order... sortCriteria) {
         for (Order order : sortCriteria) {
             query = query.addOrder(order);
         }
         return query;
     }
 
-    private Criteria addPageFilter(Criteria query, Page page) {
+    protected Criteria addPageFilter(Criteria query, Page page) {
         if (page != null) {
             query.setFirstResult(page.getPageNo() * page.getPageSize());
             if (page.getPageSize() > 0) {
