@@ -19,14 +19,14 @@ public interface ITypedDAO<T, PK extends Serializable> extends IGenericDAO {
      * @param id The identifier of the object
      * @return The object with the given identifier if it exists, null otherwise
      */
-    public T read(PK id);
+    T read(PK id);
 
     /**
      * Returns the number of objects of type T.
      *
      * @return Returns the number of objects of type T
      */
-    public long count();
+    long count();
 
     /**
      * Find all the objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
@@ -38,5 +38,5 @@ public interface ITypedDAO<T, PK extends Serializable> extends IGenericDAO {
      *                     names, always ascending)
      * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
      */
-    public List<T> find(Collection<Criterion> criteria, Page page, Order... sortCriteria);
+    List<T> find(Collection<Criterion> criteria, Page page, Order... sortCriteria);
 }

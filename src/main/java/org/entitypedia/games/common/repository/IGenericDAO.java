@@ -21,7 +21,7 @@ public interface IGenericDAO {
      * @param object The object to be saved in the DB
      * @return The newly created object
      */
-    public <T> T create(T object);
+    <T> T create(T object);
 
     /**
      * Updates the given object.
@@ -29,7 +29,7 @@ public interface IGenericDAO {
      * @param object The object to be updated
      * @return The updated object
      */
-    public <T> T update(T object);
+    <T> T update(T object);
 
     /**
      * Loads the object of the given type and with the given identifier.
@@ -38,7 +38,7 @@ public interface IGenericDAO {
      * @param id         The identifier of the object
      * @return The object with the given identifier if it exists, null otherwise
      */
-    public <T> T read(Class<T> targetType, Serializable id);
+    <T> T read(Class<T> targetType, Serializable id);
 
     /**
      * Returns the number of objects of type T.
@@ -46,14 +46,14 @@ public interface IGenericDAO {
      * @param targetType The object Type
      * @return Returns the number of objects of type T
      */
-    public <T> long count(Class<T> targetType);
+    <T> long count(Class<T> targetType);
 
     /**
      * Deletes the given persistent entity.
      *
      * @param obj The object to be deleted
      */
-    public <T> void delete(T obj);
+    <T> void delete(T obj);
 
     /**
      * Find all the objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
@@ -66,5 +66,5 @@ public interface IGenericDAO {
      *                     names, always ascending)
      * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
      */
-    public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria);
+    <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria);
 }
