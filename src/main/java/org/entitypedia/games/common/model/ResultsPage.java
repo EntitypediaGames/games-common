@@ -16,11 +16,6 @@ public class ResultsPage<T> extends Page {
     private long overallCount;
 
     /**
-     * Overall count of pages in the result set.
-     */
-    private long pagesCount;
-
-    /**
      * List of items in the page.
      */
     List<T> items;
@@ -33,16 +28,17 @@ public class ResultsPage<T> extends Page {
         super(page.getPageNo(), page.getPageSize());
     }
 
-    public ResultsPage(int pageNo, int pageSize, long overallCount, long pagesCount) {
+    public ResultsPage(int pageNo, int pageSize, long overallCount) {
         this(pageNo, pageSize);
         this.overallCount = overallCount;
-        this.pagesCount = pagesCount;
+
+        if (getPagesCount() <= pageNo) {
+            throw new IndexOutOfBoundsException("pageNo is greater than the available number of pages:" + getPagesCount());
+        }
     }
 
     public ResultsPage(Page page, long overallCount, long pagesCount) {
-        this(page);
-        this.overallCount = overallCount;
-        this.pagesCount = pagesCount;
+        this(page.getPageNo(), page.getPageSize(), overallCount);
     }
 
     public long getOverallCount() {
@@ -50,7 +46,7 @@ public class ResultsPage<T> extends Page {
     }
 
     public long getPagesCount() {
-        return pagesCount;
+        return (long) Math.ceil(overallCount / (double) pageSize);
     }
 
     public List<T> getItems() {
