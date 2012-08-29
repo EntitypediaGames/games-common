@@ -37,7 +37,7 @@ public class ResultsPage<T> extends Page {
         }
     }
 
-    public ResultsPage(Page page, long overallCount, long pagesCount) {
+    public ResultsPage(Page page, long overallCount) {
         this(page.getPageNo(), page.getPageSize(), overallCount);
     }
 
