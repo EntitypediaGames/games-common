@@ -16,7 +16,7 @@ import java.util.List;
  */
 public abstract class AbstractTypedDAO<T, PK extends Serializable> extends GenericDAO implements ITypedDAO<T, PK> {
 
-    private Class<T> targetType;
+    private final Class<T> targetType;
 
     public AbstractTypedDAO(Class<T> targetType) {
         this.targetType = targetType;

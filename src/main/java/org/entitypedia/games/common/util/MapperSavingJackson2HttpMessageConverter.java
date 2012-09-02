@@ -23,8 +23,8 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
 
     private static final Logger log = LoggerFactory.getLogger(MapperSavingJackson2HttpMessageConverter.class);
 
-    private ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>();
-    private ThreadLocal<ObjectMapper> tlOldObjectMapper = new ThreadLocal<ObjectMapper>();
+    private final ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>();
+    private final ThreadLocal<ObjectMapper> tlOldObjectMapper = new ThreadLocal<ObjectMapper>();
 
     private boolean prefixJson = false;
 
