@@ -55,7 +55,9 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
         }
     }
 
-    after() returning: execution(* org.entitypedia.games..*(..)) && @annotation(JacksonMixins) {
+    pointcut serviceExecution(): execution(@JacksonMixins * org.entitypedia.games..service..*(..));
+    pointcut controllerExecution(): execution(* org.entitypedia.games..api.controller..*(..));
+    after() returning: serviceExecution() && cflowbelow(controllerExecution()) {
         // this sets the filtering mapper. this mapper is restored in converter.writeInternal.
         // between this and writeInternal there are a few Spring methods,
         // if there is an exception there, before writeInternal, then the mapper is stuck...
