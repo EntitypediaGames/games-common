@@ -38,6 +38,18 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
 
     private Constructor<MethodInvocationAdapter> constructor;
 
+    private final static ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>() {
+        @Override protected ObjectMapper initialValue() {
+            return null;
+        }
+    };
+    private final static ThreadLocal<List<JacksonMixin>> tlMixins = new ThreadLocal<List<JacksonMixin>>() {
+        @Override
+        protected List<JacksonMixin> initialValue() {
+            return new ArrayList<JacksonMixin>(4);
+        }
+    };
+
     @Override
     public void afterPropertiesSet() throws Exception {
         // hack package local constructor...
@@ -56,18 +68,23 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
     }
 
     pointcut serviceExecution(): execution(@JacksonMixins * org.entitypedia.games..service..*(..));
-    pointcut controllerExecution(): execution(* org.entitypedia.games..api.controller..*(..));
-    after() returning: serviceExecution() && cflowbelow(controllerExecution()) {
-        // this sets the filtering mapper. this mapper is restored in converter.writeInternal.
-        // between this and writeInternal there are a few Spring methods,
-        // if there is an exception there, before writeInternal, then the mapper is stuck...
+    // these 2 below might be faster, depends on performance of cflowbelow VS the current checks
+    // pointcut controllerExecution(): execution(* org.entitypedia.games..api.controller..*(..));
+    // after() returning: serviceExecution() && cflowbelow(controllerExecution()) {
+    after() returning: serviceExecution() {
+        // this prepares mixins for the filtering mapper.
 
-        // the mapper set by annotation is the only one
-        // therefore one needs to check the control flow of the annotated method to ensure
+        // one needs to check the control flow of the annotated method to ensure
         // there is no other mixins-annotated method being called inside the body
-        // e.g. createGame calls readCrossword
+        // e.g. createGame calls readCrossword, both annotated
+        // and the latter overwrites the mixins of the former
+        // in this case warning is printed
 
-        // jackson allows only one mixin per class... another incompatibility with complex call trees
+        // jackson allows only one mixin per class... can't accumulate mixins over complex call trees
+
+        // mixins clear in writeInternal. therefore they might get stuck if method does not render JSON
+        // e.g. updateFocus calls readGame for access control and mixins get stuck.
+        // in this case warning is printed too, but it has little meaning
 
         if (thisJoinPoint.getSignature() instanceof MethodSignature) {
             MethodSignature signature = (MethodSignature) thisJoinPoint.getSignature();
@@ -76,8 +93,14 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
             if (null != method) {
                 JacksonMixins annotation = method.getAnnotation(JacksonMixins.class);
                 if (null != annotation && null != annotation.value() && 0 < annotation.value().length) {
-                    ObjectMapper mapper = new HibernateAwareObjectMapper();
-                    List<String> mixinNames = new ArrayList<String>();
+                    List<JacksonMixin> mixins = tlMixins.get();
+                    if (0 < mixins.size()) {
+                        if (log.isWarnEnabled()) {
+                            log.warn("{} is overwriting mixins {}", thisJoinPoint, Arrays.toString(mixinsToStringArray(mixins)));
+                        }
+                    }
+                    mixins.clear();
+
                     for (int i = 0; i < annotation.value().length; i++) {
                         JacksonMixin mixin = annotation.value()[i];
                         boolean apply = true;
@@ -98,19 +121,58 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
                             }
                         }
                         if (apply) {
-                            mapper.addMixInAnnotations(mixin.target(), mixin.mixin());
-                            mixinNames.add(mixin.target().getSimpleName() + "=" + mixin.mixin().getSimpleName());
+                            mixins.add(mixin);
                         }
                     }
 
-                    if (0 < mixinNames.size() && mapper != converter.getObjectMapper()) {
-                        converter.saveObjectMapper();
-                        log.debug("Applying filters to serialization: {}", Arrays.toString(mixinNames.toArray()));
-                        converter.setObjectMapper(mapper);
+                    if (0 < mixins.size()) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("{} prepared mixins {}", thisJoinPoint, Arrays.toString(mixinsToStringArray(mixins)));
+                        }
+                    } else {
+                        log.debug("{} cleared mixins", thisJoinPoint);
                     }
                 }
             }
         }
+    }
+
+    private String[] mixinsToStringArray(List<JacksonMixin> mixins) {
+        String[] result = new String[mixins.size()];
+        for (int i = 0; i < mixins.size(); i++) {
+            result[i] = mixins.get(i).target().getSimpleName() + "=" + mixins.get(i).mixin().getSimpleName();
+        }
+        return result;
+    }
+
+    pointcut writeInternalExecution(): execution(* org.entitypedia.games.common.util.MapperSavingJackson2HttpMessageConverter.writeInternal(..));
+    Object around(): writeInternalExecution() {
+        List<JacksonMixin> mixins = tlMixins.get();
+        if (0 < mixins.size()) {
+            // set up mapper
+            ObjectMapper mapper = new HibernateAwareObjectMapper();
+            for (JacksonMixin mixin : mixins) {
+                mapper.addMixInAnnotations(mixin.target(), mixin.mixin());
+            }
+
+            log.debug("Applying mixins {} to {}", Arrays.toString(mixinsToStringArray(mixins)), converter);
+            tlObjectMapper.set(converter.getObjectMapper());
+            converter.setObjectMapper(mapper);
+        }
+
+        Object result = proceed();
+
+        if (0 < mixins.size()) {
+            // restore mapper
+            log.debug("Removing mixins from {}", converter);
+            converter.setObjectMapper(tlObjectMapper.get());
+
+            // clean up vars
+            tlObjectMapper.set(null);
+            mixins.clear();
+        }
+
+        return result;
     }
 
     public void setConverter(MapperSavingJackson2HttpMessageConverter converter) {

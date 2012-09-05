@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.entitypedia.games.common.exceptions.MapperAlreadyOverwrittenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpInputMessage;
@@ -23,37 +22,32 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
 
     private static final Logger log = LoggerFactory.getLogger(MapperSavingJackson2HttpMessageConverter.class);
 
-    private final ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>();
-    private final ThreadLocal<ObjectMapper> tlOldObjectMapper = new ThreadLocal<ObjectMapper>();
+    private final static ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>() {
+        @Override
+        protected ObjectMapper initialValue() {
+            return null;
+        }
+    };
+
+    private boolean mapperInitialized = false;
 
     private boolean prefixJson = false;
 
     public MapperSavingJackson2HttpMessageConverter() {
         super();
-        tlOldObjectMapper.set(null);
-    }
-
-    public void saveObjectMapper() {
-        if (null == tlOldObjectMapper.get()) {
-            tlOldObjectMapper.set(getObjectMapper());
-        } else {
-            throw new MapperAlreadyOverwrittenException();
-        }
-    }
-
-    public void restoreObjectMapper() {
-        ObjectMapper objectMapper = tlOldObjectMapper.get();
-        if (null != objectMapper) {
-            log.debug("Restoring objectMapper {}", objectMapper);
-            setObjectMapper(objectMapper);
-            tlOldObjectMapper.set(null);
-        }
     }
 
     @Override
     public void setObjectMapper(ObjectMapper objectMapper) {
-        super.setObjectMapper(objectMapper);
-        tlObjectMapper.set(objectMapper);
+        // no synchronization because Spring initializes it
+        if (!mapperInitialized) {
+            log.trace("{} sets super.objectMapper to {}", this, objectMapper);
+            super.setObjectMapper(objectMapper);
+            mapperInitialized = true;
+        } else {
+            log.trace("{} sets thread-local objectMapper to {}", this, objectMapper);
+            tlObjectMapper.set(objectMapper);
+        }
     }
 
     @Override
@@ -61,6 +55,9 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
         ObjectMapper result = tlObjectMapper.get();
         if (null == result) {
             result = super.getObjectMapper();
+            log.trace("{} returns super.objectMapper {}", this, result);
+        } else {
+            log.trace("{} returns thread-local objectMapper {}", this, result);
         }
         return result;
     }
@@ -108,8 +105,6 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
             getObjectMapper().writeValue(jsonGenerator, object);
         } catch (IOException ex) {
             throw new HttpMessageNotWritableException("Could not write JSON: " + ex.getMessage(), ex);
-        } finally {
-            restoreObjectMapper();
         }
     }
 
