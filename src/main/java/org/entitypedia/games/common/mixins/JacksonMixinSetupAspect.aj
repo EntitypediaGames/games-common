@@ -67,10 +67,7 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
         }
     }
 
-    pointcut serviceExecution(): execution(@JacksonMixins * org.entitypedia.games..service..*(..));
-    // these 2 below might be faster, depends on performance of cflowbelow VS the current checks
-    // pointcut controllerExecution(): execution(* org.entitypedia.games..api.controller..*(..));
-    // after() returning: serviceExecution() && cflowbelow(controllerExecution()) {
+    pointcut serviceExecution(): execution(@JacksonMixins * org.entitypedia.games..api.controller..*(..));
     after() returning: serviceExecution() {
         // this prepares mixins for the filtering mapper.
 
