@@ -97,7 +97,7 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
 
         JsonEncoding encoding = getJsonEncoding(outputMessage.getHeaders().getContentType());
         JsonGenerator jsonGenerator =
-                getObjectMapper().getJsonFactory().createJsonGenerator(outputMessage.getBody(), encoding);
+                getObjectMapper().getFactory().createJsonGenerator(outputMessage.getBody(), encoding);
         try {
             if (this.prefixJson) {
                 jsonGenerator.writeRaw("{} && ");

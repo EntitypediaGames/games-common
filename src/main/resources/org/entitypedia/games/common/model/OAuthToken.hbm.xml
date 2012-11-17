@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="org.entitypedia.games.crosswords.model">
+<hibernate-mapping package="org.entitypedia.games.common.model">
     <class name="org.entitypedia.games.common.model.OAuthToken" table="oauth_token">
         <id name="id" column="id">
             <generator class="identity"/>
