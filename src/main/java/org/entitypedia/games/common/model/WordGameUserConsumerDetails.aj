@@ -23,7 +23,7 @@ public aspect WordGameUserConsumerDetails {
     private final static List<GrantedAuthority> USER_AUTHORITY =
             new ArrayList<GrantedAuthority>(Arrays.asList(new SimpleGrantedAuthority("ROLE_PLAYER")));
 
-    declare parents:org.entitypedia.games.common.model.WordGameUser implements ExtraTrustConsumerDetails,SharedConsumerSecret,SignatureSecret;
+    declare parents:org.entitypedia.games.common.model.WordGameUser+ implements ExtraTrustConsumerDetails,SharedConsumerSecret,SignatureSecret;
 
     // SharedConsumerSecret
     @JsonIgnore
