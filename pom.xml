@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.entitypedia.games</groupId>
         <artifactId>entitypedia-games-parent</artifactId>
-        <version>3</version>
+        <version>5</version>
     </parent>
 
     <groupId>org.entitypedia.games</groupId>
@@ -13,8 +13,8 @@
     <packaging>jar</packaging>
     <version>1.4.3-SNAPSHOT</version>
 
-    <name>Word Games Common</name>
-    <description>Word Games and Framework common classes and utility classes</description>
+    <name>Entitypedia Games Common</name>
+    <description>Entitypedia Games and Framework common classes and utility classes</description>
     <url>http://games.entitypedia.org/gameframework/</url>
 
     <scm>
@@ -23,11 +23,40 @@
         <url>https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/</url>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>entitypedia</id>
+            <layout>default</layout>
+            <name>Entitypedia Maven Repository</name>
+            <url>https://dev.entitypedia.org/archiva/repository/internal/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>entitypedia-snapshots</id>
+            <layout>default</layout>
+            <name>Entitypedia Maven Snapshot Repository</name>
+            <url>https://dev.entitypedia.org/archiva/repository/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3-SNAPSHOT</version>
         </dependency>
 
         <!-- spring dependencies -->
