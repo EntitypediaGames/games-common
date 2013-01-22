@@ -11,16 +11,16 @@
     <groupId>org.entitypedia.games</groupId>
     <artifactId>entitypedia-games-common</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.3</version>
+    <version>1.4.4-SNAPSHOT</version>
 
     <name>Entitypedia Games Common</name>
     <description>Entitypedia Games and Framework common classes and utility classes</description>
     <url>http://games.entitypedia.org/gameframework/</url>
 
     <scm>
-        <connection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/tags/entitypedia-games-common-1.4.3</connection>
-        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/tags/entitypedia-games-common-1.4.3</developerConnection>
-        <url>https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/tags/entitypedia-games-common-1.4.3</url>
+        <connection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</connection>
+        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</developerConnection>
+        <url>https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/</url>
     </scm>
 
     <repositories>
