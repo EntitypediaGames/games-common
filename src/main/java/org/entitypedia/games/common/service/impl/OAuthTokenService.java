@@ -1,18 +1,16 @@
 package org.entitypedia.games.common.service.impl;
 
+import org.entitypedia.games.common.model.OAuthToken;
 import org.entitypedia.games.common.repository.IOAuthTokenDAO;
 import org.entitypedia.games.common.service.IOAuthTokenService;
-import org.entitypedia.games.common.model.OAuthToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth.consumer.OAuthConsumerToken;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-@Service
 public class OAuthTokenService implements IOAuthTokenService {
 
     @Autowired
