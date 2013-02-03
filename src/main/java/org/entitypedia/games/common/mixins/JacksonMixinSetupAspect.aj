@@ -67,8 +67,8 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
         }
     }
 
-    pointcut serviceExecution(): execution(@JacksonMixins * org.entitypedia.games..api.controller..*(..));
-    after() returning: serviceExecution() {
+    pointcut controllerExecution(): execution(@JacksonMixins * org.entitypedia.games..api.controller..*(..));
+    after() returning: controllerExecution() {
         // this prepares mixins for the filtering mapper.
 
         // one needs to check the control flow of the annotated method to ensure
