@@ -48,7 +48,7 @@ public class DBConsumerTokenServices extends InMemorySelfCleaningConsumerTokenSe
             // so we have to get uid from the request
             String uid = AuthTools.getUidFromRequest();
             if (null != uid) {
-                // need to do it here to satisfy constraint. but it's not very nice to do it here...
+                // TODO need to do it here to satisfy constraint. but it's not very nice to do it here...
                 userService.importUser(uid);
                 tokenService.storeToken(uid, token);
             }
@@ -60,7 +60,7 @@ public class DBConsumerTokenServices extends InMemorySelfCleaningConsumerTokenSe
         super.removeToken(resourceId);
         // on saving OAuthSecurityContextHolder.getContext() -> details -> request -> uid+verifier
         // request tokens are removed from /login where there is no authentication
-        // so we have to get uid from the request
+        // TODO so we have to get uid from the request
         String uid = AuthTools.getUidFromRequest();
         if (null != uid) {
             tokenService.removeTokenByUIDAndResourceId(uid, resourceId);
