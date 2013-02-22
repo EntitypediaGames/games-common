@@ -22,14 +22,7 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
 
     private static final Logger log = LoggerFactory.getLogger(MapperSavingJackson2HttpMessageConverter.class);
 
-    private final static ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>() {
-        @Override
-        protected ObjectMapper initialValue() {
-            return null;
-        }
-    };
-
-    private boolean mapperInitialized = false;
+    private ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>();
 
     private boolean prefixJson = false;
 
@@ -37,17 +30,13 @@ public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2Htt
         super();
     }
 
-    @Override
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        // no synchronization because Spring initializes it
-        if (!mapperInitialized) {
-            log.trace("{} sets super.objectMapper to {}", this, objectMapper);
-            super.setObjectMapper(objectMapper);
-            mapperInitialized = true;
-        } else {
-            log.trace("{} sets thread-local objectMapper to {}", this, objectMapper);
-            tlObjectMapper.set(objectMapper);
-        }
+    public void setLocalObjectMapper(ObjectMapper objectMapper) {
+        log.trace("{} sets thread-local objectMapper to {}", this, objectMapper);
+        tlObjectMapper.set(objectMapper);
+    }
+
+    public void removeLocalObjectMapper() {
+        tlObjectMapper.remove();
     }
 
     @Override

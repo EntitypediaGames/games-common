@@ -38,17 +38,7 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
 
     private Constructor<MethodInvocationAdapter> constructor;
 
-    private final static ThreadLocal<ObjectMapper> tlObjectMapper = new ThreadLocal<ObjectMapper>() {
-        @Override protected ObjectMapper initialValue() {
-            return null;
-        }
-    };
-    private final static ThreadLocal<List<JacksonMixin>> tlMixins = new ThreadLocal<List<JacksonMixin>>() {
-        @Override
-        protected List<JacksonMixin> initialValue() {
-            return new ArrayList<JacksonMixin>(4);
-        }
-    };
+    private ThreadLocal<List<JacksonMixin>> tlMixins = new ThreadLocal<List<JacksonMixin>>();
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -91,12 +81,12 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
                 JacksonMixins annotation = method.getAnnotation(JacksonMixins.class);
                 if (null != annotation && null != annotation.value() && 0 < annotation.value().length) {
                     List<JacksonMixin> mixins = tlMixins.get();
-                    if (0 < mixins.size()) {
+                    if (null != mixins && 0 < mixins.size()) {
                         if (log.isWarnEnabled()) {
                             log.warn("{} is overwriting mixins {}", thisJoinPoint, Arrays.toString(mixinsToStringArray(mixins)));
                         }
+                        mixins.clear();
                     }
-                    mixins.clear();
 
                     for (int i = 0; i < annotation.value().length; i++) {
                         JacksonMixin mixin = annotation.value()[i];
@@ -118,11 +108,15 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
                             }
                         }
                         if (apply) {
+                            if (null == mixins) {
+                                mixins = new ArrayList<JacksonMixin>(annotation.value().length);
+                            }
                             mixins.add(mixin);
                         }
                     }
 
-                    if (0 < mixins.size()) {
+                    if (null != mixins && 0 < mixins.size()) {
+                        tlMixins.set(mixins);
                         if (log.isDebugEnabled()) {
                             log.debug("{} prepared mixins {}", thisJoinPoint, Arrays.toString(mixinsToStringArray(mixins)));
                         }
@@ -145,7 +139,7 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
     pointcut writeInternalExecution(): execution(* org.entitypedia.games.common.util.MapperSavingJackson2HttpMessageConverter.writeInternal(..));
     Object around(): writeInternalExecution() {
         List<JacksonMixin> mixins = tlMixins.get();
-        if (0 < mixins.size()) {
+        if (null != mixins && 0 < mixins.size()) {
             // set up mapper
             ObjectMapper mapper = new HibernateAwareObjectMapper();
             for (JacksonMixin mixin : mixins) {
@@ -153,23 +147,20 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
             }
 
             log.debug("Applying mixins {} to {}", Arrays.toString(mixinsToStringArray(mixins)), converter);
-            tlObjectMapper.set(converter.getObjectMapper());
-            converter.setObjectMapper(mapper);
+            converter.setLocalObjectMapper(mapper);
         }
 
-        Object result = proceed();
-
-        if (0 < mixins.size()) {
-            // restore mapper
-            log.debug("Removing mixins from {}", converter);
-            converter.setObjectMapper(tlObjectMapper.get());
-
-            // clean up vars
-            tlObjectMapper.set(null);
-            mixins.clear();
+        try {
+            Object result = proceed();
+            return result;
+        } finally {
+            if (null != mixins && 0 < mixins.size()) {
+                // restore mapper
+                log.debug("Removing mixins from {}", converter);
+                converter.removeLocalObjectMapper();
+            }
+            tlMixins.remove();
         }
-
-        return result;
     }
 
     public void setConverter(MapperSavingJackson2HttpMessageConverter converter) {
