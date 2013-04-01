@@ -8,18 +8,19 @@ package org.entitypedia.games.common.util.logging;
 public class TransactionIndicatingUtil {
     private final static String TSM_CLASSNAME = "org.springframework.transaction.support.TransactionSynchronizationManager";
 
+    @SuppressWarnings("unchecked")
     public static String getTransactionStatus(boolean verbose) {
-        String status = null;
+        String status;
 
         try {
             ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
             if (contextClassLoader != null) {
                 Class tsmClass = contextClassLoader.loadClass(TSM_CLASSNAME);
-                Boolean isActive = (Boolean) tsmClass.getMethod("isActualTransactionActive", null).invoke(null, null);
+                Boolean isActive = (Boolean) tsmClass.getMethod("isActualTransactionActive").invoke(null);
                 if (!verbose) {
                     status = (isActive) ? "[+] " : "[-] ";
                 } else {
-                    String transactionName = (String) tsmClass.getMethod("getCurrentTransactionName", null).invoke(null, null);
+                    String transactionName = (String) tsmClass.getMethod("getCurrentTransactionName").invoke(null);
                     status = (isActive) ? "[" + transactionName + "] " : "[no transaction] ";
                 }
             } else {

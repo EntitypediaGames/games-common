@@ -8,7 +8,6 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,16 +18,14 @@ import java.util.List;
  *
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public abstract class GenericDAO extends HibernateDaoSupport implements IGenericDAO {
+public abstract class GenericDAO implements IGenericDAO {
 
     @Autowired
-    public void init(SessionFactory sessionFactory) {
-        setSessionFactory(sessionFactory);
-    }
+    private SessionFactory sessionFactory;
 
     @Override
     public <T> T create(T object) {
-        Serializable id = getHibernateTemplate().save(object);
+        Serializable id = getSessionFactory().getCurrentSession().save(object);
         if (null == id) {
             throw new IllegalStateException("Couldn't save object " + object
                     + ": Hibernate returned id = null");
@@ -37,18 +34,20 @@ public abstract class GenericDAO extends HibernateDaoSupport implements IGeneric
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T update(T object) {
-        return getHibernateTemplate().merge(object);
+        return (T) getSessionFactory().getCurrentSession().merge(object);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T read(Class<T> targetType, Serializable id) {
-        return getHibernateTemplate().get(targetType, id);
+        return (T) getSessionFactory().getCurrentSession().get(targetType, id);
     }
 
     @Override
     public <T> void delete(T object) {
-        getHibernateTemplate().delete(object);
+        getSessionFactory().getCurrentSession().delete(object);
     }
 
     @Override
@@ -88,5 +87,13 @@ public abstract class GenericDAO extends HibernateDaoSupport implements IGeneric
             }
         }
         return query;
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }
