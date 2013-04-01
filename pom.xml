@@ -175,12 +175,6 @@
             <version>${aspectj.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
-        </dependency>
-
         <!-- hibernate dependencies -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -254,6 +248,9 @@
                 <configuration>
                     <Xlint>ignore</Xlint>
                     <verbose>false</verbose>
+                    <source>${project.build.source}</source>
+                    <target>${project.build.target}</target>
+                    <complianceLevel>${project.build.source}</complianceLevel>
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>org.springframework</groupId>
@@ -269,12 +266,8 @@
                     <execution>
                         <goals>
                             <goal>compile</goal>       <!-- use this goal to weave all your main classes -->
-                            <goal>test-compile</goal>  <!-- use this goal to weave all your test classes -->
+                            <!--<goal>test-compile</goal>-->  <!-- use this goal to weave all your test classes -->
                         </goals>
-                        <configuration>
-                            <source>${project.build.source}</source>
-                            <target>${project.build.target}</target>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
