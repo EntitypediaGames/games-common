@@ -56,9 +56,14 @@ public abstract class GenericDAO implements IGenericDAO {
     }
 
     @Override
+    public <T> long count(Class<T> targetType, Collection<Criterion> criteria) {
+        return (Long) addCriterion(createCriteria(targetType), criteria).setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria) {
-        return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria.toArray(new Criterion[criteria.size()])), sortCriteria), page).setCacheable(true).list();
+        return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria), sortCriteria), page).setCacheable(true).list();
     }
 
     protected <T> Criteria createCriteria(Class<T> targetType) {
@@ -72,7 +77,21 @@ public abstract class GenericDAO implements IGenericDAO {
         return query;
     }
 
+    protected Criteria addCriterion(Criteria query, Collection<Criterion> criteria) {
+        for (Criterion criterion : criteria) {
+            query = query.add(criterion);
+        }
+        return query;
+    }
+
     protected Criteria addOrder(Criteria query, Order... sortCriteria) {
+        for (Order order : sortCriteria) {
+            query = query.addOrder(order);
+        }
+        return query;
+    }
+
+    protected Criteria addOrder(Criteria query, Collection<Order> sortCriteria) {
         for (Order order : sortCriteria) {
             query = query.addOrder(order);
         }

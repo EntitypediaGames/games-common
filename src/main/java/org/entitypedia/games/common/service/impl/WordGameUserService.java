@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
@@ -45,6 +46,7 @@ public abstract class WordGameUserService<T extends WordGameUser> implements IWo
             try {
                 constructor = targetType.getConstructor(String.class);
                 result = constructor.newInstance(uid);
+                result.setCreationTime(new Date());
                 result.setPassword(UIDGenerator.getUID(10));
                 result = wordGameUserDAO.update(result);
                 log.debug("Imported new user from framework: {}, {}", result.getId(), result);

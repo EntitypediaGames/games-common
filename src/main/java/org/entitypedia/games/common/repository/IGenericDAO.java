@@ -49,6 +49,14 @@ public interface IGenericDAO {
     <T> long count(Class<T> targetType);
 
     /**
+     * Returns the number of objects of type T satisfying the criteria.
+     *
+     * @param targetType The object Type
+     * @return Returns the number of objects of type T
+     */
+    <T> long count(Class<T> targetType, Collection<Criterion> criteria);
+
+    /**
      * Deletes the given persistent entity.
      *
      * @param obj The object to be deleted
