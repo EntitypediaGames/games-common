@@ -89,7 +89,7 @@ NOT: 'not';
 Identifier: [a-zA-Z] ([a-zA-Z]|[0-9])*;
 
 DateLiteral: '\'' ('1'|'2')'0'..'9''0'..'9''0'..'9' ('0''1'..'9'|'1'('0'|'1'|'2')) ('0''1'..'9'|'1''0'..'9'|'2''0'..'9'|'3'('0'|'1')) '\'';
-BooleanLiteral: 'true' | 'false';
+BooleanLiteral: '\'true\'' | '\'false\'';
 FloatingPointLiteral: ('0'..'9')+ '.' ('0'..'9')*;
 DecimalLiteral: ('0' | '1'..'9' '0'..'9'*);
 StringLiteral: '\'' ( EscapeSequence | ~('\\'|'\'') )* '\'';
