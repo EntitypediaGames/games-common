@@ -5,13 +5,14 @@
 
 <hibernate-mapping package="org.entitypedia.games.common.model">
     <class name="org.entitypedia.games.common.model.OAuthToken" table="oauth_token">
+        <cache usage="read-write"/>
         <id name="id" column="id">
             <generator class="identity"/>
         </id>
-        <properties name="uk1" unique="true">
+        <natural-id mutable="false">
             <property name="uid" column="uid" not-null="true" update="false"/>
             <property name="resourceId" column="resource_id" not-null="true" update="false"/>
-        </properties>
+        </natural-id>
         <property name="value" column="value" not-null="true"/>
         <property name="secret" column="secret" not-null="true"/>
         <property name="issueTime" column="issue_time" not-null="true"/>
