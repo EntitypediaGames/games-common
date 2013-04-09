@@ -53,6 +53,8 @@ public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 
 	@Override public T visitInit(FilterParser.InitContext ctx) { return visitChildren(ctx); }
 
+	@Override public T visitBooleanLiteral(FilterParser.BooleanLiteralContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitLike(FilterParser.LikeContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitDecimal(FilterParser.DecimalContext ctx) { return visitChildren(ctx); }

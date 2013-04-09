@@ -52,6 +52,8 @@ public interface FilterVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitInit(FilterParser.InitContext ctx);
 
+	T visitBooleanLiteral(FilterParser.BooleanLiteralContext ctx);
+
 	T visitLike(FilterParser.LikeContext ctx);
 
 	T visitDecimal(FilterParser.DecimalContext ctx);
