@@ -37,7 +37,7 @@ public class AuthTools {
             if (null != a) {
                 if (a.getPrincipal() instanceof WordGameUser) {
                     result = (T) a.getPrincipal();
-                    log.debug("Read user from securityContext.getAuthentication: {}", result);
+                    log.trace("Read user from securityContext.getAuthentication: {}", result);
                 }
             }
         }
@@ -64,7 +64,7 @@ public class AuthTools {
             if (context.getDetails() instanceof HttpServletRequest) {
                 HttpServletRequest request = (HttpServletRequest) context.getDetails();
                 result = request.getParameter("uid");
-                log.debug("Read user uid from request: {}", result);
+                log.trace("Read user uid from request: {}", result);
             }
         }
         return result;
