@@ -46,6 +46,6 @@ public class FilterLiteralVisitor extends FilterBaseVisitor<Object> {
 
     public static String unescape(String string) {
         // remove surrounding ' and unescape \' -> ' and \\ -> \
-        return string.substring(1, string.length() - 1).replaceAll("\\'", "'").replaceAll("\\\\", "\\");
+        return string.substring(1, string.length() - 1).replace("\\'", "'").replace("\\\\", "\\");
     }
 }

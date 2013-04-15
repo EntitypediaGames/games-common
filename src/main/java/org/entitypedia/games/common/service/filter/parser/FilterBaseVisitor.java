@@ -45,6 +45,8 @@ public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 
 	@Override public T visitIlike(FilterParser.IlikeContext ctx) { return visitChildren(ctx); }
 
+	@Override public T visitQualifiedName(FilterParser.QualifiedNameContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitNeP(FilterParser.NePContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitLtP(FilterParser.LtPContext ctx) { return visitChildren(ctx); }

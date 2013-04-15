@@ -9,6 +9,9 @@ import org.entitypedia.games.common.service.filter.parser.FilterLexer;
 import org.entitypedia.games.common.service.filter.parser.FilterParser;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.springframework.util.StringUtils;
+
+import java.util.*;
 
 /**
  * Parses filter expressions for Hibernate Criteria. Example:
@@ -38,7 +41,9 @@ public class FilterCriteriaParser {
     private static final ANTLRErrorListener errorListener = new ThrowingErrorListener();
     private static final Order[] EMPTY_ORDER = new Order[0];
 
-    public static Criterion parse(String filter) {
+    private FilterCriterionVisitor filterCriterionVisitor;
+
+    public Criterion parse(String filter) {
         ANTLRInputStream input = new ANTLRInputStream(unescape(filter));
         FilterLexer lexer = new FilterLexer(input);
         lexer.removeErrorListeners();
@@ -48,8 +53,38 @@ public class FilterCriteriaParser {
         parser.removeErrorListeners();
         parser.addErrorListener(errorListener);
         ParseTree parseTree = parser.init();
-        FilterCriterionVisitor filterCriterionVisitor = new FilterCriterionVisitor();
+        filterCriterionVisitor = new FilterCriterionVisitor();
         return filterCriterionVisitor.visit(parseTree);
+    }
+
+    public Map<String, String> getAliasMap() {
+        // the list of collected aliases need to be transformed
+        // from crossword -> a0, crossword.wordClue -> a1
+        // to crossword -> a0, a0.wordClue -> a1
+
+        if (0 == filterCriterionVisitor.aliases.keySet().size()) {
+            return Collections.emptyMap();
+        } else {
+            Map<String, String> result = new HashMap<String, String>();
+            for (Map.Entry<String, String> entry : filterCriterionVisitor.aliases.entrySet()) {
+                if (0 == StringUtils.countOccurrencesOf(entry.getKey(), ".")) {
+                    result.put(entry.getKey(), entry.getValue());
+                } else {
+                    // replacements;
+                    int curOccurrences = StringUtils.countOccurrencesOf(entry.getKey(), ".");
+                    for (Map.Entry<String, String> prevEntry : filterCriterionVisitor.aliases.entrySet()) {
+                        if ((curOccurrences - 1) == StringUtils.countOccurrencesOf(prevEntry.getKey(), ".")) {
+                            if (entry.getKey().contains(prevEntry.getKey() + ".")) {
+                                result.put(entry.getKey().replace(prevEntry.getKey() + ".", prevEntry.getValue() + "."), entry.getValue());
+                                break;
+                            }
+                        }
+                    }
+
+                }
+            }
+            return result;
+        }
     }
 
     public static Order[] order(String order) {

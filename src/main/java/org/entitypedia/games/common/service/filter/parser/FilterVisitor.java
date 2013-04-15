@@ -44,6 +44,8 @@ public interface FilterVisitor<T> extends ParseTreeVisitor<T> {
 
 	T visitIlike(FilterParser.IlikeContext ctx);
 
+	T visitQualifiedName(FilterParser.QualifiedNameContext ctx);
+
 	T visitNeP(FilterParser.NePContext ctx);
 
 	T visitLtP(FilterParser.LtPContext ctx);

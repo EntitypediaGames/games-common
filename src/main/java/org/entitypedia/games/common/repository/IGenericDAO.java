@@ -7,6 +7,7 @@ import org.hibernate.criterion.Order;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface for generic DAO implementation.
@@ -75,4 +76,18 @@ public interface IGenericDAO {
      * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
      */
     <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria);
+
+    /**
+     * Find all the objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
+     *
+     * @param targetType   The object Type
+     * @param criteria     A collection of {@link org.hibernate.criterion.Criterion} that defines the restrictions on the list
+     *                     of objects to be retrieved
+     * @param page         If not null defines a specific page to be retrieved
+     * @param sortCriteria Optional list of ordering criteria (expressed as a list of property
+     *                     names, always ascending)
+     * @param aliases      list of aliases used in the query
+     * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
+     */
+    <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Map<String, String> aliases, Order... sortCriteria);
 }

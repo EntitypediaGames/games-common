@@ -17,30 +17,30 @@ expr:
     ;
         
 oper:    
-        Identifier EQ literal           # eq
-    |   Identifier EQP Identifier       # eqP
-    |   Identifier GE literal           # ge
-    |   Identifier GEP Identifier       # geP
-    |   Identifier GT literal           # gt
-    |   Identifier GTP Identifier       # gtP
-    |   Identifier LIKE StringLiteral   # like
-    |   Identifier ILIKE StringLiteral  # ilike
-    |   Identifier LE literal           # le
-    |   Identifier LEP Identifier       # leP
-    |   Identifier LT literal           # lt
-    |   Identifier LTP Identifier       # ltP
-    |   Identifier NE literal           # ne
-    |   Identifier NEP Identifier       # neP
-    |   Identifier SEQ DecimalLiteral   # seq
-    |   Identifier SGE DecimalLiteral   # sge
-    |   Identifier SGT DecimalLiteral   # sgt
-    |   Identifier SLE DecimalLiteral   # sle
-    |   Identifier SLT DecimalLiteral   # slt
-    |   Identifier SNE DecimalLiteral   # sne
-    |   Identifier ISEMPTY              # isEmpty
-    |   Identifier ISNOTEMPTY           # isNotEmpty
-    |   Identifier ISNOTNNULL           # isNotNull
-    |   Identifier ISNULL               # isNull
+        qualifiedName EQ literal                # eq
+    |   qualifiedName EQP qualifiedName         # eqP
+    |   qualifiedName GE literal                # ge
+    |   qualifiedName GEP qualifiedName         # geP
+    |   qualifiedName GT literal                # gt
+    |   qualifiedName GTP qualifiedName         # gtP
+    |   qualifiedName LIKE StringLiteral        # like
+    |   qualifiedName ILIKE StringLiteral       # ilike
+    |   qualifiedName LE literal                # le
+    |   qualifiedName LEP qualifiedName         # leP
+    |   qualifiedName LT literal                # lt
+    |   qualifiedName LTP qualifiedName         # ltP
+    |   qualifiedName NE literal                # ne
+    |   qualifiedName NEP qualifiedName         # neP
+    |   qualifiedName SEQ DecimalLiteral        # seq
+    |   qualifiedName SGE DecimalLiteral        # sge
+    |   qualifiedName SGT DecimalLiteral        # sgt
+    |   qualifiedName SLE DecimalLiteral        # sle
+    |   qualifiedName SLT DecimalLiteral        # slt
+    |   qualifiedName SNE DecimalLiteral        # sne
+    |   qualifiedName ISEMPTY                   # isEmpty
+    |   qualifiedName ISNOTEMPTY                # isNotEmpty
+    |   qualifiedName ISNOTNNULL                # isNotNull
+    |   qualifiedName ISNULL                    # isNull
     ;
 
 literal:   
@@ -85,6 +85,10 @@ ISNULL: 'isNull';
 AND: 'and';
 OR: 'or';
 NOT: 'not';
+
+qualifiedName
+    :   Identifier ('.' Identifier)*
+    ;
 
 Identifier: [a-zA-Z] ([a-zA-Z]|[0-9])*;
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generic DAO which handles basic methods.
@@ -64,6 +65,22 @@ public abstract class GenericDAO implements IGenericDAO {
     @SuppressWarnings("unchecked")
     public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria) {
         return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria), sortCriteria), page).setCacheable(true).list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Map<String, String> aliases, Order... sortCriteria) {
+        return addPageFilter(addOrder(addCriterion(addAliases(createCriteria(targetType), aliases), criteria), sortCriteria), page).setCacheable(true).list();
+    }
+
+    protected Criteria addAliases(Criteria criteria, Map<String, String> aliases) {
+        for (Map.Entry<String, String> alias : aliases.entrySet()) {
+            criteria.createAlias(alias.getKey(), alias.getValue());
+        }
+        if (0 < aliases.size()) {
+            criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        }
+        return criteria;
     }
 
     protected <T> Criteria createCriteria(Class<T> targetType) {

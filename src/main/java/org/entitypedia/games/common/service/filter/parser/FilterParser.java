@@ -17,23 +17,24 @@ public class FilterParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__1=1, T__0=2, LRB=3, RRB=4, EQ=5, EQP=6, GE=7, GEP=8, GT=9, GTP=10, 
-		LIKE=11, ILIKE=12, LE=13, LEP=14, LT=15, LTP=16, NE=17, NEP=18, SEQ=19, 
-		SGE=20, SGT=21, SLE=22, SLT=23, SNE=24, ISEMPTY=25, ISNOTEMPTY=26, ISNOTNNULL=27, 
-		ISNULL=28, AND=29, OR=30, NOT=31, Identifier=32, DateLiteral=33, FloatingPointLiteral=34, 
-		DecimalLiteral=35, StringLiteral=36, WS=37;
+		T__2=1, T__1=2, T__0=3, LRB=4, RRB=5, EQ=6, EQP=7, GE=8, GEP=9, GT=10, 
+		GTP=11, LIKE=12, ILIKE=13, LE=14, LEP=15, LT=16, LTP=17, NE=18, NEP=19, 
+		SEQ=20, SGE=21, SGT=22, SLE=23, SLT=24, SNE=25, ISEMPTY=26, ISNOTEMPTY=27, 
+		ISNOTNNULL=28, ISNULL=29, AND=30, OR=31, NOT=32, Identifier=33, DateLiteral=34, 
+		FloatingPointLiteral=35, DecimalLiteral=36, StringLiteral=37, WS=38;
 	public static final String[] tokenNames = {
-		"<INVALID>", "'false'", "'true'", "'('", "')'", "'eq'", "'eqP'", "'ge'", 
-		"'geP'", "'gt'", "'gtP'", "'like'", "'ilike'", "'le'", "'leP'", "'lt'", 
-		"'ltP'", "'ne'", "'neP'", "'sizeEq'", "'sizeGe'", "'sizeGt'", "'sizeLe'", 
-		"'sizeLt'", "'sizeNe'", "'isEmpty'", "'isNotEmpty'", "'isNotNull'", "'isNull'", 
-		"'and'", "'or'", "'not'", "Identifier", "DateLiteral", "FloatingPointLiteral", 
+		"<INVALID>", "'.'", "'false'", "'true'", "'('", "')'", "'eq'", "'eqP'", 
+		"'ge'", "'geP'", "'gt'", "'gtP'", "'like'", "'ilike'", "'le'", "'leP'", 
+		"'lt'", "'ltP'", "'ne'", "'neP'", "'sizeEq'", "'sizeGe'", "'sizeGt'", 
+		"'sizeLe'", "'sizeLt'", "'sizeNe'", "'isEmpty'", "'isNotEmpty'", "'isNotNull'", 
+		"'isNull'", "'and'", "'or'", "'not'", "Identifier", "DateLiteral", "FloatingPointLiteral", 
 		"DecimalLiteral", "StringLiteral", "WS"
 	};
 	public static final int
-		RULE_init = 0, RULE_expr = 1, RULE_oper = 2, RULE_literal = 3, RULE_booleanLiteral = 4;
+		RULE_init = 0, RULE_expr = 1, RULE_oper = 2, RULE_literal = 3, RULE_qualifiedName = 4, 
+		RULE_booleanLiteral = 5;
 	public static final String[] ruleNames = {
-		"init", "expr", "oper", "literal", "booleanLiteral"
+		"init", "expr", "oper", "literal", "qualifiedName", "booleanLiteral"
 	};
 
 	@Override
@@ -73,7 +74,7 @@ public class FilterParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(10); expr(0);
+			setState(12); expr(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -180,7 +181,7 @@ public class FilterParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(20);
+			setState(22);
 			switch (_input.LA(1)) {
 			case NOT:
 				{
@@ -188,8 +189,8 @@ public class FilterParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(13); match(NOT);
-				setState(14); expr(4);
+				setState(15); match(NOT);
+				setState(16); expr(4);
 				}
 				break;
 			case Identifier:
@@ -197,7 +198,7 @@ public class FilterParser extends Parser {
 				_localctx = new OpContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(15); oper();
+				setState(17); oper();
 				}
 				break;
 			case LRB:
@@ -205,16 +206,16 @@ public class FilterParser extends Parser {
 				_localctx = new BktContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(16); match(LRB);
-				setState(17); expr(0);
-				setState(18); match(RRB);
+				setState(18); match(LRB);
+				setState(19); expr(0);
+				setState(20); match(RRB);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(30);
+			setState(32);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=-1 ) {
@@ -222,16 +223,16 @@ public class FilterParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(28);
+					setState(30);
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ConContext(new ExprContext(_parentctx, _parentState, _p));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(22);
+						setState(24);
 						if (!(3 >= _localctx._p)) throw new FailedPredicateException(this, "3 >= $_p");
-						setState(23); match(AND);
-						setState(24); expr(4);
+						setState(25); match(AND);
+						setState(26); expr(4);
 						}
 						break;
 
@@ -239,16 +240,16 @@ public class FilterParser extends Parser {
 						{
 						_localctx = new DisContext(new ExprContext(_parentctx, _parentState, _p));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(25);
+						setState(27);
 						if (!(2 >= _localctx._p)) throw new FailedPredicateException(this, "2 >= $_p");
-						setState(26); match(OR);
-						setState(27); expr(3);
+						setState(28); match(OR);
+						setState(29); expr(3);
 						}
 						break;
 					}
 					} 
 				}
-				setState(32);
+				setState(34);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -277,8 +278,10 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class IsNotEmptyContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode ISNOTEMPTY() { return getToken(FilterParser.ISNOTEMPTY, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public IsNotEmptyContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -287,7 +290,9 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class IsNullContext extends OperContext {
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode ISNULL() { return getToken(FilterParser.ISNULL, 0); }
 		public IsNullContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
@@ -297,8 +302,10 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class IsNotNullContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode ISNOTNNULL() { return getToken(FilterParser.ISNOTNNULL, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public IsNotNullContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -308,7 +315,9 @@ public class FilterParser extends Parser {
 	}
 	public static class IlikeContext extends OperContext {
 		public TerminalNode StringLiteral() { return getToken(FilterParser.StringLiteral, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode ILIKE() { return getToken(FilterParser.ILIKE, 0); }
 		public IlikeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
@@ -318,11 +327,13 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class GePContext extends OperContext {
-		public TerminalNode Identifier(int i) {
-			return getToken(FilterParser.Identifier, i);
-		}
 		public TerminalNode GEP() { return getToken(FilterParser.GEP, 0); }
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public List<QualifiedNameContext> qualifiedName() {
+			return getRuleContexts(QualifiedNameContext.class);
+		}
+		public QualifiedNameContext qualifiedName(int i) {
+			return getRuleContext(QualifiedNameContext.class,i);
+		}
 		public GePContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -331,11 +342,13 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class NePContext extends OperContext {
-		public TerminalNode Identifier(int i) {
-			return getToken(FilterParser.Identifier, i);
-		}
 		public TerminalNode NEP() { return getToken(FilterParser.NEP, 0); }
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public List<QualifiedNameContext> qualifiedName() {
+			return getRuleContexts(QualifiedNameContext.class);
+		}
+		public QualifiedNameContext qualifiedName(int i) {
+			return getRuleContext(QualifiedNameContext.class,i);
+		}
 		public NePContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -344,8 +357,10 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class SltContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public TerminalNode SLT() { return getToken(FilterParser.SLT, 0); }
 		public SltContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
@@ -355,11 +370,13 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class LtPContext extends OperContext {
-		public TerminalNode Identifier(int i) {
-			return getToken(FilterParser.Identifier, i);
+		public List<QualifiedNameContext> qualifiedName() {
+			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode LTP() { return getToken(FilterParser.LTP, 0); }
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public QualifiedNameContext qualifiedName(int i) {
+			return getRuleContext(QualifiedNameContext.class,i);
+		}
 		public LtPContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -368,9 +385,11 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class SgtContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public TerminalNode SGT() { return getToken(FilterParser.SGT, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public SgtContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -379,11 +398,13 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class GtPContext extends OperContext {
-		public TerminalNode Identifier(int i) {
-			return getToken(FilterParser.Identifier, i);
+		public List<QualifiedNameContext> qualifiedName() {
+			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode GTP() { return getToken(FilterParser.GTP, 0); }
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public QualifiedNameContext qualifiedName(int i) {
+			return getRuleContext(QualifiedNameContext.class,i);
+		}
 		public GtPContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -393,7 +414,9 @@ public class FilterParser extends Parser {
 	}
 	public static class GeContext extends OperContext {
 		public TerminalNode GE() { return getToken(FilterParser.GE, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
@@ -406,7 +429,9 @@ public class FilterParser extends Parser {
 	}
 	public static class LtContext extends OperContext {
 		public TerminalNode LT() { return getToken(FilterParser.LT, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
@@ -419,7 +444,9 @@ public class FilterParser extends Parser {
 	}
 	public static class LikeContext extends OperContext {
 		public TerminalNode StringLiteral() { return getToken(FilterParser.StringLiteral, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode LIKE() { return getToken(FilterParser.LIKE, 0); }
 		public LikeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
@@ -430,10 +457,12 @@ public class FilterParser extends Parser {
 	}
 	public static class LePContext extends OperContext {
 		public TerminalNode LEP() { return getToken(FilterParser.LEP, 0); }
-		public TerminalNode Identifier(int i) {
-			return getToken(FilterParser.Identifier, i);
+		public List<QualifiedNameContext> qualifiedName() {
+			return getRuleContexts(QualifiedNameContext.class);
 		}
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public QualifiedNameContext qualifiedName(int i) {
+			return getRuleContext(QualifiedNameContext.class,i);
+		}
 		public LePContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -442,7 +471,9 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class IsEmptyContext extends OperContext {
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode ISEMPTY() { return getToken(FilterParser.ISEMPTY, 0); }
 		public IsEmptyContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
@@ -452,8 +483,10 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class LeContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode LE() { return getToken(FilterParser.LE, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
@@ -465,7 +498,9 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class NeContext extends OperContext {
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
@@ -478,9 +513,11 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class SeqContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public TerminalNode SEQ() { return getToken(FilterParser.SEQ, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public SeqContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -490,7 +527,9 @@ public class FilterParser extends Parser {
 	}
 	public static class GtContext extends OperContext {
 		public TerminalNode GT() { return getToken(FilterParser.GT, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
@@ -503,8 +542,10 @@ public class FilterParser extends Parser {
 	}
 	public static class SgeContext extends OperContext {
 		public TerminalNode SGE() { return getToken(FilterParser.SGE, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public SgeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -513,9 +554,11 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class SneContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public TerminalNode SNE() { return getToken(FilterParser.SNE, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public SneContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -524,11 +567,13 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class EqPContext extends OperContext {
-		public TerminalNode Identifier(int i) {
-			return getToken(FilterParser.Identifier, i);
+		public List<QualifiedNameContext> qualifiedName() {
+			return getRuleContexts(QualifiedNameContext.class);
 		}
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
 		public TerminalNode EQP() { return getToken(FilterParser.EQP, 0); }
+		public QualifiedNameContext qualifiedName(int i) {
+			return getRuleContext(QualifiedNameContext.class,i);
+		}
 		public EqPContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -537,9 +582,11 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class SleContext extends OperContext {
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public TerminalNode SLE() { return getToken(FilterParser.SLE, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
 		public SleContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -549,7 +596,9 @@ public class FilterParser extends Parser {
 	}
 	public static class EqContext extends OperContext {
 		public TerminalNode EQ() { return getToken(FilterParser.EQ, 0); }
-		public TerminalNode Identifier() { return getToken(FilterParser.Identifier, 0); }
+		public QualifiedNameContext qualifiedName() {
+			return getRuleContext(QualifiedNameContext.class,0);
+		}
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
@@ -565,15 +614,15 @@ public class FilterParser extends Parser {
 		OperContext _localctx = new OperContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_oper);
 		try {
-			setState(101);
+			setState(127);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				_localctx = new EqContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(33); match(Identifier);
-				setState(34); match(EQ);
-				setState(35); literal();
+				setState(35); qualifiedName();
+				setState(36); match(EQ);
+				setState(37); literal();
 				}
 				break;
 
@@ -581,9 +630,9 @@ public class FilterParser extends Parser {
 				_localctx = new EqPContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(36); match(Identifier);
-				setState(37); match(EQP);
-				setState(38); match(Identifier);
+				setState(39); qualifiedName();
+				setState(40); match(EQP);
+				setState(41); qualifiedName();
 				}
 				break;
 
@@ -591,9 +640,9 @@ public class FilterParser extends Parser {
 				_localctx = new GeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(39); match(Identifier);
-				setState(40); match(GE);
-				setState(41); literal();
+				setState(43); qualifiedName();
+				setState(44); match(GE);
+				setState(45); literal();
 				}
 				break;
 
@@ -601,9 +650,9 @@ public class FilterParser extends Parser {
 				_localctx = new GePContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(42); match(Identifier);
-				setState(43); match(GEP);
-				setState(44); match(Identifier);
+				setState(47); qualifiedName();
+				setState(48); match(GEP);
+				setState(49); qualifiedName();
 				}
 				break;
 
@@ -611,9 +660,9 @@ public class FilterParser extends Parser {
 				_localctx = new GtContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(45); match(Identifier);
-				setState(46); match(GT);
-				setState(47); literal();
+				setState(51); qualifiedName();
+				setState(52); match(GT);
+				setState(53); literal();
 				}
 				break;
 
@@ -621,9 +670,9 @@ public class FilterParser extends Parser {
 				_localctx = new GtPContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(48); match(Identifier);
-				setState(49); match(GTP);
-				setState(50); match(Identifier);
+				setState(55); qualifiedName();
+				setState(56); match(GTP);
+				setState(57); qualifiedName();
 				}
 				break;
 
@@ -631,9 +680,9 @@ public class FilterParser extends Parser {
 				_localctx = new LikeContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(51); match(Identifier);
-				setState(52); match(LIKE);
-				setState(53); match(StringLiteral);
+				setState(59); qualifiedName();
+				setState(60); match(LIKE);
+				setState(61); match(StringLiteral);
 				}
 				break;
 
@@ -641,9 +690,9 @@ public class FilterParser extends Parser {
 				_localctx = new IlikeContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(54); match(Identifier);
-				setState(55); match(ILIKE);
-				setState(56); match(StringLiteral);
+				setState(63); qualifiedName();
+				setState(64); match(ILIKE);
+				setState(65); match(StringLiteral);
 				}
 				break;
 
@@ -651,9 +700,9 @@ public class FilterParser extends Parser {
 				_localctx = new LeContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(57); match(Identifier);
-				setState(58); match(LE);
-				setState(59); literal();
+				setState(67); qualifiedName();
+				setState(68); match(LE);
+				setState(69); literal();
 				}
 				break;
 
@@ -661,9 +710,9 @@ public class FilterParser extends Parser {
 				_localctx = new LePContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(60); match(Identifier);
-				setState(61); match(LEP);
-				setState(62); match(Identifier);
+				setState(71); qualifiedName();
+				setState(72); match(LEP);
+				setState(73); qualifiedName();
 				}
 				break;
 
@@ -671,9 +720,9 @@ public class FilterParser extends Parser {
 				_localctx = new LtContext(_localctx);
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(63); match(Identifier);
-				setState(64); match(LT);
-				setState(65); literal();
+				setState(75); qualifiedName();
+				setState(76); match(LT);
+				setState(77); literal();
 				}
 				break;
 
@@ -681,9 +730,9 @@ public class FilterParser extends Parser {
 				_localctx = new LtPContext(_localctx);
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(66); match(Identifier);
-				setState(67); match(LTP);
-				setState(68); match(Identifier);
+				setState(79); qualifiedName();
+				setState(80); match(LTP);
+				setState(81); qualifiedName();
 				}
 				break;
 
@@ -691,9 +740,9 @@ public class FilterParser extends Parser {
 				_localctx = new NeContext(_localctx);
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(69); match(Identifier);
-				setState(70); match(NE);
-				setState(71); literal();
+				setState(83); qualifiedName();
+				setState(84); match(NE);
+				setState(85); literal();
 				}
 				break;
 
@@ -701,9 +750,9 @@ public class FilterParser extends Parser {
 				_localctx = new NePContext(_localctx);
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(72); match(Identifier);
-				setState(73); match(NEP);
-				setState(74); match(Identifier);
+				setState(87); qualifiedName();
+				setState(88); match(NEP);
+				setState(89); qualifiedName();
 				}
 				break;
 
@@ -711,9 +760,9 @@ public class FilterParser extends Parser {
 				_localctx = new SeqContext(_localctx);
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(75); match(Identifier);
-				setState(76); match(SEQ);
-				setState(77); match(DecimalLiteral);
+				setState(91); qualifiedName();
+				setState(92); match(SEQ);
+				setState(93); match(DecimalLiteral);
 				}
 				break;
 
@@ -721,9 +770,9 @@ public class FilterParser extends Parser {
 				_localctx = new SgeContext(_localctx);
 				enterOuterAlt(_localctx, 16);
 				{
-				setState(78); match(Identifier);
-				setState(79); match(SGE);
-				setState(80); match(DecimalLiteral);
+				setState(95); qualifiedName();
+				setState(96); match(SGE);
+				setState(97); match(DecimalLiteral);
 				}
 				break;
 
@@ -731,9 +780,9 @@ public class FilterParser extends Parser {
 				_localctx = new SgtContext(_localctx);
 				enterOuterAlt(_localctx, 17);
 				{
-				setState(81); match(Identifier);
-				setState(82); match(SGT);
-				setState(83); match(DecimalLiteral);
+				setState(99); qualifiedName();
+				setState(100); match(SGT);
+				setState(101); match(DecimalLiteral);
 				}
 				break;
 
@@ -741,9 +790,9 @@ public class FilterParser extends Parser {
 				_localctx = new SleContext(_localctx);
 				enterOuterAlt(_localctx, 18);
 				{
-				setState(84); match(Identifier);
-				setState(85); match(SLE);
-				setState(86); match(DecimalLiteral);
+				setState(103); qualifiedName();
+				setState(104); match(SLE);
+				setState(105); match(DecimalLiteral);
 				}
 				break;
 
@@ -751,9 +800,9 @@ public class FilterParser extends Parser {
 				_localctx = new SltContext(_localctx);
 				enterOuterAlt(_localctx, 19);
 				{
-				setState(87); match(Identifier);
-				setState(88); match(SLT);
-				setState(89); match(DecimalLiteral);
+				setState(107); qualifiedName();
+				setState(108); match(SLT);
+				setState(109); match(DecimalLiteral);
 				}
 				break;
 
@@ -761,9 +810,9 @@ public class FilterParser extends Parser {
 				_localctx = new SneContext(_localctx);
 				enterOuterAlt(_localctx, 20);
 				{
-				setState(90); match(Identifier);
-				setState(91); match(SNE);
-				setState(92); match(DecimalLiteral);
+				setState(111); qualifiedName();
+				setState(112); match(SNE);
+				setState(113); match(DecimalLiteral);
 				}
 				break;
 
@@ -771,8 +820,8 @@ public class FilterParser extends Parser {
 				_localctx = new IsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 21);
 				{
-				setState(93); match(Identifier);
-				setState(94); match(ISEMPTY);
+				setState(115); qualifiedName();
+				setState(116); match(ISEMPTY);
 				}
 				break;
 
@@ -780,8 +829,8 @@ public class FilterParser extends Parser {
 				_localctx = new IsNotEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 22);
 				{
-				setState(95); match(Identifier);
-				setState(96); match(ISNOTEMPTY);
+				setState(118); qualifiedName();
+				setState(119); match(ISNOTEMPTY);
 				}
 				break;
 
@@ -789,8 +838,8 @@ public class FilterParser extends Parser {
 				_localctx = new IsNotNullContext(_localctx);
 				enterOuterAlt(_localctx, 23);
 				{
-				setState(97); match(Identifier);
-				setState(98); match(ISNOTNNULL);
+				setState(121); qualifiedName();
+				setState(122); match(ISNOTNNULL);
 				}
 				break;
 
@@ -798,8 +847,8 @@ public class FilterParser extends Parser {
 				_localctx = new IsNullContext(_localctx);
 				enterOuterAlt(_localctx, 24);
 				{
-				setState(99); match(Identifier);
-				setState(100); match(ISNULL);
+				setState(124); qualifiedName();
+				setState(125); match(ISNULL);
 				}
 				break;
 			}
@@ -878,46 +927,99 @@ public class FilterParser extends Parser {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_literal);
 		try {
-			setState(108);
+			setState(134);
 			switch (_input.LA(1)) {
 			case DecimalLiteral:
 				_localctx = new DecimalContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(103); match(DecimalLiteral);
+				setState(129); match(DecimalLiteral);
 				}
 				break;
 			case FloatingPointLiteral:
 				_localctx = new FloatContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(104); match(FloatingPointLiteral);
+				setState(130); match(FloatingPointLiteral);
 				}
 				break;
 			case StringLiteral:
 				_localctx = new StringContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(105); match(StringLiteral);
+				setState(131); match(StringLiteral);
 				}
 				break;
-			case 1:
 			case 2:
+			case 3:
 				_localctx = new BooleanContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(106); booleanLiteral();
+				setState(132); booleanLiteral();
 				}
 				break;
 			case DateLiteral:
 				_localctx = new DateContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(107); match(DateLiteral);
+				setState(133); match(DateLiteral);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class QualifiedNameContext extends ParserRuleContext {
+		public TerminalNode Identifier(int i) {
+			return getToken(FilterParser.Identifier, i);
+		}
+		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public QualifiedNameContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_qualifiedName; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitQualifiedName(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final QualifiedNameContext qualifiedName() throws RecognitionException {
+		QualifiedNameContext _localctx = new QualifiedNameContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_qualifiedName);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(136); match(Identifier);
+			setState(141);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+			while ( _alt!=2 && _alt!=-1 ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(137); match(1);
+					setState(138); match(Identifier);
+					}
+					} 
+				}
+				setState(143);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -945,14 +1047,14 @@ public class FilterParser extends Parser {
 
 	public final BooleanLiteralContext booleanLiteral() throws RecognitionException {
 		BooleanLiteralContext _localctx = new BooleanLiteralContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_booleanLiteral);
+		enterRule(_localctx, 10, RULE_booleanLiteral);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110);
+			setState(144);
 			_la = _input.LA(1);
-			if ( !(_la==1 || _la==2) ) {
+			if ( !(_la==2 || _la==3) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
@@ -985,36 +1087,50 @@ public class FilterParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\2\3\'s\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\5\3\27\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\37\n\3\f\3\16"+
-		"\3\"\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
+		"\2\3(\u0095\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\3\2\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\31\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3"+
+		"!\n\3\f\3\16\3$\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
 		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
-		"\4\5\4h\n\4\3\5\3\5\3\5\3\5\3\5\5\5o\n\5\3\6\3\6\3\6\2\7\2\4\6\b\n\2\3"+
-		"\3\3\4\u008c\2\f\3\2\2\2\4\26\3\2\2\2\6g\3\2\2\2\bn\3\2\2\2\np\3\2\2\2"+
-		"\f\r\5\4\3\2\r\3\3\2\2\2\16\17\b\3\1\2\17\20\7!\2\2\20\27\5\4\3\2\21\27"+
-		"\5\6\4\2\22\23\7\5\2\2\23\24\5\4\3\2\24\25\7\6\2\2\25\27\3\2\2\2\26\16"+
-		"\3\2\2\2\26\21\3\2\2\2\26\22\3\2\2\2\27 \3\2\2\2\30\31\6\3\2\3\31\32\7"+
-		"\37\2\2\32\37\5\4\3\2\33\34\6\3\3\3\34\35\7 \2\2\35\37\5\4\3\2\36\30\3"+
-		"\2\2\2\36\33\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\5\3\2\2\2\" "+
-		"\3\2\2\2#$\7\"\2\2$%\7\7\2\2%h\5\b\5\2&\'\7\"\2\2\'(\7\b\2\2(h\7\"\2\2"+
-		")*\7\"\2\2*+\7\t\2\2+h\5\b\5\2,-\7\"\2\2-.\7\n\2\2.h\7\"\2\2/\60\7\"\2"+
-		"\2\60\61\7\13\2\2\61h\5\b\5\2\62\63\7\"\2\2\63\64\7\f\2\2\64h\7\"\2\2"+
-		"\65\66\7\"\2\2\66\67\7\r\2\2\67h\7&\2\289\7\"\2\29:\7\16\2\2:h\7&\2\2"+
-		";<\7\"\2\2<=\7\17\2\2=h\5\b\5\2>?\7\"\2\2?@\7\20\2\2@h\7\"\2\2AB\7\"\2"+
-		"\2BC\7\21\2\2Ch\5\b\5\2DE\7\"\2\2EF\7\22\2\2Fh\7\"\2\2GH\7\"\2\2HI\7\23"+
-		"\2\2Ih\5\b\5\2JK\7\"\2\2KL\7\24\2\2Lh\7\"\2\2MN\7\"\2\2NO\7\25\2\2Oh\7"+
-		"%\2\2PQ\7\"\2\2QR\7\26\2\2Rh\7%\2\2ST\7\"\2\2TU\7\27\2\2Uh\7%\2\2VW\7"+
-		"\"\2\2WX\7\30\2\2Xh\7%\2\2YZ\7\"\2\2Z[\7\31\2\2[h\7%\2\2\\]\7\"\2\2]^"+
-		"\7\32\2\2^h\7%\2\2_`\7\"\2\2`h\7\33\2\2ab\7\"\2\2bh\7\34\2\2cd\7\"\2\2"+
-		"dh\7\35\2\2ef\7\"\2\2fh\7\36\2\2g#\3\2\2\2g&\3\2\2\2g)\3\2\2\2g,\3\2\2"+
-		"\2g/\3\2\2\2g\62\3\2\2\2g\65\3\2\2\2g8\3\2\2\2g;\3\2\2\2g>\3\2\2\2gA\3"+
-		"\2\2\2gD\3\2\2\2gG\3\2\2\2gJ\3\2\2\2gM\3\2\2\2gP\3\2\2\2gS\3\2\2\2gV\3"+
-		"\2\2\2gY\3\2\2\2g\\\3\2\2\2g_\3\2\2\2ga\3\2\2\2gc\3\2\2\2ge\3\2\2\2h\7"+
-		"\3\2\2\2io\7%\2\2jo\7$\2\2ko\7&\2\2lo\5\n\6\2mo\7#\2\2ni\3\2\2\2nj\3\2"+
-		"\2\2nk\3\2\2\2nl\3\2\2\2nm\3\2\2\2o\t\3\2\2\2pq\t\2\2\2q\13\3\2\2\2\7"+
-		"\26\36 gn";
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\u0082\n\4\3\5\3\5\3\5\3\5\3"+
+		"\5\5\5\u0089\n\5\3\6\3\6\3\6\7\6\u008e\n\6\f\6\16\6\u0091\13\6\3\7\3\7"+
+		"\3\7\2\b\2\4\6\b\n\f\2\3\3\4\5\u00ae\2\16\3\2\2\2\4\30\3\2\2\2\6\u0081"+
+		"\3\2\2\2\b\u0088\3\2\2\2\n\u008a\3\2\2\2\f\u0092\3\2\2\2\16\17\5\4\3\2"+
+		"\17\3\3\2\2\2\20\21\b\3\1\2\21\22\7\"\2\2\22\31\5\4\3\2\23\31\5\6\4\2"+
+		"\24\25\7\6\2\2\25\26\5\4\3\2\26\27\7\7\2\2\27\31\3\2\2\2\30\20\3\2\2\2"+
+		"\30\23\3\2\2\2\30\24\3\2\2\2\31\"\3\2\2\2\32\33\6\3\2\3\33\34\7 \2\2\34"+
+		"!\5\4\3\2\35\36\6\3\3\3\36\37\7!\2\2\37!\5\4\3\2 \32\3\2\2\2 \35\3\2\2"+
+		"\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#\5\3\2\2\2$\"\3\2\2\2%&\5\n\6\2&\'"+
+		"\7\b\2\2\'(\5\b\5\2(\u0082\3\2\2\2)*\5\n\6\2*+\7\t\2\2+,\5\n\6\2,\u0082"+
+		"\3\2\2\2-.\5\n\6\2./\7\n\2\2/\60\5\b\5\2\60\u0082\3\2\2\2\61\62\5\n\6"+
+		"\2\62\63\7\13\2\2\63\64\5\n\6\2\64\u0082\3\2\2\2\65\66\5\n\6\2\66\67\7"+
+		"\f\2\2\678\5\b\5\28\u0082\3\2\2\29:\5\n\6\2:;\7\r\2\2;<\5\n\6\2<\u0082"+
+		"\3\2\2\2=>\5\n\6\2>?\7\16\2\2?@\7\'\2\2@\u0082\3\2\2\2AB\5\n\6\2BC\7\17"+
+		"\2\2CD\7\'\2\2D\u0082\3\2\2\2EF\5\n\6\2FG\7\20\2\2GH\5\b\5\2H\u0082\3"+
+		"\2\2\2IJ\5\n\6\2JK\7\21\2\2KL\5\n\6\2L\u0082\3\2\2\2MN\5\n\6\2NO\7\22"+
+		"\2\2OP\5\b\5\2P\u0082\3\2\2\2QR\5\n\6\2RS\7\23\2\2ST\5\n\6\2T\u0082\3"+
+		"\2\2\2UV\5\n\6\2VW\7\24\2\2WX\5\b\5\2X\u0082\3\2\2\2YZ\5\n\6\2Z[\7\25"+
+		"\2\2[\\\5\n\6\2\\\u0082\3\2\2\2]^\5\n\6\2^_\7\26\2\2_`\7&\2\2`\u0082\3"+
+		"\2\2\2ab\5\n\6\2bc\7\27\2\2cd\7&\2\2d\u0082\3\2\2\2ef\5\n\6\2fg\7\30\2"+
+		"\2gh\7&\2\2h\u0082\3\2\2\2ij\5\n\6\2jk\7\31\2\2kl\7&\2\2l\u0082\3\2\2"+
+		"\2mn\5\n\6\2no\7\32\2\2op\7&\2\2p\u0082\3\2\2\2qr\5\n\6\2rs\7\33\2\2s"+
+		"t\7&\2\2t\u0082\3\2\2\2uv\5\n\6\2vw\7\34\2\2w\u0082\3\2\2\2xy\5\n\6\2"+
+		"yz\7\35\2\2z\u0082\3\2\2\2{|\5\n\6\2|}\7\36\2\2}\u0082\3\2\2\2~\177\5"+
+		"\n\6\2\177\u0080\7\37\2\2\u0080\u0082\3\2\2\2\u0081%\3\2\2\2\u0081)\3"+
+		"\2\2\2\u0081-\3\2\2\2\u0081\61\3\2\2\2\u0081\65\3\2\2\2\u00819\3\2\2\2"+
+		"\u0081=\3\2\2\2\u0081A\3\2\2\2\u0081E\3\2\2\2\u0081I\3\2\2\2\u0081M\3"+
+		"\2\2\2\u0081Q\3\2\2\2\u0081U\3\2\2\2\u0081Y\3\2\2\2\u0081]\3\2\2\2\u0081"+
+		"a\3\2\2\2\u0081e\3\2\2\2\u0081i\3\2\2\2\u0081m\3\2\2\2\u0081q\3\2\2\2"+
+		"\u0081u\3\2\2\2\u0081x\3\2\2\2\u0081{\3\2\2\2\u0081~\3\2\2\2\u0082\7\3"+
+		"\2\2\2\u0083\u0089\7&\2\2\u0084\u0089\7%\2\2\u0085\u0089\7\'\2\2\u0086"+
+		"\u0089\5\f\7\2\u0087\u0089\7$\2\2\u0088\u0083\3\2\2\2\u0088\u0084\3\2"+
+		"\2\2\u0088\u0085\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0087\3\2\2\2\u0089"+
+		"\t\3\2\2\2\u008a\u008f\7#\2\2\u008b\u008c\7\3\2\2\u008c\u008e\7#\2\2\u008d"+
+		"\u008b\3\2\2\2\u008e\u0091\3\2\2\2\u008f\u008d\3\2\2\2\u008f\u0090\3\2"+
+		"\2\2\u0090\13\3\2\2\2\u0091\u008f\3\2\2\2\u0092\u0093\t\2\2\2\u0093\r"+
+		"\3\2\2\2\b\30 \"\u0081\u0088\u008f";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {
