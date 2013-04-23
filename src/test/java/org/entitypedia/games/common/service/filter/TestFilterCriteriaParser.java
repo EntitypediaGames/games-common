@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.SimpleExpression;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -160,6 +161,108 @@ public class TestFilterCriteriaParser {
         Map<String, String> aliases = filterCriteriaParser.getAliasMap();
         assertTrue(aliases.containsKey("clues"));
         assertEquals("a0", aliases.get("clues"));
+    }
+
+    @Test
+    public void testOrder() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Order[] result = filterCriteriaParser.order("ArowCount");
+        assertEquals(1, result.length);
+        assertEquals("rowCount asc", result[0].toString());
+    }
+
+    @Test
+    public void testOrderQualified() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Order[] result = filterCriteriaParser.order("Alayout.rowCount");
+        assertEquals(1, result.length);
+        assertEquals("a0.rowCount asc", result[0].toString());
+
+        Map<String, String> aliasMap = filterCriteriaParser.getAliasMap();
+        assertEquals(1, aliasMap.size());
+        assertEquals("a0", aliasMap.get("layout"));
+    }
+
+    @Test
+    public void testOrderQualifiedDouble() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Order[] result = filterCriteriaParser.order("Alayout.rowCount-Alayout.columnCount");
+        assertEquals(2, result.length);
+        assertEquals("a0.rowCount asc", result[0].toString());
+        assertEquals("a0.columnCount asc", result[1].toString());
+
+        Map<String, String> aliasMap = filterCriteriaParser.getAliasMap();
+        assertEquals(1, aliasMap.size());
+        assertEquals("a0", aliasMap.get("layout"));
+    }
+
+    @Test
+    public void testOrderQualifiedDoubleDifferent() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Order[] result = filterCriteriaParser.order("Alayout.rowCount-Acrossword.columnCount");
+        assertEquals(2, result.length);
+        assertEquals("a0.rowCount asc", result[0].toString());
+        assertEquals("a1.columnCount asc", result[1].toString());
+
+        Map<String, String> aliasMap = filterCriteriaParser.getAliasMap();
+        assertEquals(2, aliasMap.size());
+        assertEquals("a0", aliasMap.get("layout"));
+        assertEquals("a1", aliasMap.get("crossword"));
+    }
+
+    @Test
+    public void testOrderQualifiedTriple() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Order[] result = filterCriteriaParser.order("Acrossword.layout.rowCount");
+        assertEquals(1, result.length);
+        assertEquals("a1.rowCount asc", result[0].toString());
+
+        Map<String, String> aliasMap = filterCriteriaParser.getAliasMap();
+        assertEquals(2, aliasMap.size());
+        assertEquals("a0", aliasMap.get("crossword"));
+        assertEquals("a1", aliasMap.get("a0.layout"));
+    }
+
+    @Test
+    public void testOrderQualifiedTripleFilterOrder() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Criterion c = filterCriteriaParser.parse("crossword.layout.rowCount eq 21");
+        assertEquals("a1.rowCount=21", c.toString());
+        Order[] result = filterCriteriaParser.order("Acrossword.layout.rowCount");
+        assertEquals(1, result.length);
+        assertEquals("a1.rowCount asc", result[0].toString());
+
+        Map<String, String> aliasMap = filterCriteriaParser.getAliasMap();
+        assertEquals(2, aliasMap.size());
+        assertEquals("a0", aliasMap.get("crossword"));
+        assertEquals("a1", aliasMap.get("a0.layout"));
+    }
+
+    @Test
+    public void testOrderQualifiedTripleFilterOrderDifferen() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Criterion c = filterCriteriaParser.parse("crossword.layout.rowCount eq 21");
+        assertEquals("a1.rowCount=21", c.toString());
+        Order[] result = filterCriteriaParser.order("Agame.crossword.layout.id");
+        assertEquals(1, result.length);
+        assertEquals("a4.id asc", result[0].toString());
+
+        Map<String, String> aliasMap = filterCriteriaParser.getAliasMap();
+        assertEquals(5, aliasMap.size());
+        assertEquals("a0", aliasMap.get("crossword"));
+        assertEquals("a1", aliasMap.get("a0.layout"));
+        assertEquals("a2", aliasMap.get("game"));
+        assertEquals("a3", aliasMap.get("a2.crossword"));
+        assertEquals("a4", aliasMap.get("a3.layout"));
+    }
+
+    @Test
+    public void testOrderDouble() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Order[] result = filterCriteriaParser.order("ArowCount-AcolumnCount");
+        assertEquals(2, result.length);
+        assertEquals("rowCount asc", result[0].toString());
+        assertEquals("columnCount asc", result[1].toString());
     }
 
     @Test

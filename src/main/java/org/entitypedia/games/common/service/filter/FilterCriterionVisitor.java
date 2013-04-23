@@ -34,18 +34,27 @@ public class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
         // names like crossword.wordClues.across require aliases to be added to Criteria
         // here the list of aliases is being collected
         String result = ctx.getText();
-        if (1 < ctx.getChildCount()) {
-            String curLevel = "";
-            for (int i = 0; i < (ctx.Identifier().size() - 1); i++) {
-                curLevel = curLevel + ctx.Identifier(i).getText();
-                if (!aliases.containsKey(curLevel)) {
-                    aliases.put(curLevel, "a" + Integer.toString(aliases.keySet().size()));
-                }
-                curLevel = curLevel + ".";
+        if (1 < ctx.Identifier().size()) {
+            List<String> qName = new ArrayList<String>(ctx.Identifier().size());
+            for (int i = 0; i < ctx.Identifier().size(); i++) {
+                qName.add(ctx.Identifier(i).getText());
             }
+            String curLevel = extractAliases(qName);
             result = ctx.getText().replace(curLevel, aliases.get(curLevel.substring(0, curLevel.length() - 1)) + ".");
         }
         return result;
+    }
+
+    public String extractAliases(List<String> qualifiedName) {
+        String curLevel = "";
+        for (int i = 0; i < (qualifiedName.size() - 1); i++) {
+            curLevel = curLevel + qualifiedName.get(i);
+            if (!aliases.containsKey(curLevel)) {
+                aliases.put(curLevel, "a" + Integer.toString(aliases.keySet().size()));
+            }
+            curLevel = curLevel + ".";
+        }
+        return curLevel;
     }
 
     @Override
