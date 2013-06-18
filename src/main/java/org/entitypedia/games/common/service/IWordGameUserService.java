@@ -16,6 +16,13 @@ public interface IWordGameUserService<T extends WordGameUser> {
     T importUser(String uid);
 
     /**
+     * Searches user by uid.
+     * @param uid uid of the user to use in the search
+     * @return user by its uid
+     */
+    T findUserByUID(String uid);
+
+    /**
      * Login (just to check credentials).
      */
     void login();

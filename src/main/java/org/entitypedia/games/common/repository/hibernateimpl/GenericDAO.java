@@ -62,6 +62,11 @@ public abstract class GenericDAO implements IGenericDAO {
     }
 
     @Override
+    public <T> long count(Class<T> targetType, Collection<Criterion> criteria, Map<String, String> aliases) {
+        return (Long) addCriterion(addAliases(createCriteria(targetType), aliases), criteria).setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria) {
         return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria), sortCriteria), page).setCacheable(true).list();

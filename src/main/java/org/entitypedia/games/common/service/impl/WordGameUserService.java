@@ -65,6 +65,12 @@ public abstract class WordGameUserService<T extends WordGameUser> implements IWo
 
     @Override
     @PreAuthorize("hasRole('ROLE_PLAYER')")
+    public T findUserByUID(String uid) {
+        return wordGameUserDAO.getUserByUID(uid);
+    }
+
+    @Override
+    @PreAuthorize("hasRole('ROLE_PLAYER')")
     public void login() {
         //nop
     }
