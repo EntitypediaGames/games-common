@@ -23,7 +23,7 @@ import java.util.*;
  * (columnCount-eq-21-and-rowCount-eq-21)-and-not-published-isNull-and-(title-like-'space--rug'-or-title-like-'home-\'rug\'')
  * </pre>
  * <p>
- * Supports integer, float, boolean, date and string constants. Date constants should follow the ('yyyymmdd') pattern.
+ * Supports integer, float, boolean, date and string constants. Date constants should follow the ('yyyyMMdd') or ('yyyyMMddHHmmss') pattern.
  * String constants should be enclosed in single quotes. Any single quotes inside the string should be escaped with \.
  * </p>
  * <p>

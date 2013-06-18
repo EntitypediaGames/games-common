@@ -154,6 +154,14 @@ public class TestFilterCriteriaParser {
     }
 
     @Test
+    public void testSimpleEqDateTime() throws ParseException {
+        FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+        Criterion result = filterCriteriaParser.parse("nameCamel eq '20130101010100'");
+        Date d = (new SimpleDateFormat("yyyyMMddHHmmss")).parse("20130101010100");
+        assertEquals("nameCamel=" + d.toString(), result.toString());
+    }
+
+    @Test
     public void testQualifiedOneLevel() throws ParseException {
         FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
         Criterion result = filterCriteriaParser.parse("clues.answer eq 'bucomil'");

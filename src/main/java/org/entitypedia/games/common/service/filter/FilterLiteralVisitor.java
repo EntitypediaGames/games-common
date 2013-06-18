@@ -5,6 +5,7 @@ import org.entitypedia.games.common.service.filter.parser.FilterParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
@@ -12,11 +13,19 @@ import java.text.SimpleDateFormat;
 public class FilterLiteralVisitor extends FilterBaseVisitor<Object> {
 
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+    private static final SimpleDateFormat formatterLong = new SimpleDateFormat("yyyyMMddHHmmss");
 
     @Override
     public Object visitDate(FilterParser.DateContext ctx) {
         try {
-            return formatter.parse(ctx.getText().substring(1, ctx.getText().length() - 1));
+            String dateString = ctx.getText().substring(1, ctx.getText().length() - 1);
+            Date result;
+            if (8 == dateString.length()) {
+                result = formatter.parse(dateString);
+            } else {
+                result = formatterLong.parse(dateString);
+            }
+            return result;
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
