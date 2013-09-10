@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.entitypedia.games</groupId>
         <artifactId>entitypedia-games-parent</artifactId>
-        <version>7</version>
+        <version>8-SNAPSHOT</version>
     </parent>
 
     <artifactId>entitypedia-games-common</artifactId>
@@ -16,9 +17,15 @@
     <description>Entitypedia Games and Framework common classes and utility classes</description>
     <url>http://games.entitypedia.org/</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <antlr4.version>4.1</antlr4.version>
+    </properties>
+
     <scm>
         <connection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</connection>
-        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</developerConnection>
+        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk
+        </developerConnection>
         <url>https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/</url>
     </scm>
 
@@ -55,13 +62,14 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.9-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
-            <version>4.0</version>
+            <version>${antlr4.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- spring dependencies -->
@@ -243,6 +251,18 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${antlr4.version}</version>
+                <configuration>
+                    <listener>false</listener>
+                    <visitor>true</visitor>
+                    <sourceDirectory>src\main\java\org\entitypedia\games\common\service\filter\parser</sourceDirectory>
+                    <outputDirectory>src\main\java\org\entitypedia\games\common\service\filter\parser</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
                 <dependencies>
@@ -277,7 +297,8 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>compile</goal>       <!-- use this goal to weave all your main classes -->
+                            <goal>compile</goal>
+                            <!-- use this goal to weave all your main classes -->
                             <!--<goal>test-compile</goal>-->  <!-- use this goal to weave all your test classes -->
                         </goals>
                     </execution>

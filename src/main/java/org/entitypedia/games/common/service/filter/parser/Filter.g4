@@ -1,4 +1,5 @@
 /* java -cp antlr-4.0-complete.jar org.antlr.v4.Tool Filter.g4 -visitor -no-listener */
+/* mvn antlr4:antlr4 */
 grammar Filter;
 
 @header {

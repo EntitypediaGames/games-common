@@ -1,83 +1,312 @@
-// Generated from Filter.g4 by ANTLR 4.0
+// Generated from Filter.g4 by ANTLR 4.1
 
 package org.entitypedia.games.common.service.filter.parser;
 
-import org.antlr.v4.runtime.tree.*;
-import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
+/**
+ * This class provides an empty implementation of {@link FilterVisitor},
+ * which can be extended to create a visitor which only needs to handle a subset
+ * of the available methods.
+ *
+ * @param <T> The return type of the visit operation. Use {@link Void} for
+ * operations with no return type.
+ */
 public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements FilterVisitor<T> {
-	@Override public T visitCon(FilterParser.ConContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitCon(@NotNull FilterParser.ConContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitNeg(FilterParser.NegContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitNeg(@NotNull FilterParser.NegContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitIsNull(FilterParser.IsNullContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitIsNull(@NotNull FilterParser.IsNullContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitIsNotNull(FilterParser.IsNotNullContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitIsNotNull(@NotNull FilterParser.IsNotNullContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitGeP(FilterParser.GePContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitGeP(@NotNull FilterParser.GePContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSlt(FilterParser.SltContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSlt(@NotNull FilterParser.SltContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSgt(FilterParser.SgtContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSgt(@NotNull FilterParser.SgtContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitGe(FilterParser.GeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitGe(@NotNull FilterParser.GeContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitLt(FilterParser.LtContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitLt(@NotNull FilterParser.LtContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitDate(FilterParser.DateContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitDate(@NotNull FilterParser.DateContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitFloat(FilterParser.FloatContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitFloat(@NotNull FilterParser.FloatContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitIsEmpty(FilterParser.IsEmptyContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitIsEmpty(@NotNull FilterParser.IsEmptyContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitDis(FilterParser.DisContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitDis(@NotNull FilterParser.DisContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitBoolean(FilterParser.BooleanContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitBoolean(@NotNull FilterParser.BooleanContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSne(FilterParser.SneContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSne(@NotNull FilterParser.SneContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSle(FilterParser.SleContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSle(@NotNull FilterParser.SleContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitIsNotEmpty(FilterParser.IsNotEmptyContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitIsNotEmpty(@NotNull FilterParser.IsNotEmptyContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitOp(FilterParser.OpContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitOp(@NotNull FilterParser.OpContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitIlike(FilterParser.IlikeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitIlike(@NotNull FilterParser.IlikeContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitQualifiedName(FilterParser.QualifiedNameContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitQualifiedName(@NotNull FilterParser.QualifiedNameContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitNeP(FilterParser.NePContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitNeP(@NotNull FilterParser.NePContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitLtP(FilterParser.LtPContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitLtP(@NotNull FilterParser.LtPContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitGtP(FilterParser.GtPContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitGtP(@NotNull FilterParser.GtPContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitInit(FilterParser.InitContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitInit(@NotNull FilterParser.InitContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitBooleanLiteral(FilterParser.BooleanLiteralContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitBooleanLiteral(@NotNull FilterParser.BooleanLiteralContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitLike(FilterParser.LikeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitLike(@NotNull FilterParser.LikeContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitDecimal(FilterParser.DecimalContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitDecimal(@NotNull FilterParser.DecimalContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitLeP(FilterParser.LePContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitLeP(@NotNull FilterParser.LePContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitBkt(FilterParser.BktContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitBkt(@NotNull FilterParser.BktContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitLe(FilterParser.LeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitLe(@NotNull FilterParser.LeContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitString(FilterParser.StringContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitString(@NotNull FilterParser.StringContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitNe(FilterParser.NeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitNe(@NotNull FilterParser.NeContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSeq(FilterParser.SeqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSeq(@NotNull FilterParser.SeqContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitGt(FilterParser.GtContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitGt(@NotNull FilterParser.GtContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitSge(FilterParser.SgeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitSge(@NotNull FilterParser.SgeContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitEqP(FilterParser.EqPContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitEqP(@NotNull FilterParser.EqPContext ctx) { return visitChildren(ctx); }
 
-	@Override public T visitEq(FilterParser.EqContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 * <p/>
+	 * The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.
+	 */
+	@Override public T visitEq(@NotNull FilterParser.EqContext ctx) { return visitChildren(ctx); }
 }
