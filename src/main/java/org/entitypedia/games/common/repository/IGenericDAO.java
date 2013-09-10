@@ -1,6 +1,7 @@
 package org.entitypedia.games.common.repository;
 
 import org.entitypedia.games.common.model.Page;
+import org.entitypedia.games.common.model.ResultsPage;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 
@@ -98,4 +99,17 @@ public interface IGenericDAO {
      * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
      */
     <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Map<String, String> aliases, Order... sortCriteria);
+
+    /**
+     * Find a <code>page</code> of objects of type T that satisfy given <code>filter</code>,
+     * returning objects in a specified <code>order</code>.
+     *
+     * @param targetType The object Type
+     * @param filter     A set of criteria that defines the restrictions on the list
+     *                   of objects to be retrieved. See {@link org.entitypedia.games.common.repository.hibernateimpl.filter.FilterCriteriaParser} for syntax.
+     * @param page       If not null defines a specific page to be retrieved
+     * @param order      Optional list of ordering criteria
+     * @return The resulting page of objects of type T.
+     */
+    <T> ResultsPage<T> find(Class<T> targetType, Page page, String filter, String order);
 }

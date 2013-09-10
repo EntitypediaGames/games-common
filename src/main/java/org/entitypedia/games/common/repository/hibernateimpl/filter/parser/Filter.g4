@@ -3,11 +3,11 @@
 grammar Filter;
 
 @header {
-package org.entitypedia.games.common.service.filter.parser;
+package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 }
 
 
-init: expr;
+init: expr EOF;
 
 expr:
         oper                            # op
@@ -40,7 +40,7 @@ oper:
     |   qualifiedName SNE DecimalLiteral        # sne
     |   qualifiedName ISEMPTY                   # isEmpty
     |   qualifiedName ISNOTEMPTY                # isNotEmpty
-    |   qualifiedName ISNOTNNULL                # isNotNull
+    |   qualifiedName ISNOTNULL                # isNotNull
     |   qualifiedName ISNULL                    # isNull
     ;
 
@@ -79,7 +79,7 @@ SNE: 'sizeNe';
 
 ISEMPTY: 'isEmpty';
 ISNOTEMPTY: 'isNotEmpty';
-ISNOTNNULL: 'isNotNull';
+ISNOTNULL: 'isNotNull';
 ISNULL: 'isNull';
 
 

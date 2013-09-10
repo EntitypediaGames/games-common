@@ -257,8 +257,8 @@
                 <configuration>
                     <listener>false</listener>
                     <visitor>true</visitor>
-                    <sourceDirectory>src\main\java\org\entitypedia\games\common\service\filter\parser</sourceDirectory>
-                    <outputDirectory>src\main\java\org\entitypedia\games\common\service\filter\parser</outputDirectory>
+                    <sourceDirectory>src\main\java\org\entitypedia\games\common\repository\hibernateimpl\filter\parser</sourceDirectory>
+                    <outputDirectory>src\main\java\org\entitypedia\games\common\repository\hibernateimpl\filter\parser</outputDirectory>
                 </configuration>
             </plugin>
 

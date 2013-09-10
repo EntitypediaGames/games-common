@@ -1,7 +1,9 @@
 package org.entitypedia.games.common.repository.hibernateimpl;
 
 import org.entitypedia.games.common.model.Page;
+import org.entitypedia.games.common.model.ResultsPage;
 import org.entitypedia.games.common.repository.IGenericDAO;
+import org.entitypedia.games.common.repository.hibernateimpl.filter.FilterCriteriaParser;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -10,9 +12,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Generic DAO which handles basic methods.
@@ -53,29 +53,57 @@ public abstract class GenericDAO implements IGenericDAO {
 
     @Override
     public <T> long count(Class<T> targetType) {
-        return (Long) createCriteria(targetType).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) createCriteria(targetType).setProjection(Projections.rowCount()).setCacheable(true).uniqueResult();
     }
 
     @Override
     public <T> long count(Class<T> targetType, Collection<Criterion> criteria) {
-        return (Long) addCriterion(createCriteria(targetType), criteria).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) addCriterion(createCriteria(targetType), criteria).setProjection(Projections.rowCount()).setCacheable(true).uniqueResult();
     }
 
     @Override
     public <T> long count(Class<T> targetType, Collection<Criterion> criteria, Map<String, String> aliases) {
-        return (Long) addCriterion(addAliases(createCriteria(targetType), aliases), criteria).setProjection(Projections.rowCount()).uniqueResult();
+        return (Long) addCriterion(addAliases(createCriteria(targetType), aliases), criteria).setProjection(Projections.rowCount()).setCacheable(true).uniqueResult();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria) {
-        return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria), sortCriteria), page).setCacheable(true).list();
+        return addPageFilter(addOrder(addCriterion(createCriteria(targetType), criteria), sortCriteria), page).list();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Map<String, String> aliases, Order... sortCriteria) {
-        return addPageFilter(addOrder(addCriterion(addAliases(createCriteria(targetType), aliases), criteria), sortCriteria), page).setCacheable(true).list();
+        return addPageFilter(addOrder(addCriterion(addAliases(createCriteria(targetType), aliases), criteria), sortCriteria), page).list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> ResultsPage<T> find(Class<T> targetType, Page page, String filter, String order) {
+        Order[] defaultOrder = new Order[1];
+        defaultOrder[0] = Order.asc("id");
+
+        ResultsPage<T> result;
+        if (null != filter) {
+            FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+            Criterion criterion = filterCriteriaParser.parse(filter);
+            if (null != order) {
+                defaultOrder = filterCriteriaParser.parseOrder(order);
+            }
+            Map<String, String> aliases = filterCriteriaParser.getAliasMap();
+            result = new ResultsPage<T>(page, count(targetType, Arrays.asList(criterion), aliases));
+            result.setItems(find(targetType, Arrays.asList(criterion), page, aliases, defaultOrder));
+        } else {
+            FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+            if (null != order) {
+                defaultOrder = filterCriteriaParser.parseOrder(order);
+            }
+            Map<String, String> aliases = filterCriteriaParser.getAliasMap();
+            result = new ResultsPage<T>(page, count(targetType));
+            result.setItems(find(targetType, Collections.<Criterion>emptyList(), page, aliases, defaultOrder));
+        }
+        return result;
     }
 
     protected Criteria addAliases(Criteria criteria, Map<String, String> aliases) {
