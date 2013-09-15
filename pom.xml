@@ -61,13 +61,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.10-SNAPSHOT</version>
+            <version>1.0.9</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-client</artifactId>
-            <version>1.0.9-SNAPSHOT</version>
+            <version>1.0.9</version>
         </dependency>
 
         <dependency>
