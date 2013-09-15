@@ -165,14 +165,14 @@ public class ProxyController implements InitializingBean, DisposableBean {
 
         log.debug("Starting connections pools...");
         PoolingClientConnectionManager cm = new PoolingClientConnectionManager(schemeRegistry);
-        cm.setMaxTotal(200);
-        // Increase default max connection per route to 100
-        cm.setDefaultMaxPerRoute(100);
-        // Increase max connections for api host:80 & host:443 to 100
+        cm.setMaxTotal(20);
+        // Increase default max connection per route to 10
+        cm.setDefaultMaxPerRoute(10);
+        // Increase max connections for api host:80 & host:443 to 10
         HttpHost apiHost = new HttpHost(apiURL.getHost(), apiURL.getPort());
-        cm.setMaxPerRoute(new HttpRoute(apiHost), 100);
+        cm.setMaxPerRoute(new HttpRoute(apiHost), 10);
         HttpHost apiSecureHost = new HttpHost(apiSecureURL.getHost(), apiSecureURL.getPort());
-        cm.setMaxPerRoute(new HttpRoute(apiSecureHost), 100);
+        cm.setMaxPerRoute(new HttpRoute(apiSecureHost), 10);
 
         this.cm = cm;
 
