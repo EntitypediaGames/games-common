@@ -17,5 +17,5 @@ import org.junit.runners.Suite;
         TestBasicTrieNode.class,
         TestPackedTrie.class
 })
-public class TestSuite {
+public class GamesCommonTestSuite {
 }
