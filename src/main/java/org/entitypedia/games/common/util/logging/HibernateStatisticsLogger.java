@@ -3,6 +3,7 @@ package org.entitypedia.games.common.util.logging;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.Executors;
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class HibernateStatisticsLogger implements InitializingBean {
+public class HibernateStatisticsLogger implements InitializingBean, DisposableBean {
 
     private static final Logger log = LoggerFactory.getLogger(HibernateStatisticsLogger.class);
 
@@ -45,5 +46,11 @@ public class HibernateStatisticsLogger implements InitializingBean {
             }
         };
         scheduler.scheduleAtFixedRate(statLogger, statisticsIntervalSeconds, statisticsIntervalSeconds, TimeUnit.SECONDS);
+    }
+
+    public void destroy() throws Exception {
+        if (scheduler != null) {
+            scheduler.shutdownNow();
+        }
     }
 }
