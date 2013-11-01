@@ -243,6 +243,13 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+        <!-- apache configuration -->
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
+
         <!-- servlets dependencies -->
         <dependency>
             <groupId>javax</groupId>
