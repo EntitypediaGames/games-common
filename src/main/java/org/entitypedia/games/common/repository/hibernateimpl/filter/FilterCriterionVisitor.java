@@ -7,6 +7,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -15,7 +16,9 @@ import java.util.*;
 public class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
 
     private static final FilterLiteralVisitor literalVisitor = new FilterLiteralVisitor();
-    private static final class AliasComparator implements Comparator<String> {
+    private static final class AliasComparator implements Comparator<String>, Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         @Override
         public int compare(String o1, String o2) {
