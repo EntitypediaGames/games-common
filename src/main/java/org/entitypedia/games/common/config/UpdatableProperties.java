@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.FileNotFoundException;
+import java.util.Properties;
 
 /**
  * Provides access to updatable properties, such as updatable-gameframework.properties
@@ -24,8 +26,11 @@ public class UpdatableProperties implements InitializingBean {
 
     private String propertiesPath;
 
+    private Properties backupProperties;
+    private String backupPropertiesName;
+
     @Autowired
-    ConfigurableEnvironment environment;
+    private ConfigurableEnvironment environment;
 
     public UpdatableProperties() {
     }
@@ -36,6 +41,10 @@ public class UpdatableProperties implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        if (null != backupProperties) {
+            environment.getPropertySources().addLast(new PropertiesPropertySource(backupPropertiesName, backupProperties));
+        }
+
         ClassPathResource properties = new ClassPathResource(propertiesPath);
         try {
             String absolutePath = properties.getFile().getAbsolutePath();
@@ -61,5 +70,21 @@ public class UpdatableProperties implements InitializingBean {
 
     public void setPropertiesPath(String propertiesPath) {
         this.propertiesPath = propertiesPath;
+    }
+
+    public Properties getBackupProperties() {
+        return backupProperties;
+    }
+
+    public void setBackupProperties(Properties backupProperties) {
+        this.backupProperties = backupProperties;
+    }
+
+    public String getBackupPropertiesName() {
+        return backupPropertiesName;
+    }
+
+    public void setBackupPropertiesName(String backupPropertiesName) {
+        this.backupPropertiesName = backupPropertiesName;
     }
 }
