@@ -28,7 +28,7 @@ public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerT
     // uid \t resourceId -> token
     private final ConcurrentMap<String, OAuthConsumerTokenHolder> tokens = new ConcurrentHashMap<String, OAuthConsumerTokenHolder>();
 
-    private class OAuthConsumerTokenHolder {
+    private static class OAuthConsumerTokenHolder {
         private long timestamp = System.currentTimeMillis();
         private OAuthConsumerToken token;
 

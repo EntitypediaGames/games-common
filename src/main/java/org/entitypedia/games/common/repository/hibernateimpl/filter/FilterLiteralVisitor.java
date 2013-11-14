@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public class FilterLiteralVisitor extends FilterBaseVisitor<Object> {
 
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-    private static final SimpleDateFormat formatterLong = new SimpleDateFormat("yyyyMMddHHmmss");
+    private final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+    private final SimpleDateFormat formatterLong = new SimpleDateFormat("yyyyMMddHHmmss");
 
     @Override
     public Object visitDate(FilterParser.DateContext ctx) {

@@ -5,7 +5,7 @@ import org.hibernate.engine.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
@@ -14,6 +14,7 @@ public class UIDGenerator implements IdentifierGenerator {
 
     private static final char[] DEFAULT_CODEC = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
     private static final int UID_LENGTH = 8;
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public UIDGenerator() {
     }
@@ -26,7 +27,7 @@ public class UIDGenerator implements IdentifierGenerator {
     public static String getUID() {
         //lifted from RandomValueVerifierServices.java
         byte[] verifierBytes = new byte[UID_LENGTH];
-        (new Random()).nextBytes(verifierBytes);
+        SECURE_RANDOM.nextBytes(verifierBytes);
 
         char[] chars = new char[verifierBytes.length];
         for (int i = 0; i < verifierBytes.length; i++) {
@@ -38,7 +39,7 @@ public class UIDGenerator implements IdentifierGenerator {
     public static String getUID(int length) {
         //lifted from RandomValueVerifierServices.java
         byte[] verifierBytes = new byte[length];
-        (new Random()).nextBytes(verifierBytes);
+        SECURE_RANDOM.nextBytes(verifierBytes);
 
         char[] chars = new char[verifierBytes.length];
         for (int i = 0; i < verifierBytes.length; i++) {

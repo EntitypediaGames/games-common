@@ -583,7 +583,7 @@ public class PackedTrie {
         return new LongIterator(pattern, pageNo, pageSize);
     }
 
-    private class PackedTrieEntry implements Map.Entry<String, Long> {
+    private static class PackedTrieEntry implements Map.Entry<String, Long> {
         private final String k;
         private Long v;
 
