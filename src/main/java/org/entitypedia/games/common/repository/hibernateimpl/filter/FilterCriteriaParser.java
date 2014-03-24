@@ -55,6 +55,13 @@ public class FilterCriteriaParser {
         this.aliasMap = new HashMap<>();
     }
 
+    public FilterCriteriaParser(Class targetType, String filter, String order, FilterCriterionVisitor visitor) {
+        this.filter = filter;
+        this.order = order;
+        this.filterCriterionVisitor = visitor;
+        this.aliasMap = new HashMap<>();
+    }
+
     public Criterion parse() {
         ANTLRInputStream input = new ANTLRInputStream(unescape(filter));
         FilterLexer lexer = new FilterLexer(input);
@@ -73,16 +80,16 @@ public class FilterCriteriaParser {
         // from crossword -> a0, crossword.wordClue -> a1
         // to crossword -> a0, a0.wordClue -> a1
 
-        if (0 == filterCriterionVisitor.aliases.keySet().size()) {
+        if (0 == filterCriterionVisitor.getAliases().keySet().size()) {
             return Collections.emptyMap();
         } else {
-            for (Map.Entry<String, String> entry : filterCriterionVisitor.aliases.entrySet()) {
+            for (Map.Entry<String, String> entry : filterCriterionVisitor.getAliases().entrySet()) {
                 if (0 == StringUtils.countOccurrencesOf(entry.getKey(), ".")) {
                     aliasMap.put(entry.getKey(), entry.getValue());
                 } else {
                     // replacements;
                     int curOccurrences = StringUtils.countOccurrencesOf(entry.getKey(), ".");
-                    for (Map.Entry<String, String> prevEntry : filterCriterionVisitor.aliases.entrySet()) {
+                    for (Map.Entry<String, String> prevEntry : filterCriterionVisitor.getAliases().entrySet()) {
                         if ((curOccurrences - 1) == StringUtils.countOccurrencesOf(prevEntry.getKey(), ".")) {
                             if (entry.getKey().contains(prevEntry.getKey() + ".")) {
                                 aliasMap.put(entry.getKey().replace(prevEntry.getKey() + ".", prevEntry.getValue() + "."), entry.getValue());
@@ -121,7 +128,7 @@ public class FilterCriteriaParser {
                         }
                     }
                     String curLevel = filterCriterionVisitor.extractAliases(qName);
-                    name = name.replace(curLevel, filterCriterionVisitor.aliases.get(curLevel.substring(0, curLevel.length() - 1)) + ".");
+                    name = name.replace(curLevel, filterCriterionVisitor.getAliases().get(curLevel.substring(0, curLevel.length() - 1)) + ".");
                 }
                 switch (o.charAt(0)) {
                     case 'D': {

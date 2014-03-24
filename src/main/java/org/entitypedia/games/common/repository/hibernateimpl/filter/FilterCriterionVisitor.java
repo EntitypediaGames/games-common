@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
+public class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
 
     private final FilterLiteralVisitor literalVisitor;
 
@@ -34,7 +34,7 @@ class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
     }
 
     private static final AliasComparator aliasComparator = new AliasComparator();
-    SortedMap<String, String> aliases = new TreeMap<>(aliasComparator);
+    private final SortedMap<String, String> aliases = new TreeMap<>(aliasComparator);
 
     public FilterCriterionVisitor(Class targetType) {
         this.literalVisitor = new FilterLiteralVisitor(targetType);
@@ -65,6 +65,10 @@ class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
             curLevel = curLevel + ".";
         }
         return curLevel;
+    }
+
+    public Map<String, String> getAliases() {
+        return aliases;
     }
 
     @Override

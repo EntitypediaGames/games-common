@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-class FilterLiteralVisitor extends FilterBaseVisitor<Object> {
+public class FilterLiteralVisitor extends FilterBaseVisitor<Object> {
 
     private final SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
     private final SimpleDateFormat formatterLong = new SimpleDateFormat("yyyyMMddHHmmss");
