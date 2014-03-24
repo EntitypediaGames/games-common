@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.entitypedia.games</groupId>
         <artifactId>entitypedia-games-parent</artifactId>
-        <version>8</version>
+        <version>9-SNAPSHOT</version>
     </parent>
 
     <artifactId>entitypedia-games-common</artifactId>
@@ -17,7 +17,6 @@
     <url>http://games.entitypedia.org/</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <antlr4.version>4.1</antlr4.version>
     </properties>
 
@@ -61,13 +60,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.10-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-client</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.10-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -80,7 +79,12 @@
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>${antlr4.version}</version>
-            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.abego.treelayout</groupId>
+                    <artifactId>org.abego.treelayout.core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- spring dependencies -->
@@ -122,6 +126,12 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -146,14 +156,14 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-asm</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- spring oauth -->
@@ -227,7 +237,7 @@
 
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-hibernate3</artifactId>
+            <artifactId>jackson-datatype-hibernate4</artifactId>
             <version>${jackson.version}</version>
         </dependency>
 
@@ -283,18 +293,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <Xlint>ignore</Xlint>
                     <verbose>false</verbose>
