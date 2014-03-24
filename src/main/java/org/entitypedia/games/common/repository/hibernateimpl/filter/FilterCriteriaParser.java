@@ -14,7 +14,8 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 
 /**
- * Parses filter expressions for Hibernate Criteria. Example:
+ * Parses filter expressions for Hibernate Criteria.
+ * Example:
  * <pre>
  * (columnCount eq 21 and rowCount eq 21) and not published isNull and (title like 'space-rug' or title like 'home \'rug\'')
  * </pre>
@@ -66,7 +67,7 @@ public class FilterCriteriaParser {
             return Collections.emptyMap();
         } else {
             if (null == aliasMap) {
-                aliasMap = new HashMap<String, String>();
+                aliasMap = new HashMap<>();
                 for (Map.Entry<String, String> entry : filterCriterionVisitor.aliases.entrySet()) {
                     if (0 == StringUtils.countOccurrencesOf(entry.getKey(), ".")) {
                         aliasMap.put(entry.getKey(), entry.getValue());
@@ -106,7 +107,7 @@ public class FilterCriteriaParser {
             if (o.charAt(0) == 'D' || o.charAt(0) == 'A') {
                 String name = o.substring(1);
                 if (name.contains(".")) {
-                    List<String> qName = new ArrayList<String>();
+                    List<String> qName = new ArrayList<>();
                     for (String part : name.split("\\.")) {
                         if (null != part && !"".equals(part)) {
                             qName.add(part);

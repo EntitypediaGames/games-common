@@ -50,13 +50,7 @@ public abstract class WordGameUserService<T extends WordGameUser> implements IWo
                 result.setPassword(UIDGenerator.getUID(10));
                 result = wordGameUserDAO.update(result);
                 log.debug("Imported new user from framework: {}, {}", result.getId(), result);
-            } catch (NoSuchMethodException e) {
-                log.error(e.getMessage(), e);
-            } catch (InvocationTargetException e) {
-                log.error(e.getMessage(), e);
-            } catch (InstantiationException e) {
-                log.error(e.getMessage(), e);
-            } catch (IllegalAccessException e) {
+            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
                 log.error(e.getMessage(), e);
             }
         }

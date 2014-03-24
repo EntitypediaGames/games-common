@@ -35,16 +35,9 @@ public final class ChannelTools {
     }
 
     public static void copyStream(InputStream input, OutputStream output) throws IOException {
-        // get an channel from the stream
-        final ReadableByteChannel inputChannel = Channels.newChannel(input);
-        final WritableByteChannel outputChannel = Channels.newChannel(output);
-        // copy the channels
-        try {
+        try (WritableByteChannel outputChannel = Channels.newChannel(output);
+             ReadableByteChannel inputChannel = Channels.newChannel(input)) {
             ChannelTools.fastChannelCopy(inputChannel, outputChannel);
-        } finally {
-            // closing the channels
-            inputChannel.close();
-            outputChannel.close();
         }
     }
 }

@@ -38,7 +38,7 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
 
     private Constructor<MethodInvocationAdapter> constructor;
 
-    private ThreadLocal<List<JacksonMixin>> tlMixins = new ThreadLocal<List<JacksonMixin>>();
+    private ThreadLocal<List<JacksonMixin>> tlMixins = new ThreadLocal<>();
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -99,17 +99,13 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
                                         SecurityContextHolder.getContext().getAuthentication(),
                                         constructor.newInstance(thisJoinPoint),
                                         attribute);
-                            } catch (InstantiationException e) {
-                                throw new RuntimeException(e);
-                            } catch (IllegalAccessException e) {
-                                throw new RuntimeException(e);
-                            } catch (InvocationTargetException e) {
+                            } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                                 throw new RuntimeException(e);
                             }
                         }
                         if (apply) {
                             if (null == mixins) {
-                                mixins = new ArrayList<JacksonMixin>(annotation.value().length);
+                                mixins = new ArrayList<>(annotation.value().length);
                             }
                             mixins.add(mixin);
                         }

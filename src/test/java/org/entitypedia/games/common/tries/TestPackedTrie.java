@@ -263,7 +263,7 @@ public class TestPackedTrie {
 
     @Test
     public void testRandom() throws IOException {
-        TreeMap<String, Long> source = new TreeMap<String, Long>();
+        TreeMap<String, Long> source = new TreeMap<>();
         Random r = new Random();
         for (int i = 0; i < 1000; i++) {
             source.put(UIDGenerator.getUID(r.nextInt(50) + 1), (long) r.nextInt());
@@ -293,7 +293,7 @@ public class TestPackedTrie {
     @Test
     public void testPagedIterator() throws IOException {
         final int cnt = 23;
-        TreeMap<String, Long> source = new TreeMap<String, Long>();
+        TreeMap<String, Long> source = new TreeMap<>();
         Random r = new Random();
         for (int i = 0; i < cnt; i++) {
             source.put(UIDGenerator.getUID(5), (long) r.nextInt());

@@ -84,7 +84,7 @@ public class GameFrameworkRESTTemplate extends OAuthRestTemplate implements Init
             OAuthSecurityContextHolder.setContext(null);
         } else {
             OAuthSecurityContextImpl context = new OAuthSecurityContextImpl();
-            Map<String, OAuthConsumerToken> accessTokens = new TreeMap<String, OAuthConsumerToken>();
+            Map<String, OAuthConsumerToken> accessTokens = new TreeMap<>();
 
             accessTokens.put(resource.getId(), token);
             context.setAccessTokens(accessTokens);

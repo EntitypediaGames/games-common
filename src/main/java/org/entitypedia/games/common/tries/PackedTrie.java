@@ -49,7 +49,7 @@ public class PackedTrie {
         //boolean isWord = 0 < (nodeValue & 0x1L);
         //nodeValue = nodeValue >> 2;
 
-        Map<Character, Long> rootsMap = new TreeMap<Character, Long>();
+        Map<Character, Long> rootsMap = new TreeMap<>();
 
         if (hasChildren) {
             long sizeOfIndex = readVarLenLong01(buffer, offset);
@@ -96,7 +96,7 @@ public class PackedTrie {
         long rootOffset = 0;
         long offset = 0;
 
-        Deque<BasicTrieNode> q = new ArrayDeque<BasicTrieNode>();
+        Deque<BasicTrieNode> q = new ArrayDeque<>();
         BasicTrieNode prevNode = null;
 
         // iterative post-order
@@ -674,9 +674,9 @@ public class PackedTrie {
         protected final long pageSize;
 
         // node offsets and -1 as level marks
-        protected Deque<Long> q = new ArrayDeque<Long>();
+        protected Deque<Long> q = new ArrayDeque<>();
         // characters to process
-        protected Deque<Character> c = new ArrayDeque<Character>();
+        protected Deque<Character> c = new ArrayDeque<>();
         // current key
         protected StringBuilder s = new StringBuilder();
         // current letter in pattern

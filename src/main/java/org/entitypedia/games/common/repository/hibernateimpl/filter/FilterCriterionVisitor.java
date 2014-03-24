@@ -32,14 +32,14 @@ public class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
         }
     }
     public static final AliasComparator aliasComparator = new AliasComparator();
-    public SortedMap<String, String> aliases = new TreeMap<String, String>(aliasComparator);
+    public SortedMap<String, String> aliases = new TreeMap<>(aliasComparator);
 
     public String processQualifiedName(FilterParser.QualifiedNameContext ctx) {
         // names like crossword.wordClues.across require aliases to be added to Criteria
         // here the list of aliases is being collected
         String result = ctx.getText();
         if (1 < ctx.Identifier().size()) {
-            List<String> qName = new ArrayList<String>(ctx.Identifier().size());
+            List<String> qName = new ArrayList<>(ctx.Identifier().size());
             for (int i = 0; i < ctx.Identifier().size(); i++) {
                 qName.add(ctx.Identifier(i).getText());
             }

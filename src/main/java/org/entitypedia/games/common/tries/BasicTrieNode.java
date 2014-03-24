@@ -31,7 +31,7 @@ public class BasicTrieNode {
         }
 
         if (0 == children.size()) {
-            children = new TreeMap<Character, BasicTrieNode>();
+            children = new TreeMap<>();
         }
         children.put(argChild.getChar(), argChild);
         return true;

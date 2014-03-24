@@ -92,7 +92,7 @@ public abstract class GenericDAO implements IGenericDAO {
                 defaultOrder = filterCriteriaParser.parseOrder(order);
             }
             Map<String, String> aliases = filterCriteriaParser.getAliasMap();
-            result = new ResultsPage<T>(page, count(targetType, Arrays.asList(criterion), aliases));
+            result = new ResultsPage<>(page, count(targetType, Arrays.asList(criterion), aliases));
             result.setItems(find(targetType, Arrays.asList(criterion), page, aliases, defaultOrder));
         } else {
             FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
@@ -100,7 +100,7 @@ public abstract class GenericDAO implements IGenericDAO {
                 defaultOrder = filterCriteriaParser.parseOrder(order);
             }
             Map<String, String> aliases = filterCriteriaParser.getAliasMap();
-            result = new ResultsPage<T>(page, count(targetType));
+            result = new ResultsPage<>(page, count(targetType));
             result.setItems(find(targetType, Collections.<Criterion>emptyList(), page, aliases, defaultOrder));
         }
         return result;
