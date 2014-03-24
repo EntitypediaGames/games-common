@@ -1,22 +1,19 @@
 package org.entitypedia.games.common.oauth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpHost;
 import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
-import org.apache.http.params.CoreConnectionPNames;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.SyncBasicHttpParams;
 import org.entitypedia.games.common.client.WordGameClient;
+import org.entitypedia.games.common.exceptions.WordGameException;
+import org.entitypedia.games.common.model.ResultsPage;
+import org.entitypedia.games.gameframework.client.IGameFrameworkClient;
+import org.entitypedia.games.gameframework.common.api.IClueAPI;
+import org.entitypedia.games.gameframework.common.api.IPlayerAPI;
+import org.entitypedia.games.gameframework.common.api.IWordAPI;
+import org.entitypedia.games.gameframework.common.model.Clue;
+import org.entitypedia.games.gameframework.common.model.Player;
+import org.entitypedia.games.gameframework.common.model.Word;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.ClientHttpResponse;
@@ -33,47 +30,35 @@ import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Extends OAuthRestTemplate with proper authentication use.
  *
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class GameFrameworkRESTTemplate extends OAuthRestTemplate implements InitializingBean, DisposableBean {
+public class GameFrameworkRESTTemplate extends OAuthRestTemplate implements InitializingBean, IGameFrameworkClient {
 
     private static final Logger log = LoggerFactory.getLogger(GameFrameworkRESTTemplate.class);
 
-    private URI apiBase;
-
-    // connection manager
-    private ClientConnectionManager cm;
-    // connection eviction - to avoid checking for stale connections on every connect, do it periodically here
-    private ScheduledExecutorService scheduler;
-    // in seconds
-    private final static int connectionCleanupInterval = 600;
-
     private OAuthConsumerTokenServices tokenServices;
     private ProtectedResourceDetails resource;
+
+    private HttpClient httpClient;
+
+    private String frameworkAPIRoot;
+    private String frameworkSecureAPIRoot;
 
     private ResponseErrorHandler responseErrorHandler = new ThrowingResponseErrorHandler();
 
     public GameFrameworkRESTTemplate(ProtectedResourceDetails resource) {
         super(resource);
         this.resource = resource;
-    }
-
-    public URI getApiBase() {
-        return apiBase;
-    }
-
-    public void setApiBase(URI apiBase) {
-        this.apiBase = apiBase;
     }
 
     private void loadOAuthSecurityContext() {
@@ -102,7 +87,7 @@ public class GameFrameworkRESTTemplate extends OAuthRestTemplate implements Init
     protected <T> T doExecute(URI url, HttpMethod method, RequestCallback requestCallback, ResponseExtractor<T> responseExtractor) throws RestClientException {
         try {
             loadOAuthSecurityContext();
-            return super.doExecute(getApiBase().resolve(url), method, requestCallback, responseExtractor);
+            return super.doExecute(url, method, requestCallback, responseExtractor);
         } finally {
             clearOAuthSecurityContext();
         }
@@ -119,63 +104,8 @@ public class GameFrameworkRESTTemplate extends OAuthRestTemplate implements Init
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.debug("Setting error handler...");
         setErrorHandler(responseErrorHandler);
-
-        log.debug("Registering schemes...");
-        SchemeRegistry schemeRegistry = new SchemeRegistry();
-        log.debug("Registering " + apiBase.toURL().toString());
-        schemeRegistry.register(new Scheme("http", -1 == apiBase.getPort() ? 80 : apiBase.getPort(), PlainSocketFactory.getSocketFactory()));
-
-        log.debug("Starting connections pools...");
-        PoolingClientConnectionManager cm = new PoolingClientConnectionManager(schemeRegistry);
-        cm.setMaxTotal(10);
-        // Increase default max connection per route to 100
-        cm.setDefaultMaxPerRoute(10);
-        // Increase max connections for api host:80 & host:443 to 100
-        HttpHost apiHost = new HttpHost(apiBase.getHost(), apiBase.getPort());
-        cm.setMaxPerRoute(new HttpRoute(apiHost), 10);
-
-        this.cm = cm;
-
-        HttpParams params = new SyncBasicHttpParams();
-        params.setIntParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
-        params.setBooleanParameter(CoreConnectionPNames.TCP_NODELAY, true);
-        params.setIntParameter(CoreConnectionPNames.SOCKET_BUFFER_SIZE, 102400);
-        params.setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000);
-        params.setBooleanParameter(CoreConnectionPNames.STALE_CONNECTION_CHECK, false);
-
-        HttpClient client = new DefaultHttpClient(cm, params);
-
-        setRequestFactory(new HttpComponentsClientHttpRequestFactory(client));
-
-        // schedule stale connections clean up
-        scheduler = Executors.newSingleThreadScheduledExecutor();
-        Runnable cleanupLogic = new Runnable() {
-            public void run() {
-                ClientConnectionManager cm = getCm();
-                if (null != cm) {
-                    log.debug("Cleaning up stale connections...");
-                    cm.closeExpiredConnections();
-                    log.debug("Cleaned up stale connections");
-                }
-            }
-        };
-        scheduler.scheduleAtFixedRate(cleanupLogic, connectionCleanupInterval, connectionCleanupInterval, TimeUnit.SECONDS);
-    }
-
-    public ClientConnectionManager getCm() {
-        return cm;
-    }
-
-    @Override
-    public void destroy() throws Exception {
-        if (null != scheduler) {
-            scheduler.shutdownNow();
-        }
-        if (null != cm) {
-            cm.shutdown();
-        }
+        setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
     }
 
     private class ThrowingResponseErrorHandler implements ResponseErrorHandler {
@@ -191,5 +121,268 @@ public class GameFrameworkRESTTemplate extends OAuthRestTemplate implements Init
         public void handleError(ClientHttpResponse response) throws IOException {
             throw WordGameClient.processError(response.getBody(), mapper);
         }
+    }
+
+    public HttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    public void setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    public String getFrameworkAPIRoot() {
+        return frameworkAPIRoot;
+    }
+
+    public void setFrameworkAPIRoot(String frameworkAPIRoot) {
+        this.frameworkAPIRoot = frameworkAPIRoot;
+    }
+
+    public String getFrameworkSecureAPIRoot() {
+        return frameworkSecureAPIRoot;
+    }
+
+    public void setFrameworkSecureAPIRoot(String frameworkSecureAPIRoot) {
+        this.frameworkSecureAPIRoot = frameworkSecureAPIRoot;
+    }
+
+    @Override
+    public Clue readClue(long clueID) {
+        try {
+            return getForObject(new URI(frameworkAPIRoot + IClueAPI.READ_CLUE.replaceAll("\\{.*\\}", Long.toString(clueID))), Clue.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public ResultsPage<Clue> listClues(Integer pageSize, Integer pageNo, String filter, String order) {
+        try {
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            Class<ResultsPage<Clue>> clazz = (Class) ResultsPage.class;
+            return getForObject(new URI(WordGameClient.addPageSizeAndNoAndFilterAndOrder(frameworkAPIRoot + IClueAPI.LIST_CLUES + "?", pageSize, pageNo, filter, order)), clazz);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void login() {
+        try {
+            getForObject(new URI(frameworkAPIRoot + IPlayerAPI.LOGIN_PLAYER), Void.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Player loginFacebook(String token) {
+        try {
+            return postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.LOGIN_FACEBOOK_PLAYER + "?token=" + URLEncoder.encode(token, "UTF-8")), null, Player.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Player loginGPlus(String code) {
+        try {
+            return postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.LOGIN_GPLUS_PLAYER + "?code=" + URLEncoder.encode(code, "UTF-8")), null, Player.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void activateEmail(String code) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.ACTIVATE_PLAYER_EMAIL + "?code=" + URLEncoder.encode(code, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void requestEmailActivation() {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.REQUEST_PLAYER_EMAIL_ACTIVATION), null, Void.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void resetPassword(String code, String password) {
+        try {
+            postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.RESET_PLAYER_PASSWORD + "?code=" + URLEncoder.encode(code, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void requestPasswordReset(String email) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.REQUEST_PLAYER_PASSWORD_RESET + "?email=" + URLEncoder.encode(email, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Player createPlayer(Player player) {
+        try {
+            return postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.CREATE_PLAYER), player, Player.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Player readPlayer(String playerID) {
+        try {
+            return getForObject(new URI(frameworkAPIRoot + IPlayerAPI.READ_PLAYER.replaceAll("\\{.*\\}", playerID)), Player.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Player readPlayer(long playerID) {
+        try {
+            return getForObject(new URI(frameworkAPIRoot + IPlayerAPI.READ_PLAYER.replaceAll("\\{.*\\}", Long.toString(playerID))), Player.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void deletePlayer(long playerID) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.DELETE_PLAYER + "?playerID=" + Long.toString(playerID)), null, Void.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayer(Player player) {
+        try {
+            postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.UPDATE_PLAYER), player, Void.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayerPassword(long playerID, String password) {
+        try {
+            postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.UPDATE_PLAYER_PASSWORD + "?playerID=" + Long.toString(playerID)
+                    + "&password=" + URLEncoder.encode(password, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayerEmail(long playerID, String email) {
+        try {
+            postForObject(new URI(frameworkSecureAPIRoot + IPlayerAPI.UPDATE_PLAYER_EMAIL + "?playerID=" + Long.toString(playerID)
+                    + "&email=" + URLEncoder.encode(email, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayerFirstName(long playerID, String firstName) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.UPDATE_PLAYER_FIRST_NAME + "?playerID=" + Long.toString(playerID)
+                    + "&firstName=" + URLEncoder.encode(firstName, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayerLastName(long playerID, String lastName) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.UPDATE_PLAYER_FIRST_NAME + "?playerID=" + Long.toString(playerID)
+                    + "&lastName=" + URLEncoder.encode(lastName, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayerFacebook(long playerID, String token) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.UPDATE_PLAYER_FACEBOOK + "?playerID=" + Long.toString(playerID)
+                    + "&token=" + URLEncoder.encode(token, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void updatePlayerGPlus(long playerID, String code) {
+        try {
+            postForObject(new URI(frameworkAPIRoot + IPlayerAPI.UPDATE_PLAYER_GPLUS + "?playerID=" + Long.toString(playerID)
+                    + "&code=" + URLEncoder.encode(code, "UTF-8")), null, Void.class);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public ResultsPage<Player> listPlayers(Integer pageSize, Integer pageNo) {
+        try {
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            Class<ResultsPage<Player>> clazz = (Class) ResultsPage.class;
+            return getForObject(new URI(WordGameClient.addPageSizeAndNo(frameworkAPIRoot + IPlayerAPI.LIST_PLAYERS + "?", pageSize, pageNo)), clazz);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Word readWord(long wordID) {
+        try {
+            return getForObject(new URI(frameworkAPIRoot + IWordAPI.READ_WORD.replaceAll("\\{.*\\}", Long.toString(wordID))), Word.class);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public ResultsPage<Word> listWords(Integer pageSize, Integer pageNo, String filter, String order) {
+        try {
+            @SuppressWarnings({"unchecked", "rawtypes"})
+            Class<ResultsPage<Word>> clazz = (Class) ResultsPage.class;
+            return getForObject(new URI(WordGameClient.addPageSizeAndNoAndFilterAndOrder(frameworkAPIRoot + IWordAPI.LIST_WORDS + "?", pageSize, pageNo, filter, order)), clazz);
+        } catch (URISyntaxException e) {
+            throw new WordGameException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public String getApiEndpoint() {
+        return frameworkAPIRoot;
+    }
+
+    @Override
+    public void setApiEndpoint(String apiEndpoint) {
+        frameworkAPIRoot = apiEndpoint;
+    }
+
+    @Override
+    public boolean getSignConnection() {
+        return false;
+    }
+
+    @Override
+    public void setSignConnection(boolean signConnection) {
+        // nop
     }
 }
