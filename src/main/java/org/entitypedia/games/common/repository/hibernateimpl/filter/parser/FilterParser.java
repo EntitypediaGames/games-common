@@ -1,4 +1,4 @@
-// Generated from Filter.g4 by ANTLR 4.1
+// Generated from Filter.g4 by ANTLR 4.2
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 
@@ -47,6 +47,9 @@ public class FilterParser extends Parser {
 	public String[] getRuleNames() { return ruleNames; }
 
 	@Override
+	public String getSerializedATN() { return _serializedATN; }
+
+	@Override
 	public ATN getATN() { return _ATN; }
 
 	public FilterParser(TokenStream input) {
@@ -91,18 +94,14 @@ public class FilterParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public int _p;
-		public ExprContext(ParserRuleContext parent, int invokingState) { super(parent, invokingState); }
-		public ExprContext(ParserRuleContext parent, int invokingState, int _p) {
+		public ExprContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
-			this._p = _p;
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
 	 
 		public ExprContext() { }
 		public void copyFrom(ExprContext ctx) {
 			super.copyFrom(ctx);
-			this._p = ctx._p;
 		}
 	}
 	public static class ConContext extends ExprContext {
@@ -172,13 +171,17 @@ public class FilterParser extends Parser {
 		}
 	}
 
-	public final ExprContext expr(int _p) throws RecognitionException {
+	public final ExprContext expr() throws RecognitionException {
+		return expr(0);
+	}
+
+	private ExprContext expr(int _p) throws RecognitionException {
 		ParserRuleContext _parentctx = _ctx;
 		int _parentState = getState();
-		ExprContext _localctx = new ExprContext(_ctx, _parentState, _p);
+		ExprContext _localctx = new ExprContext(_ctx, _parentState);
 		ExprContext _prevctx = _localctx;
 		int _startState = 2;
-		enterRecursionRule(_localctx, RULE_expr);
+		enterRecursionRule(_localctx, 2, RULE_expr, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -229,10 +232,10 @@ public class FilterParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ConContext(new ExprContext(_parentctx, _parentState, _p));
+						_localctx = new ConContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(25);
-						if (!(3 >= _localctx._p)) throw new FailedPredicateException(this, "3 >= $_p");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(26); match(AND);
 						setState(27); expr(4);
 						}
@@ -240,10 +243,10 @@ public class FilterParser extends Parser {
 
 					case 2:
 						{
-						_localctx = new DisContext(new ExprContext(_parentctx, _parentState, _p));
+						_localctx = new DisContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(28);
-						if (!(2 >= _localctx._p)) throw new FailedPredicateException(this, "2 >= $_p");
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(29); match(OR);
 						setState(30); expr(3);
 						}
@@ -1081,15 +1084,15 @@ public class FilterParser extends Parser {
 	}
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return 3 >= _localctx._p;
+		case 0: return precpred(_ctx, 3);
 
-		case 1: return 2 >= _localctx._p;
+		case 1: return precpred(_ctx, 2);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\uacf5\uee8c\u4f5d\u8b0d\u4a45\u78bd\u1b2f\u3378\3(\u0096\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3(\u0096\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\5\3\32\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\"\n\3\f\3\16\3%\13"+
 		"\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
@@ -1098,13 +1101,13 @@ public class FilterParser extends Parser {
 		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
 		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\4\5\4\u0083\n\4\3\5\3\5\3\5\3\5\3\5\5\5\u008a\n\5\3"+
-		"\6\3\6\3\6\7\6\u008f\n\6\f\6\16\6\u0092\13\6\3\7\3\7\3\7\2\b\2\4\6\b\n"+
-		"\f\2\3\3\2\4\5\u00af\2\16\3\2\2\2\4\31\3\2\2\2\6\u0082\3\2\2\2\b\u0089"+
+		"\6\3\6\3\6\7\6\u008f\n\6\f\6\16\6\u0092\13\6\3\7\3\7\3\7\2\3\4\b\2\4\6"+
+		"\b\n\f\2\3\3\2\4\5\u00af\2\16\3\2\2\2\4\31\3\2\2\2\6\u0082\3\2\2\2\b\u0089"+
 		"\3\2\2\2\n\u008b\3\2\2\2\f\u0093\3\2\2\2\16\17\5\4\3\2\17\20\7\2\2\3\20"+
-		"\3\3\2\2\2\21\22\b\3\1\2\22\23\7\"\2\2\23\32\5\4\3\2\24\32\5\6\4\2\25"+
+		"\3\3\2\2\2\21\22\b\3\1\2\22\23\7\"\2\2\23\32\5\4\3\6\24\32\5\6\4\2\25"+
 		"\26\7\6\2\2\26\27\5\4\3\2\27\30\7\7\2\2\30\32\3\2\2\2\31\21\3\2\2\2\31"+
-		"\24\3\2\2\2\31\25\3\2\2\2\32#\3\2\2\2\33\34\6\3\2\3\34\35\7 \2\2\35\""+
-		"\5\4\3\2\36\37\6\3\3\3\37 \7!\2\2 \"\5\4\3\2!\33\3\2\2\2!\36\3\2\2\2\""+
+		"\24\3\2\2\2\31\25\3\2\2\2\32#\3\2\2\2\33\34\f\5\2\2\34\35\7 \2\2\35\""+
+		"\5\4\3\6\36\37\f\4\2\2\37 \7!\2\2 \"\5\4\3\5!\33\3\2\2\2!\36\3\2\2\2\""+
 		"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$\5\3\2\2\2%#\3\2\2\2&\'\5\n\6\2\'(\7\b\2"+
 		"\2()\5\b\5\2)\u0083\3\2\2\2*+\5\n\6\2+,\7\t\2\2,-\5\n\6\2-\u0083\3\2\2"+
 		"\2./\5\n\6\2/\60\7\n\2\2\60\61\5\b\5\2\61\u0083\3\2\2\2\62\63\5\n\6\2"+
@@ -1135,7 +1138,7 @@ public class FilterParser extends Parser {
 		"\2\2\u0091\13\3\2\2\2\u0092\u0090\3\2\2\2\u0093\u0094\t\2\2\2\u0094\r"+
 		"\3\2\2\2\b\31!#\u0082\u0089\u0090";
 	public static final ATN _ATN =
-		ATNSimulator.deserialize(_serializedATN.toCharArray());
+		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
 		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {

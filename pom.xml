@@ -17,7 +17,7 @@
     <url>http://games.entitypedia.org/</url>
 
     <properties>
-        <antlr4.version>4.1</antlr4.version>
+        <antlr4.version>4.2</antlr4.version>
     </properties>
 
     <scm>
@@ -66,12 +66,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-client</artifactId>
-            <version>1.0.10-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>game-framework-client</artifactId>
             <version>1.0.10-SNAPSHOT</version>
         </dependency>
 
