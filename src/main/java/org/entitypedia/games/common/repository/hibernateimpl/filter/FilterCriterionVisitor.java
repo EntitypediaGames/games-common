@@ -13,9 +13,10 @@ import java.util.*;
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
+class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
 
-    private static final FilterLiteralVisitor literalVisitor = new FilterLiteralVisitor();
+    private final FilterLiteralVisitor literalVisitor;
+
     private static final class AliasComparator implements Comparator<String>, Serializable {
 
         private static final long serialVersionUID = 1L;
@@ -31,8 +32,13 @@ public class FilterCriterionVisitor extends FilterBaseVisitor<Criterion> {
             }
         }
     }
-    public static final AliasComparator aliasComparator = new AliasComparator();
-    public SortedMap<String, String> aliases = new TreeMap<>(aliasComparator);
+
+    private static final AliasComparator aliasComparator = new AliasComparator();
+    SortedMap<String, String> aliases = new TreeMap<>(aliasComparator);
+
+    public FilterCriterionVisitor(Class targetType) {
+        this.literalVisitor = new FilterLiteralVisitor(targetType);
+    }
 
     public String processQualifiedName(FilterParser.QualifiedNameContext ctx) {
         // names like crossword.wordClues.across require aliases to be added to Criteria

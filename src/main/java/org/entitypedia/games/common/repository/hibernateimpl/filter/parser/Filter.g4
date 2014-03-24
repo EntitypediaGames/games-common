@@ -40,7 +40,7 @@ oper:
     |   qualifiedName SNE DecimalLiteral        # sne
     |   qualifiedName ISEMPTY                   # isEmpty
     |   qualifiedName ISNOTEMPTY                # isNotEmpty
-    |   qualifiedName ISNOTNULL                # isNotNull
+    |   qualifiedName ISNOTNULL                 # isNotNull
     |   qualifiedName ISNULL                    # isNull
     ;
 

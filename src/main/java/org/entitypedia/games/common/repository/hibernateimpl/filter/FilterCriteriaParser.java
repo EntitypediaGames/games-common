@@ -42,10 +42,20 @@ public class FilterCriteriaParser {
     private static final ANTLRErrorListener errorListener = new ThrowingErrorListener();
     private static final Order[] EMPTY_ORDER = new Order[0];
 
-    private FilterCriterionVisitor filterCriterionVisitor = new FilterCriterionVisitor();
-    private Map<String, String> aliasMap;
+    private final FilterCriterionVisitor filterCriterionVisitor;
+    private final Map<String, String> aliasMap;
 
-    public Criterion parse(String filter) {
+    private final String filter;
+    private final String order;
+
+    public FilterCriteriaParser(Class targetType, String filter, String order) {
+        this.filter = filter;
+        this.order = order;
+        this.filterCriterionVisitor = new FilterCriterionVisitor(targetType);
+        this.aliasMap = new HashMap<>();
+    }
+
+    public Criterion parse() {
         ANTLRInputStream input = new ANTLRInputStream(unescape(filter));
         FilterLexer lexer = new FilterLexer(input);
         lexer.removeErrorListeners();
@@ -66,31 +76,28 @@ public class FilterCriteriaParser {
         if (0 == filterCriterionVisitor.aliases.keySet().size()) {
             return Collections.emptyMap();
         } else {
-            if (null == aliasMap) {
-                aliasMap = new HashMap<>();
-                for (Map.Entry<String, String> entry : filterCriterionVisitor.aliases.entrySet()) {
-                    if (0 == StringUtils.countOccurrencesOf(entry.getKey(), ".")) {
-                        aliasMap.put(entry.getKey(), entry.getValue());
-                    } else {
-                        // replacements;
-                        int curOccurrences = StringUtils.countOccurrencesOf(entry.getKey(), ".");
-                        for (Map.Entry<String, String> prevEntry : filterCriterionVisitor.aliases.entrySet()) {
-                            if ((curOccurrences - 1) == StringUtils.countOccurrencesOf(prevEntry.getKey(), ".")) {
-                                if (entry.getKey().contains(prevEntry.getKey() + ".")) {
-                                    aliasMap.put(entry.getKey().replace(prevEntry.getKey() + ".", prevEntry.getValue() + "."), entry.getValue());
-                                    break;
-                                }
+            for (Map.Entry<String, String> entry : filterCriterionVisitor.aliases.entrySet()) {
+                if (0 == StringUtils.countOccurrencesOf(entry.getKey(), ".")) {
+                    aliasMap.put(entry.getKey(), entry.getValue());
+                } else {
+                    // replacements;
+                    int curOccurrences = StringUtils.countOccurrencesOf(entry.getKey(), ".");
+                    for (Map.Entry<String, String> prevEntry : filterCriterionVisitor.aliases.entrySet()) {
+                        if ((curOccurrences - 1) == StringUtils.countOccurrencesOf(prevEntry.getKey(), ".")) {
+                            if (entry.getKey().contains(prevEntry.getKey() + ".")) {
+                                aliasMap.put(entry.getKey().replace(prevEntry.getKey() + ".", prevEntry.getValue() + "."), entry.getValue());
+                                break;
                             }
                         }
-
                     }
+
                 }
             }
             return aliasMap;
         }
     }
 
-    public Order[] parseOrder(String order) {
+    public Order[] parseOrder() {
         if (null == order) {
             return EMPTY_ORDER;
         }
@@ -134,14 +141,6 @@ public class FilterCriteriaParser {
             }
         }
         return result;
-    }
-
-    public FilterCriterionVisitor getFilterCriterionVisitor() {
-        return filterCriterionVisitor;
-    }
-
-    public void setFilterCriterionVisitor(FilterCriterionVisitor filterCriterionVisitor) {
-        this.filterCriterionVisitor = filterCriterionVisitor;
     }
 
     private static String unescape(String filter) {

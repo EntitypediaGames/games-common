@@ -86,18 +86,18 @@ public abstract class GenericDAO implements IGenericDAO {
 
         ResultsPage<T> result;
         if (null != filter) {
-            FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
-            Criterion criterion = filterCriteriaParser.parse(filter);
+            FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser(targetType, filter, order);
+            Criterion criterion = filterCriteriaParser.parse();
             if (null != order) {
-                defaultOrder = filterCriteriaParser.parseOrder(order);
+                defaultOrder = filterCriteriaParser.parseOrder();
             }
             Map<String, String> aliases = filterCriteriaParser.getAliasMap();
             result = new ResultsPage<>(page, count(targetType, Arrays.asList(criterion), aliases));
             result.setItems(find(targetType, Arrays.asList(criterion), page, aliases, defaultOrder));
         } else {
-            FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser();
+            FilterCriteriaParser filterCriteriaParser = new FilterCriteriaParser(targetType, filter, order);
             if (null != order) {
-                defaultOrder = filterCriteriaParser.parseOrder(order);
+                defaultOrder = filterCriteriaParser.parseOrder();
             }
             Map<String, String> aliases = filterCriteriaParser.getAliasMap();
             result = new ResultsPage<>(page, count(targetType));
