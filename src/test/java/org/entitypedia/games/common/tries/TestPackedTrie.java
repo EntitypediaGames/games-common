@@ -1,24 +1,20 @@
 package org.entitypedia.games.common.tries;
 
-import static org.junit.Assert.*;
-
 import org.entitypedia.games.common.buffer.BufferFacadeFactory;
 import org.entitypedia.games.common.repository.util.UIDGenerator;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.LogicalExpression;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.SimpleExpression;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
+
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class TestPackedTrie {
@@ -27,8 +23,7 @@ public class TestPackedTrie {
     public void testPackEmptyTrie() throws IOException {
         BasicTrie t = new BasicTrie();
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
+        PackedTrie.pack(t, out);
         byte[] pack = out.toByteArray();
         assertEquals(2, pack.length);
         assertEquals(-128, pack[0]);
@@ -40,8 +35,7 @@ public class TestPackedTrie {
         BasicTrie t = new BasicTrie();
         t.addWord("a");
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
+        PackedTrie.pack(t, out);
         byte[] pack = out.toByteArray();
         assertEquals(6, pack.length);
         assertEquals(-127, pack[0]);
@@ -58,8 +52,7 @@ public class TestPackedTrie {
         BasicTrieNode a = t.addWord("a");
         a.setId(100);
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
+        PackedTrie.pack(t, out);
         byte[] pack = out.toByteArray();
         assertEquals(7, pack.length);
         assertEquals(17, pack[0]);
@@ -87,8 +80,7 @@ public class TestPackedTrie {
     @Test
     public void testPackTrieId() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
+        PackedTrie.pack(createSample(), out);
         byte[] pack = out.toByteArray();
         assertEquals(29, pack.length);
         assertEquals("[33, -122, 49, -119, -126, -123, -29, 4, -23, -127, 2, 19, -125, -126, -30, 7, 65, -116, -126, -126, -29, 2, -126, -124, -31, 11, -30, 4, -106]", Arrays.toString(pack));
@@ -97,20 +89,18 @@ public class TestPackedTrie {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testPackTrieHugeId() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
         BasicTrie t = new BasicTrie();
         BasicTrieNode a = t.addWord("a");
         a.setId(Long.MAX_VALUE);
-        p.pack(t, out);
+        PackedTrie.pack(t, out);
     }
 
     @Test
     public void testLoadEmptyTrie() throws IOException {
         BasicTrie t = new BasicTrie();
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(t, out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         assertNotNull(p);
         assertNull(p.get("a"));
         assertFalse(p.iteratePatterns("_").hasNext());
@@ -123,9 +113,8 @@ public class TestPackedTrie {
     public void testGetNPE() throws IOException {
         BasicTrie t = new BasicTrie();
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(t, out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         p.get(null);
     }
 
@@ -133,18 +122,16 @@ public class TestPackedTrie {
     public void testGetIAE() throws IOException {
         BasicTrie t = new BasicTrie();
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(t, out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         p.get("");
     }
 
     @Test
     public void testGet() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(createSample(), out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         assertEquals(100, (long) p.get("a"));
         assertEquals(200, (long) p.get("abc"));
         assertEquals(300, (long) p.get("abé"));
@@ -158,9 +145,8 @@ public class TestPackedTrie {
     @Test
     public void testEmptyPatternIterator() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(createSample(), out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         PackedTrie.PatternIterator pi = p.iteratePatterns("");
         assertFalse(pi.hasNext());
         pi = p.iteratePatterns("", -1, -1);
@@ -172,9 +158,8 @@ public class TestPackedTrie {
     @Test
     public void testEmptyValueIterator() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(createSample(), out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         PackedTrie.LongIterator pi = p.iterateValues("");
         assertFalse(pi.hasNext());
         pi = p.iterateValues("", -1, -1);
@@ -186,9 +171,8 @@ public class TestPackedTrie {
     @Test
     public void testPatternIteratorOne() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(createSample(), out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         PackedTrie.PatternIterator pi = p.iteratePatterns("_");
         assertTrue(pi.hasNext());
         Map.Entry<String, Long> e = pi.next();
@@ -209,9 +193,8 @@ public class TestPackedTrie {
     @Test
     public void testPatternIteratorTwo() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(createSample(), out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         PackedTrie.PatternIterator pi = p.iteratePatterns("__");
         assertTrue(pi.hasNext());
         Map.Entry<String, Long> e = pi.next();
@@ -232,9 +215,8 @@ public class TestPackedTrie {
     @Test
     public void testPatternIteratorThree() throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(createSample(), out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(createSample(), out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
         PackedTrie.PatternIterator pi = p.iteratePatterns("___");
         assertTrue(pi.hasNext());
         Map.Entry<String, Long> e = pi.next();
@@ -276,9 +258,8 @@ public class TestPackedTrie {
         }
 
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024 * 1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(t, out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
 
         for (Map.Entry<String, Long> e : source.entrySet()) {
             Long l = p.get(e.getKey());
@@ -306,9 +287,8 @@ public class TestPackedTrie {
         }
 
         ByteArrayOutputStream out = new ByteArrayOutputStream(1024 * 1024);
-        PackedTrie p = new PackedTrie();
-        p.pack(t, out);
-        p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
+        PackedTrie.pack(t, out);
+        PackedTrie p = new PackedTrie(BufferFacadeFactory.create(ByteBuffer.wrap(out.toByteArray())));
 
         long pageNo = 0;
         long pageSize = 10;

@@ -22,8 +22,6 @@ import java.util.*;
 public class PackedTrie {
 
     private static final int MAX_CHILDREN = 256;
-    // max 20 bytes per child = two variable length longs, max 10 bytes each
-    private final ByteArrayOutputStream childrenStream = new ByteArrayOutputStream(20 * MAX_CHILDREN);
 
     // for reading
     private BufferFacade buffer;
@@ -32,9 +30,6 @@ public class PackedTrie {
     private boolean[] rootIsWord = new boolean[0];
     private boolean[] rootHasChildren = new boolean[0];
     private long[] rootValues = new long[0];
-
-    public PackedTrie() {
-    }
 
     public PackedTrie(BufferFacade b) throws IOException {
         this.buffer = b;
@@ -91,7 +86,10 @@ public class PackedTrie {
      * @param trie input trie
      * @param out  output stream
      */
-    public void pack(BasicTrie trie, OutputStream out) throws IOException {
+    public static void pack(BasicTrie trie, OutputStream out) throws IOException {
+        // max 20 bytes per child = two variable length longs, max 10 bytes each
+        ByteArrayOutputStream childrenStream = new ByteArrayOutputStream(20 * MAX_CHILDREN);
+
         BasicTrieNode root = trie.getRoot();
         long rootOffset = 0;
         long offset = 0;
@@ -124,7 +122,7 @@ public class PackedTrie {
                     if (curNode == root) {
                         rootOffset = offset;
                     }
-                    offset = offset + writeNode(curNode, out);
+                    offset = offset + writeNode(childrenStream, curNode, out);
 
                     q.removeFirst();
                 }
@@ -142,7 +140,7 @@ public class PackedTrie {
      * @param out  stream to write to
      * @return number of bytes written
      */
-    private long writeNode(BasicTrieNode node, OutputStream out) throws IOException {
+    private static long writeNode(ByteArrayOutputStream childrenStream, BasicTrieNode node, OutputStream out) throws IOException {
 //        0  13 offset of root node                             // save root offset at the end in MSB 1 bytes (root should have children and the last has offset in MSB 0 bytes
 //    ____
 //        1  10 node value of ‘aa’                               // word id, variable length long, MSB 01 bytes + 2 LSB bits=hasChildren+isWord flags. max id 2^61-1
@@ -226,7 +224,7 @@ public class PackedTrie {
      * @param value 64-bit integer to encode
      * @return size in bytes of the variable length encoded 64-bit integer
      */
-    private int getVarLenLongSize(final long value) {
+    private static int getVarLenLongSize(final long value) {
         if ((value & (0xFFFFFFFFFFFFFFFFL << 7)) == 0) return 1;
         if ((value & (0xFFFFFFFFFFFFFFFFL << 14)) == 0) return 2;
         if ((value & (0xFFFFFFFFFFFFFFFFL << 21)) == 0) return 3;
@@ -245,7 +243,7 @@ public class PackedTrie {
      * @param value 64-bit integer to encode
      * @throws IOException
      */
-    private void writeVarLenLong01(OutputStream out, long value) throws IOException {
+    private static void writeVarLenLong01(OutputStream out, long value) throws IOException {
         while (true) {
             if ((value & ~0x7FL) == 0) {
                 out.write(((int) value & 0x7F) | 0x80);
@@ -291,7 +289,7 @@ public class PackedTrie {
      * @param out stream to write to
      * @throws IOException
      */
-    private void writeVarLenLong1(long value, OutputStream out) throws IOException {
+    private static void writeVarLenLong1(long value, OutputStream out) throws IOException {
         while (true) {
             if ((value & ~0x7FL) == 0) {
                 out.write(((int) value & 0x7F) | 0x80);
@@ -312,7 +310,7 @@ public class PackedTrie {
      * @return 64-bit integer
      * @throws IOException
      */
-    private long readVarLenLong1(BufferFacade buffer, long offset, long ceiling) throws IOException {
+    private static long readVarLenLong1(BufferFacade buffer, long offset, long ceiling) throws IOException {
         int shift = 0;
         long result = 0;
         while (shift <= 70 && offset < ceiling) {
@@ -368,7 +366,7 @@ public class PackedTrie {
      * @param out stream to write to
      * @throws IOException
      */
-    private void writeVarLenLong0(long value, OutputStream out) throws IOException {
+    private static void writeVarLenLong0(long value, OutputStream out) throws IOException {
         while (true) {
             if ((value & ~0x7FL) == 0) {
                 out.write((int) value & 0x7F);
@@ -389,7 +387,7 @@ public class PackedTrie {
      * @return 64-bit integer
      * @throws IOException
      */
-    private long readVarLenLong0(BufferFacade buffer, long offset, long ceiling) throws IOException {
+    private static long readVarLenLong0(BufferFacade buffer, long offset, long ceiling) throws IOException {
         int shift = 0;
         long result = 0;
         while (shift <= 70 && offset < ceiling) {
@@ -419,7 +417,7 @@ public class PackedTrie {
      * @return 64-bit integer
      * @throws IOException
      */
-    private long readVarLenLong0Back(BufferFacade buffer, long offset, long floor) throws IOException {
+    private static long readVarLenLong0Back(BufferFacade buffer, long offset, long floor) throws IOException {
         int shift = 0;
         long result = 0;
         while (shift <= 70 && floor < offset) {
@@ -450,7 +448,7 @@ public class PackedTrie {
      * @return offset
      * @throws IOException
      */
-    private long binarySearchChildren(BufferFacade buffer, char c, long low, long high) throws IOException {
+    private static long binarySearchChildren(BufferFacade buffer, char c, long low, long high) throws IOException {
         while (low < high) {
             long midRange = low + ((high - low) / 2);
 
