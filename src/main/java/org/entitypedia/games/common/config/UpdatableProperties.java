@@ -105,7 +105,7 @@ public class UpdatableProperties implements InitializingBean, DisposableBean {
 
             try (final WatchService watchService = FileSystems.getDefault().newWatchService()) {
                 Path path = Paths.get(configFile.getParent());
-                WatchKey watchKey = path.register(watchService, java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY);
+                path.register(watchService, java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY);
 
                 while (true) {
                     try {
@@ -121,7 +121,6 @@ public class UpdatableProperties implements InitializingBean, DisposableBean {
                         }
                         key.reset();
                     } catch (InterruptedException e) {
-                        watchKey.cancel();
                         log.debug(e.getMessage(), e);
                     }
                 }
