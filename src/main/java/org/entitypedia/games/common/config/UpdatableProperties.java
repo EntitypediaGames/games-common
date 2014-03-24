@@ -54,7 +54,7 @@ public class UpdatableProperties implements InitializingBean, DisposableBean {
             updatablePropertiesChangeListenerThread = new Thread(listener, UpdatablePropertiesChangeListener.class.getSimpleName());
             updatablePropertiesChangeListenerThread.start();
         } catch (FileNotFoundException e) {
-            log.warn(e.getMessage(), e);
+            log.warn(e.getMessage());
         }
     }
 
