@@ -16,7 +16,6 @@ public abstract class WordGameUserDAO<T extends WordGameUser> extends AbstractTy
     @Override
     @SuppressWarnings("unchecked")
     public T getUserByUID(String uid) {
-        return (T) getSessionFactory().getCurrentSession().
-                createCriteria(getTargetType()).add(Restrictions.naturalId().set("uid", uid)).setCacheable(true).uniqueResult();
+        return (T) getSessionFactory().getCurrentSession().byNaturalId(getTargetType()).using("uid", uid).load();
     }
 }

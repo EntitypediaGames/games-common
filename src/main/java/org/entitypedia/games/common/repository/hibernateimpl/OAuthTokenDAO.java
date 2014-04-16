@@ -15,8 +15,7 @@ public class OAuthTokenDAO extends AbstractTypedDAO<OAuthToken, Long> implements
 
     @Override
     public OAuthToken getTokenByUIDAndResource(String uid, String resourceId) {
-        return (OAuthToken) getSessionFactory().getCurrentSession().
-                createCriteria(OAuthToken.class).
-                add(Restrictions.naturalId().set("uid", uid).set("resourceId", resourceId)).setCacheable(true).uniqueResult();
+        return (OAuthToken) getSessionFactory().getCurrentSession().byNaturalId(OAuthToken.class).
+                using("uid", uid).using("resourceId", resourceId).load();
     }
 }
