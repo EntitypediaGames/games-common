@@ -5,7 +5,6 @@ import org.entitypedia.games.common.repository.IOAuthTokenDAO;
 import org.entitypedia.games.common.service.IOAuthTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth.consumer.OAuthConsumerToken;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,7 +16,7 @@ public class OAuthTokenService implements IOAuthTokenService {
     private IOAuthTokenDAO tokenDAO;
 
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @Transactional(rollbackFor = Throwable.class)
     public OAuthConsumerToken getTokenByUIDAndResource(String uid, String resourceId) {
         OAuthConsumerToken result = null;
         OAuthToken token = tokenDAO.getTokenByUIDAndResource(uid, resourceId);
@@ -32,7 +31,7 @@ public class OAuthTokenService implements IOAuthTokenService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class)
     public void storeToken(String uid, OAuthConsumerToken token) {
         OAuthToken t = tokenDAO.getTokenByUIDAndResource(uid, token.getResourceId());
         if (null == t) {
@@ -47,7 +46,7 @@ public class OAuthTokenService implements IOAuthTokenService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class)
     public void removeToken(String uid, OAuthConsumerToken token) {
         OAuthToken t = tokenDAO.getTokenByUIDAndResource(uid, token.getResourceId());
         if (null != t) {
@@ -56,7 +55,7 @@ public class OAuthTokenService implements IOAuthTokenService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class)
     public void removeTokenByUIDAndResourceId(String uid, String resourceId) {
         OAuthToken token = tokenDAO.getTokenByUIDAndResource(uid, resourceId);
         if (null != token) {

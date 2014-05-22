@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Constructor;
@@ -37,7 +36,7 @@ public abstract class WordGameUserService<T extends WordGameUser> implements IWo
 
     //TODO AA filter by IP to avoid flooding
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+    @Transactional(rollbackFor = Throwable.class)
     public T importUser(String uid) {
         T result = wordGameUserDAO.getUserByUID(uid);
         if (null == result && null != uid) {

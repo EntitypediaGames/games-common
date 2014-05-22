@@ -21,7 +21,7 @@ public class WordGameUserConsumerDetailsService implements ConsumerDetailsServic
     private IWordGameUserDAO userDAO;
 
     @Override
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    @Transactional(rollbackFor = Throwable.class)
     public ConsumerDetails loadConsumerByConsumerKey(String consumerKey) throws OAuthException {
         WordGameUser user = userDAO.getUserByUID(consumerKey);
 
