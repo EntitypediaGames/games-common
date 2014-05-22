@@ -2,13 +2,13 @@ package org.entitypedia.games.common.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.ClassPathResource;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.*;
 import java.nio.file.*;
 import java.util.Properties;
@@ -20,7 +20,7 @@ import java.util.Properties;
  *
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class UpdatableProperties implements InitializingBean, DisposableBean {
+public class UpdatableProperties {
 
     private static final Logger log = LoggerFactory.getLogger(UpdatableProperties.class);
 
@@ -42,7 +42,7 @@ public class UpdatableProperties implements InitializingBean, DisposableBean {
         this.propertiesPath = propertiesPath;
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         if (null != backupProperties) {
             environment.getPropertySources().addLast(new PropertiesPropertySource(backupPropertiesName, backupProperties));
@@ -59,7 +59,7 @@ public class UpdatableProperties implements InitializingBean, DisposableBean {
     }
 
 
-    @Override
+    @PreDestroy
     public void destroy() throws Exception {
         if (null != updatablePropertiesChangeListenerThread) {
             updatablePropertiesChangeListenerThread.interrupt();

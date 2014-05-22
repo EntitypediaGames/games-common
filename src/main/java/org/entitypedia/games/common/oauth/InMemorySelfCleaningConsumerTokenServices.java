@@ -3,12 +3,12 @@ package org.entitypedia.games.common.oauth;
 import org.entitypedia.games.common.model.WordGameUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth.consumer.OAuthConsumerToken;
 import org.springframework.security.oauth.consumer.token.OAuthConsumerTokenServices;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -18,7 +18,7 @@ import java.util.concurrent.*;
  *
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerTokenServices, InitializingBean, DisposableBean {
+public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerTokenServices {
     // keep in mind tokens depend on currently authenticated principal... SecurityContext.getAuthentication...
     // and we often don't have it here, because /login is not protected
     // therefore we pull it out of request
@@ -122,7 +122,7 @@ public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerT
     }
 
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         if (cleanupIntervalSeconds == null) {
             cleanupIntervalSeconds = 60 * 60;
@@ -156,6 +156,7 @@ public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerT
         return (tokenHolder.getTimestamp() + (getRequestTokenValiditySeconds() * 1000L)) < System.currentTimeMillis();
     }
 
+    @PreDestroy
     public void destroy() throws Exception {
         if (scheduler != null) {
             scheduler.shutdownNow();

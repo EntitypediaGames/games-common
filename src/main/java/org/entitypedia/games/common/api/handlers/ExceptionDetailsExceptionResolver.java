@@ -18,7 +18,6 @@ package org.entitypedia.games.common.api.handlers;
 import org.entitypedia.games.common.exceptions.ExceptionDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -31,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.util.WebUtils;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,14 +82,12 @@ import java.util.List;
  * </table>
  * <p/>
  *
- *
- * @see DefaultExceptionDetailsResolver
- * @see HttpMessageConverter
- *
  * @author Les Hazlewood
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @see DefaultExceptionDetailsResolver
+ * @see HttpMessageConverter
  */
-public class ExceptionDetailsExceptionResolver extends AbstractHandlerExceptionResolver implements InitializingBean {
+public class ExceptionDetailsExceptionResolver extends AbstractHandlerExceptionResolver {
 
     private static final Logger log = LoggerFactory.getLogger(ExceptionDetailsExceptionResolver.class);
 
@@ -109,7 +107,7 @@ public class ExceptionDetailsExceptionResolver extends AbstractHandlerExceptionR
         return this.errorResolver;
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         ensureMessageConverters();
     }

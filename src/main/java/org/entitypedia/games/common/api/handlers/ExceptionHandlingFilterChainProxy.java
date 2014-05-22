@@ -2,12 +2,12 @@ package org.entitypedia.games.common.api.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class ExceptionHandlingFilterChainProxy extends FilterChainProxy implements InitializingBean {
+public class ExceptionHandlingFilterChainProxy extends FilterChainProxy {
 
     private static final Logger log = LoggerFactory.getLogger(ExceptionHandlingFilterChainProxy.class);
 
@@ -37,7 +37,7 @@ public class ExceptionHandlingFilterChainProxy extends FilterChainProxy implemen
         super(filterChains);
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
         Assert.notNull(exceptionResolver, "An exception resolver is required.");

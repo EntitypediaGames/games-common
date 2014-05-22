@@ -1,4 +1,4 @@
-// Generated from Filter.g4 by ANTLR 4.2
+// Generated from Filter.g4 by ANTLR 4.2.2
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 
@@ -223,7 +223,7 @@ public class FilterParser extends Parser {
 			setState(33);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
@@ -909,21 +909,21 @@ public class FilterParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class DecimalContext extends LiteralContext {
-		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
-		public DecimalContext(LiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitDecimal(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class FloatContext extends LiteralContext {
 		public TerminalNode FloatingPointLiteral() { return getToken(FilterParser.FloatingPointLiteral, 0); }
 		public FloatContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitFloat(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class DecimalContext extends LiteralContext {
+		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
+		public DecimalContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitDecimal(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1012,7 +1012,7 @@ public class FilterParser extends Parser {
 			setState(142);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			while ( _alt!=2 && _alt!=-1 ) {
+			while ( _alt!=2 && _alt!=ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{

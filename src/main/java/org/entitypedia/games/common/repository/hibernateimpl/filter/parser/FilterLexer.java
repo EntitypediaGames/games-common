@@ -1,4 +1,4 @@
-// Generated from Filter.g4 by ANTLR 4.2
+// Generated from Filter.g4 by ANTLR 4.2.2
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 

@@ -32,7 +32,6 @@ import java.net.URL;
  */
 @Controller
 public class GameFrameworkProxyController {
-    // TODO AA upgrade to 4.3 branch of httpclient
 
     private static final Logger log = LoggerFactory.getLogger(GameFrameworkProxyController.class);
 

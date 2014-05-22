@@ -3,9 +3,9 @@ package org.entitypedia.games.common.util.logging;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class HibernateStatisticsLogger implements InitializingBean, DisposableBean {
+public class HibernateStatisticsLogger {
 
     private static final Logger log = LoggerFactory.getLogger(HibernateStatisticsLogger.class);
 
@@ -31,7 +31,7 @@ public class HibernateStatisticsLogger implements InitializingBean, DisposableBe
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         // hibernate cache statistics logging
         scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -48,6 +48,7 @@ public class HibernateStatisticsLogger implements InitializingBean, DisposableBe
         scheduler.scheduleAtFixedRate(statLogger, statisticsIntervalSeconds, statisticsIntervalSeconds, TimeUnit.SECONDS);
     }
 
+    @PreDestroy
     public void destroy() throws Exception {
         if (scheduler != null) {
             scheduler.shutdownNow();

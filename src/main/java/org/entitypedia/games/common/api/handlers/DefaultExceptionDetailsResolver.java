@@ -21,7 +21,6 @@ import org.entitypedia.games.common.exceptions.WordGameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.http.HttpStatus;
@@ -36,6 +35,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
+import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -48,7 +48,7 @@ import java.util.Map;
  * @author Les Hazlewood
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public class DefaultExceptionDetailsResolver implements ExceptionDetailsResolver, MessageSourceAware, InitializingBean {
+public class DefaultExceptionDetailsResolver implements ExceptionDetailsResolver, MessageSourceAware {
 
     public static final String DEFAULT_EXCEPTION_MESSAGE_VALUE = "_exmsg";
     public static final String EXCEPTION_CLASS_PLACEHOLDER = "_exclass";
@@ -101,7 +101,7 @@ public class DefaultExceptionDetailsResolver implements ExceptionDetailsResolver
         this.defaultWhatToDoMessage = defaultWhatToDoMessage;
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         //populate with some defaults:
         Map<String, String> definitions = createDefaultExceptionMappingDefinitions();

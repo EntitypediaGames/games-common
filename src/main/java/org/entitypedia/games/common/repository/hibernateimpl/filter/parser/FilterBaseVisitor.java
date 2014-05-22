@@ -1,4 +1,4 @@
-// Generated from Filter.g4 by ANTLR 4.2
+// Generated from Filter.g4 by ANTLR 4.2.2
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 
@@ -36,7 +36,7 @@ public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIsNull(@NotNull FilterParser.IsNullContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIsNotNull(@NotNull FilterParser.IsNotNullContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -44,7 +44,7 @@ public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIsNotNull(@NotNull FilterParser.IsNotNullContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIsNull(@NotNull FilterParser.IsNullContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -196,7 +196,7 @@ public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGtP(@NotNull FilterParser.GtPContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInit(@NotNull FilterParser.InitContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -204,7 +204,7 @@ public class FilterBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInit(@NotNull FilterParser.InitContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGtP(@NotNull FilterParser.GtPContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}

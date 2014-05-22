@@ -7,13 +7,13 @@ import org.entitypedia.games.common.util.HibernateAwareObjectMapper;
 import org.entitypedia.games.common.util.MapperSavingJackson2HttpMessageConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.access.intercept.aspectj.MethodInvocationAdapter;
 import org.springframework.security.access.prepost.PreInvocationAttribute;
 import org.springframework.security.access.prepost.PreInvocationAuthorizationAdvice;
 import org.springframework.security.access.prepost.PrePostInvocationAttributeFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public aspect JacksonMixinSetupAspect implements InitializingBean {
+public aspect JacksonMixinSetupAspect {
 
     private static final Logger log = LoggerFactory.getLogger(JacksonMixinSetupAspect.class);
 
@@ -40,7 +40,7 @@ public aspect JacksonMixinSetupAspect implements InitializingBean {
 
     private ThreadLocal<List<JacksonMixin>> tlMixins = new ThreadLocal<>();
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         // hack package local constructor...
         constructor = MethodInvocationAdapter.class.getDeclaredConstructor(JoinPoint.class);

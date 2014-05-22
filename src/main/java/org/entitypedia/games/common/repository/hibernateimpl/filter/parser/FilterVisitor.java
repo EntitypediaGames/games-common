@@ -1,4 +1,4 @@
-// Generated from Filter.g4 by ANTLR 4.2
+// Generated from Filter.g4 by ANTLR 4.2.2
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 
@@ -28,18 +28,18 @@ public interface FilterVisitor<T> extends ParseTreeVisitor<T> {
 	T visitNeg(@NotNull FilterParser.NegContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#isNull}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIsNull(@NotNull FilterParser.IsNullContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link FilterParser#isNotNull}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIsNotNull(@NotNull FilterParser.IsNotNullContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link FilterParser#isNull}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIsNull(@NotNull FilterParser.IsNullContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link FilterParser#geP}.
@@ -168,18 +168,18 @@ public interface FilterVisitor<T> extends ParseTreeVisitor<T> {
 	T visitLtP(@NotNull FilterParser.LtPContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#gtP}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGtP(@NotNull FilterParser.GtPContext ctx);
-
-	/**
 	 * Visit a parse tree produced by {@link FilterParser#init}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitInit(@NotNull FilterParser.InitContext ctx);
+
+	/**
+	 * Visit a parse tree produced by {@link FilterParser#gtP}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGtP(@NotNull FilterParser.GtPContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link FilterParser#booleanLiteral}.
