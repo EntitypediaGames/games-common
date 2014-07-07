@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.entitypedia.games</groupId>
         <artifactId>entitypedia-games-parent</artifactId>
-        <version>10-SNAPSHOT</version>
+        <version>10</version>
     </parent>
 
     <artifactId>entitypedia-games-common</artifactId>
@@ -60,13 +60,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.11</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-client</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
+            <version>1.0.11</version>
         </dependency>
 
         <dependency>
