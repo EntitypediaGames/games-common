@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.entitypedia.games</groupId>
         <artifactId>entitypedia-games-parent</artifactId>
-        <version>10</version>
+        <version>11-SNAPSHOT</version>
     </parent>
 
     <artifactId>entitypedia-games-common</artifactId>
@@ -17,7 +17,7 @@
     <url>http://games.entitypedia.org/</url>
 
     <properties>
-        <antlr4.version>4.2.2</antlr4.version>
+        <antlr4.version>4.4</antlr4.version>
     </properties>
 
     <scm>
@@ -60,13 +60,13 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.11</version>
+            <version>1.0.12-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-client</artifactId>
-            <version>1.0.11</version>
+            <version>1.0.12-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -82,7 +82,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.antlr</groupId>
+            <groupId>com.tunnelvisionlabs</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>${antlr4.version}</version>
             <exclusions>
@@ -269,7 +269,7 @@
             </plugin>
 
             <plugin>
-                <groupId>org.antlr</groupId>
+                <groupId>com.tunnelvisionlabs</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>${antlr4.version}</version>
                 <configuration>
