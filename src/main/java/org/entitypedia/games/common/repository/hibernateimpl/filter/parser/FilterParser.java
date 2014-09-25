@@ -1,4 +1,4 @@
-// Generated from Filter.g4 by ANTLR 4.2.2
+// Generated from Filter.g4 by ANTLR 4.4
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 
@@ -11,11 +11,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class FilterParser extends Parser {
-	protected static final DFA[] _decisionToDFA;
-	protected static final PredictionContextCache _sharedContextCache =
-		new PredictionContextCache();
 	public static final int
 		T__2=1, T__1=2, T__0=3, LRB=4, RRB=5, EQ=6, EQP=7, GE=8, GEP=9, GT=10, 
 		GTP=11, LIKE=12, ILIKE=13, LE=14, LEP=15, LT=16, LTP=17, NE=18, NEP=19, 
@@ -49,12 +45,9 @@ public class FilterParser extends Parser {
 	@Override
 	public String getSerializedATN() { return _serializedATN; }
 
-	@Override
-	public ATN getATN() { return _ATN; }
-
 	public FilterParser(TokenStream input) {
 		super(input);
-		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
+		_interp = new ParserATNSimulator(this,_ATN);
 	}
 	public static class InitContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(FilterParser.EOF, 0); }
@@ -66,12 +59,13 @@ public class FilterParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_init; }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitInit(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitInit(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
+	@RuleVersion(0)
 	public final InitContext init() throws RecognitionException {
 		InitContext _localctx = new InitContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_init);
@@ -105,7 +99,7 @@ public class FilterParser extends Parser {
 		}
 	}
 	public static class ConContext extends ExprContext {
-		public List<ExprContext> expr() {
+		public List<? extends ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public TerminalNode AND() { return getToken(FilterParser.AND, 0); }
@@ -114,8 +108,8 @@ public class FilterParser extends Parser {
 		}
 		public ConContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitCon(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitCon(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -126,8 +120,8 @@ public class FilterParser extends Parser {
 		public TerminalNode NOT() { return getToken(FilterParser.NOT, 0); }
 		public NegContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitNeg(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitNeg(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -139,8 +133,8 @@ public class FilterParser extends Parser {
 		public TerminalNode LRB() { return getToken(FilterParser.LRB, 0); }
 		public BktContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitBkt(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitBkt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -150,13 +144,13 @@ public class FilterParser extends Parser {
 		}
 		public OpContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitOp(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitOp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class DisContext extends ExprContext {
-		public List<ExprContext> expr() {
+		public List<? extends ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public TerminalNode OR() { return getToken(FilterParser.OR, 0); }
@@ -165,12 +159,13 @@ public class FilterParser extends Parser {
 		}
 		public DisContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitDis(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitDis(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
+	@RuleVersion(0)
 	public final ExprContext expr() throws RecognitionException {
 		return expr(0);
 	}
@@ -223,7 +218,7 @@ public class FilterParser extends Parser {
 			setState(33);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
-			while ( _alt!=2 && _alt!=ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
@@ -289,8 +284,8 @@ public class FilterParser extends Parser {
 		public TerminalNode ISNOTEMPTY() { return getToken(FilterParser.ISNOTEMPTY, 0); }
 		public IsNotEmptyContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitIsNotEmpty(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitIsNotEmpty(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -301,8 +296,8 @@ public class FilterParser extends Parser {
 		}
 		public IsNullContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitIsNull(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitIsNull(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -313,8 +308,8 @@ public class FilterParser extends Parser {
 		}
 		public IsNotNullContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitIsNotNull(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitIsNotNull(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -326,8 +321,8 @@ public class FilterParser extends Parser {
 		public TerminalNode StringLiteral() { return getToken(FilterParser.StringLiteral, 0); }
 		public IlikeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitIlike(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitIlike(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -335,14 +330,14 @@ public class FilterParser extends Parser {
 		public QualifiedNameContext qualifiedName(int i) {
 			return getRuleContext(QualifiedNameContext.class,i);
 		}
-		public List<QualifiedNameContext> qualifiedName() {
+		public List<? extends QualifiedNameContext> qualifiedName() {
 			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode GEP() { return getToken(FilterParser.GEP, 0); }
 		public GePContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitGeP(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitGeP(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -351,13 +346,13 @@ public class FilterParser extends Parser {
 		public QualifiedNameContext qualifiedName(int i) {
 			return getRuleContext(QualifiedNameContext.class,i);
 		}
-		public List<QualifiedNameContext> qualifiedName() {
+		public List<? extends QualifiedNameContext> qualifiedName() {
 			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public NePContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitNeP(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitNeP(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -369,8 +364,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public SltContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitSlt(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitSlt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -378,14 +373,14 @@ public class FilterParser extends Parser {
 		public QualifiedNameContext qualifiedName(int i) {
 			return getRuleContext(QualifiedNameContext.class,i);
 		}
-		public List<QualifiedNameContext> qualifiedName() {
+		public List<? extends QualifiedNameContext> qualifiedName() {
 			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode LTP() { return getToken(FilterParser.LTP, 0); }
 		public LtPContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitLtP(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitLtP(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -397,8 +392,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public SgtContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitSgt(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitSgt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -406,14 +401,14 @@ public class FilterParser extends Parser {
 		public QualifiedNameContext qualifiedName(int i) {
 			return getRuleContext(QualifiedNameContext.class,i);
 		}
-		public List<QualifiedNameContext> qualifiedName() {
+		public List<? extends QualifiedNameContext> qualifiedName() {
 			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode GTP() { return getToken(FilterParser.GTP, 0); }
 		public GtPContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitGtP(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitGtP(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -427,8 +422,8 @@ public class FilterParser extends Parser {
 		public TerminalNode GE() { return getToken(FilterParser.GE, 0); }
 		public GeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitGe(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitGe(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -442,8 +437,8 @@ public class FilterParser extends Parser {
 		}
 		public LtContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitLt(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitLt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -455,8 +450,8 @@ public class FilterParser extends Parser {
 		public TerminalNode LIKE() { return getToken(FilterParser.LIKE, 0); }
 		public LikeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitLike(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitLike(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -464,14 +459,14 @@ public class FilterParser extends Parser {
 		public QualifiedNameContext qualifiedName(int i) {
 			return getRuleContext(QualifiedNameContext.class,i);
 		}
-		public List<QualifiedNameContext> qualifiedName() {
+		public List<? extends QualifiedNameContext> qualifiedName() {
 			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode LEP() { return getToken(FilterParser.LEP, 0); }
 		public LePContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitLeP(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitLeP(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -482,8 +477,8 @@ public class FilterParser extends Parser {
 		public TerminalNode ISEMPTY() { return getToken(FilterParser.ISEMPTY, 0); }
 		public IsEmptyContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitIsEmpty(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitIsEmpty(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -497,8 +492,8 @@ public class FilterParser extends Parser {
 		}
 		public LeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitLe(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitLe(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -512,8 +507,8 @@ public class FilterParser extends Parser {
 		}
 		public NeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitNe(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitNe(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -525,8 +520,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public SeqContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitSeq(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitSeq(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -540,8 +535,8 @@ public class FilterParser extends Parser {
 		}
 		public GtContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitGt(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitGt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -553,8 +548,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public SgeContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitSge(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitSge(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -566,8 +561,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public SneContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitSne(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitSne(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -575,14 +570,14 @@ public class FilterParser extends Parser {
 		public QualifiedNameContext qualifiedName(int i) {
 			return getRuleContext(QualifiedNameContext.class,i);
 		}
-		public List<QualifiedNameContext> qualifiedName() {
+		public List<? extends QualifiedNameContext> qualifiedName() {
 			return getRuleContexts(QualifiedNameContext.class);
 		}
 		public TerminalNode EQP() { return getToken(FilterParser.EQP, 0); }
 		public EqPContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitEqP(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitEqP(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -594,8 +589,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public SleContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitSle(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitSle(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -609,12 +604,13 @@ public class FilterParser extends Parser {
 		public TerminalNode EQ() { return getToken(FilterParser.EQ, 0); }
 		public EqContext(OperContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitEq(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitEq(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
+	@RuleVersion(0)
 	public final OperContext oper() throws RecognitionException {
 		OperContext _localctx = new OperContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_oper);
@@ -884,8 +880,8 @@ public class FilterParser extends Parser {
 		public TerminalNode StringLiteral() { return getToken(FilterParser.StringLiteral, 0); }
 		public StringContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitString(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitString(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -895,8 +891,8 @@ public class FilterParser extends Parser {
 		}
 		public BooleanContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitBoolean(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitBoolean(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -904,17 +900,8 @@ public class FilterParser extends Parser {
 		public TerminalNode DateLiteral() { return getToken(FilterParser.DateLiteral, 0); }
 		public DateContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitDate(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class FloatContext extends LiteralContext {
-		public TerminalNode FloatingPointLiteral() { return getToken(FilterParser.FloatingPointLiteral, 0); }
-		public FloatContext(LiteralContext ctx) { copyFrom(ctx); }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitFloat(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitDate(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -922,12 +909,22 @@ public class FilterParser extends Parser {
 		public TerminalNode DecimalLiteral() { return getToken(FilterParser.DecimalLiteral, 0); }
 		public DecimalContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitDecimal(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitDecimal(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FloatContext extends LiteralContext {
+		public TerminalNode FloatingPointLiteral() { return getToken(FilterParser.FloatingPointLiteral, 0); }
+		public FloatContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitFloat(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
+	@RuleVersion(0)
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_literal);
@@ -955,8 +952,8 @@ public class FilterParser extends Parser {
 				setState(132); match(StringLiteral);
 				}
 				break;
-			case 2:
-			case 3:
+			case T__1:
+			case T__0:
 				_localctx = new BooleanContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
@@ -989,18 +986,19 @@ public class FilterParser extends Parser {
 		public TerminalNode Identifier(int i) {
 			return getToken(FilterParser.Identifier, i);
 		}
-		public List<TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
+		public List<? extends TerminalNode> Identifier() { return getTokens(FilterParser.Identifier); }
 		public QualifiedNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_qualifiedName; }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitQualifiedName(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitQualifiedName(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
+	@RuleVersion(0)
 	public final QualifiedNameContext qualifiedName() throws RecognitionException {
 		QualifiedNameContext _localctx = new QualifiedNameContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_qualifiedName);
@@ -1012,11 +1010,11 @@ public class FilterParser extends Parser {
 			setState(142);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			while ( _alt!=2 && _alt!=ATN.INVALID_ALT_NUMBER ) {
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(138); match(1);
+					setState(138); match(T__2);
 					setState(139); match(Identifier);
 					}
 					} 
@@ -1044,12 +1042,13 @@ public class FilterParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_booleanLiteral; }
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof FilterVisitor ) return ((FilterVisitor<? extends T>)visitor).visitBooleanLiteral(this);
+		public <Result> Result accept(ParseTreeVisitor<? extends Result> visitor) {
+			if ( visitor instanceof FilterVisitor<?> ) return ((FilterVisitor<? extends Result>)visitor).visitBooleanLiteral(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
+	@RuleVersion(0)
 	public final BooleanLiteralContext booleanLiteral() throws RecognitionException {
 		BooleanLiteralContext _localctx = new BooleanLiteralContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_booleanLiteral);
@@ -1059,7 +1058,7 @@ public class FilterParser extends Parser {
 			{
 			setState(145);
 			_la = _input.LA(1);
-			if ( !(_la==2 || _la==3) ) {
+			if ( !(_la==T__1 || _la==T__0) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
@@ -1092,7 +1091,7 @@ public class FilterParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3(\u0096\4\2\t\2\4"+
+		"\3\uaf6f\u8320\u479d\ub75c\u4880\u1605\u191c\uab37\3(\u0096\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\5\3\32\n\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\"\n\3\f\3\16\3%\13"+
 		"\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
@@ -1101,48 +1100,44 @@ public class FilterParser extends Parser {
 		"\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3"+
 		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4"+
 		"\3\4\3\4\3\4\3\4\3\4\5\4\u0083\n\4\3\5\3\5\3\5\3\5\3\5\5\5\u008a\n\5\3"+
-		"\6\3\6\3\6\7\6\u008f\n\6\f\6\16\6\u0092\13\6\3\7\3\7\3\7\2\3\4\b\2\4\6"+
-		"\b\n\f\2\3\3\2\4\5\u00af\2\16\3\2\2\2\4\31\3\2\2\2\6\u0082\3\2\2\2\b\u0089"+
-		"\3\2\2\2\n\u008b\3\2\2\2\f\u0093\3\2\2\2\16\17\5\4\3\2\17\20\7\2\2\3\20"+
-		"\3\3\2\2\2\21\22\b\3\1\2\22\23\7\"\2\2\23\32\5\4\3\6\24\32\5\6\4\2\25"+
-		"\26\7\6\2\2\26\27\5\4\3\2\27\30\7\7\2\2\30\32\3\2\2\2\31\21\3\2\2\2\31"+
-		"\24\3\2\2\2\31\25\3\2\2\2\32#\3\2\2\2\33\34\f\5\2\2\34\35\7 \2\2\35\""+
-		"\5\4\3\6\36\37\f\4\2\2\37 \7!\2\2 \"\5\4\3\5!\33\3\2\2\2!\36\3\2\2\2\""+
-		"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$\5\3\2\2\2%#\3\2\2\2&\'\5\n\6\2\'(\7\b\2"+
-		"\2()\5\b\5\2)\u0083\3\2\2\2*+\5\n\6\2+,\7\t\2\2,-\5\n\6\2-\u0083\3\2\2"+
-		"\2./\5\n\6\2/\60\7\n\2\2\60\61\5\b\5\2\61\u0083\3\2\2\2\62\63\5\n\6\2"+
-		"\63\64\7\13\2\2\64\65\5\n\6\2\65\u0083\3\2\2\2\66\67\5\n\6\2\678\7\f\2"+
-		"\289\5\b\5\29\u0083\3\2\2\2:;\5\n\6\2;<\7\r\2\2<=\5\n\6\2=\u0083\3\2\2"+
-		"\2>?\5\n\6\2?@\7\16\2\2@A\7\'\2\2A\u0083\3\2\2\2BC\5\n\6\2CD\7\17\2\2"+
-		"DE\7\'\2\2E\u0083\3\2\2\2FG\5\n\6\2GH\7\20\2\2HI\5\b\5\2I\u0083\3\2\2"+
-		"\2JK\5\n\6\2KL\7\21\2\2LM\5\n\6\2M\u0083\3\2\2\2NO\5\n\6\2OP\7\22\2\2"+
-		"PQ\5\b\5\2Q\u0083\3\2\2\2RS\5\n\6\2ST\7\23\2\2TU\5\n\6\2U\u0083\3\2\2"+
-		"\2VW\5\n\6\2WX\7\24\2\2XY\5\b\5\2Y\u0083\3\2\2\2Z[\5\n\6\2[\\\7\25\2\2"+
-		"\\]\5\n\6\2]\u0083\3\2\2\2^_\5\n\6\2_`\7\26\2\2`a\7&\2\2a\u0083\3\2\2"+
-		"\2bc\5\n\6\2cd\7\27\2\2de\7&\2\2e\u0083\3\2\2\2fg\5\n\6\2gh\7\30\2\2h"+
-		"i\7&\2\2i\u0083\3\2\2\2jk\5\n\6\2kl\7\31\2\2lm\7&\2\2m\u0083\3\2\2\2n"+
-		"o\5\n\6\2op\7\32\2\2pq\7&\2\2q\u0083\3\2\2\2rs\5\n\6\2st\7\33\2\2tu\7"+
-		"&\2\2u\u0083\3\2\2\2vw\5\n\6\2wx\7\34\2\2x\u0083\3\2\2\2yz\5\n\6\2z{\7"+
-		"\35\2\2{\u0083\3\2\2\2|}\5\n\6\2}~\7\36\2\2~\u0083\3\2\2\2\177\u0080\5"+
-		"\n\6\2\u0080\u0081\7\37\2\2\u0081\u0083\3\2\2\2\u0082&\3\2\2\2\u0082*"+
-		"\3\2\2\2\u0082.\3\2\2\2\u0082\62\3\2\2\2\u0082\66\3\2\2\2\u0082:\3\2\2"+
-		"\2\u0082>\3\2\2\2\u0082B\3\2\2\2\u0082F\3\2\2\2\u0082J\3\2\2\2\u0082N"+
-		"\3\2\2\2\u0082R\3\2\2\2\u0082V\3\2\2\2\u0082Z\3\2\2\2\u0082^\3\2\2\2\u0082"+
-		"b\3\2\2\2\u0082f\3\2\2\2\u0082j\3\2\2\2\u0082n\3\2\2\2\u0082r\3\2\2\2"+
-		"\u0082v\3\2\2\2\u0082y\3\2\2\2\u0082|\3\2\2\2\u0082\177\3\2\2\2\u0083"+
-		"\7\3\2\2\2\u0084\u008a\7&\2\2\u0085\u008a\7%\2\2\u0086\u008a\7\'\2\2\u0087"+
-		"\u008a\5\f\7\2\u0088\u008a\7$\2\2\u0089\u0084\3\2\2\2\u0089\u0085\3\2"+
-		"\2\2\u0089\u0086\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u0088\3\2\2\2\u008a"+
-		"\t\3\2\2\2\u008b\u0090\7#\2\2\u008c\u008d\7\3\2\2\u008d\u008f\7#\2\2\u008e"+
-		"\u008c\3\2\2\2\u008f\u0092\3\2\2\2\u0090\u008e\3\2\2\2\u0090\u0091\3\2"+
-		"\2\2\u0091\13\3\2\2\2\u0092\u0090\3\2\2\2\u0093\u0094\t\2\2\2\u0094\r"+
-		"\3\2\2\2\b\31!#\u0082\u0089\u0090";
+		"\6\3\6\3\6\7\6\u008f\n\6\f\6\16\6\u0092\13\6\3\7\3\7\3\7\2\2\3\4\b\2\2"+
+		"\4\2\6\2\b\2\n\2\f\2\2\3\3\2\4\5\u00af\2\16\3\2\2\2\4\31\3\2\2\2\6\u0082"+
+		"\3\2\2\2\b\u0089\3\2\2\2\n\u008b\3\2\2\2\f\u0093\3\2\2\2\16\17\5\4\3\2"+
+		"\17\20\7\2\2\3\20\3\3\2\2\2\21\22\b\3\1\2\22\23\7\"\2\2\23\32\5\4\3\6"+
+		"\24\32\5\6\4\2\25\26\7\6\2\2\26\27\5\4\3\2\27\30\7\7\2\2\30\32\3\2\2\2"+
+		"\31\21\3\2\2\2\31\24\3\2\2\2\31\25\3\2\2\2\32#\3\2\2\2\33\34\f\5\2\2\34"+
+		"\35\7 \2\2\35\"\5\4\3\6\36\37\f\4\2\2\37 \7!\2\2 \"\5\4\3\5!\33\3\2\2"+
+		"\2!\36\3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$\5\3\2\2\2%#\3\2\2\2&\'"+
+		"\5\n\6\2\'(\7\b\2\2()\5\b\5\2)\u0083\3\2\2\2*+\5\n\6\2+,\7\t\2\2,-\5\n"+
+		"\6\2-\u0083\3\2\2\2./\5\n\6\2/\60\7\n\2\2\60\61\5\b\5\2\61\u0083\3\2\2"+
+		"\2\62\63\5\n\6\2\63\64\7\13\2\2\64\65\5\n\6\2\65\u0083\3\2\2\2\66\67\5"+
+		"\n\6\2\678\7\f\2\289\5\b\5\29\u0083\3\2\2\2:;\5\n\6\2;<\7\r\2\2<=\5\n"+
+		"\6\2=\u0083\3\2\2\2>?\5\n\6\2?@\7\16\2\2@A\7\'\2\2A\u0083\3\2\2\2BC\5"+
+		"\n\6\2CD\7\17\2\2DE\7\'\2\2E\u0083\3\2\2\2FG\5\n\6\2GH\7\20\2\2HI\5\b"+
+		"\5\2I\u0083\3\2\2\2JK\5\n\6\2KL\7\21\2\2LM\5\n\6\2M\u0083\3\2\2\2NO\5"+
+		"\n\6\2OP\7\22\2\2PQ\5\b\5\2Q\u0083\3\2\2\2RS\5\n\6\2ST\7\23\2\2TU\5\n"+
+		"\6\2U\u0083\3\2\2\2VW\5\n\6\2WX\7\24\2\2XY\5\b\5\2Y\u0083\3\2\2\2Z[\5"+
+		"\n\6\2[\\\7\25\2\2\\]\5\n\6\2]\u0083\3\2\2\2^_\5\n\6\2_`\7\26\2\2`a\7"+
+		"&\2\2a\u0083\3\2\2\2bc\5\n\6\2cd\7\27\2\2de\7&\2\2e\u0083\3\2\2\2fg\5"+
+		"\n\6\2gh\7\30\2\2hi\7&\2\2i\u0083\3\2\2\2jk\5\n\6\2kl\7\31\2\2lm\7&\2"+
+		"\2m\u0083\3\2\2\2no\5\n\6\2op\7\32\2\2pq\7&\2\2q\u0083\3\2\2\2rs\5\n\6"+
+		"\2st\7\33\2\2tu\7&\2\2u\u0083\3\2\2\2vw\5\n\6\2wx\7\34\2\2x\u0083\3\2"+
+		"\2\2yz\5\n\6\2z{\7\35\2\2{\u0083\3\2\2\2|}\5\n\6\2}~\7\36\2\2~\u0083\3"+
+		"\2\2\2\177\u0080\5\n\6\2\u0080\u0081\7\37\2\2\u0081\u0083\3\2\2\2\u0082"+
+		"&\3\2\2\2\u0082*\3\2\2\2\u0082.\3\2\2\2\u0082\62\3\2\2\2\u0082\66\3\2"+
+		"\2\2\u0082:\3\2\2\2\u0082>\3\2\2\2\u0082B\3\2\2\2\u0082F\3\2\2\2\u0082"+
+		"J\3\2\2\2\u0082N\3\2\2\2\u0082R\3\2\2\2\u0082V\3\2\2\2\u0082Z\3\2\2\2"+
+		"\u0082^\3\2\2\2\u0082b\3\2\2\2\u0082f\3\2\2\2\u0082j\3\2\2\2\u0082n\3"+
+		"\2\2\2\u0082r\3\2\2\2\u0082v\3\2\2\2\u0082y\3\2\2\2\u0082|\3\2\2\2\u0082"+
+		"\177\3\2\2\2\u0083\7\3\2\2\2\u0084\u008a\7&\2\2\u0085\u008a\7%\2\2\u0086"+
+		"\u008a\7\'\2\2\u0087\u008a\5\f\7\2\u0088\u008a\7$\2\2\u0089\u0084\3\2"+
+		"\2\2\u0089\u0085\3\2\2\2\u0089\u0086\3\2\2\2\u0089\u0087\3\2\2\2\u0089"+
+		"\u0088\3\2\2\2\u008a\t\3\2\2\2\u008b\u0090\7#\2\2\u008c\u008d\7\3\2\2"+
+		"\u008d\u008f\7#\2\2\u008e\u008c\3\2\2\2\u008f\u0092\3\2\2\2\u0090\u008e"+
+		"\3\2\2\2\u0090\u0091\3\2\2\2\u0091\13\3\2\2\2\u0092\u0090\3\2\2\2\u0093"+
+		"\u0094\t\2\2\2\u0094\r\3\2\2\2\b\31!#\u0082\u0089\u0090";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
-		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
-		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {
-			_decisionToDFA[i] = new DFA(_ATN.getDecisionState(i), i);
-		}
 	}
 }

@@ -1,7 +1,8 @@
-// Generated from Filter.g4 by ANTLR 4.2.2
+// Generated from Filter.g4 by ANTLR 4.4
 
 package org.entitypedia.games.common.repository.hibernateimpl.filter.parser;
 
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -9,266 +10,321 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * This interface defines a complete generic visitor for a parse tree produced
  * by {@link FilterParser}.
  *
- * @param <T> The return type of the visit operation. Use {@link Void} for
+ * @param <Result> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
-public interface FilterVisitor<T> extends ParseTreeVisitor<T> {
+public interface FilterVisitor<Result> extends ParseTreeVisitor<Result> {
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#con}.
+	 * Visit a parse tree produced by the {@code con}
+	 * labeled alternative in {@link FilterParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCon(@NotNull FilterParser.ConContext ctx);
+	Result visitCon(@NotNull FilterParser.ConContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#neg}.
+	 * Visit a parse tree produced by the {@code neg}
+	 * labeled alternative in {@link FilterParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNeg(@NotNull FilterParser.NegContext ctx);
+	Result visitNeg(@NotNull FilterParser.NegContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#isNotNull}.
+	 * Visit a parse tree produced by the {@code isNotNull}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIsNotNull(@NotNull FilterParser.IsNotNullContext ctx);
+	Result visitIsNotNull(@NotNull FilterParser.IsNotNullContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#isNull}.
+	 * Visit a parse tree produced by the {@code isNull}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIsNull(@NotNull FilterParser.IsNullContext ctx);
+	Result visitIsNull(@NotNull FilterParser.IsNullContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#geP}.
+	 * Visit a parse tree produced by the {@code geP}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGeP(@NotNull FilterParser.GePContext ctx);
+	Result visitGeP(@NotNull FilterParser.GePContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#slt}.
+	 * Visit a parse tree produced by the {@code slt}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSlt(@NotNull FilterParser.SltContext ctx);
+	Result visitSlt(@NotNull FilterParser.SltContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#sgt}.
+	 * Visit a parse tree produced by the {@code sgt}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSgt(@NotNull FilterParser.SgtContext ctx);
+	Result visitSgt(@NotNull FilterParser.SgtContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#ge}.
+	 * Visit a parse tree produced by {@link FilterParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGe(@NotNull FilterParser.GeContext ctx);
+	Result visitExpr(@NotNull FilterParser.ExprContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#lt}.
+	 * Visit a parse tree produced by the {@code ge}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLt(@NotNull FilterParser.LtContext ctx);
+	Result visitGe(@NotNull FilterParser.GeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#date}.
+	 * Visit a parse tree produced by the {@code lt}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDate(@NotNull FilterParser.DateContext ctx);
+	Result visitLt(@NotNull FilterParser.LtContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#float}.
+	 * Visit a parse tree produced by the {@code date}
+	 * labeled alternative in {@link FilterParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFloat(@NotNull FilterParser.FloatContext ctx);
+	Result visitDate(@NotNull FilterParser.DateContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#isEmpty}.
+	 * Visit a parse tree produced by the {@code float}
+	 * labeled alternative in {@link FilterParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIsEmpty(@NotNull FilterParser.IsEmptyContext ctx);
+	Result visitFloat(@NotNull FilterParser.FloatContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#dis}.
+	 * Visit a parse tree produced by the {@code isEmpty}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDis(@NotNull FilterParser.DisContext ctx);
+	Result visitIsEmpty(@NotNull FilterParser.IsEmptyContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#boolean}.
+	 * Visit a parse tree produced by {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoolean(@NotNull FilterParser.BooleanContext ctx);
+	Result visitOper(@NotNull FilterParser.OperContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#sne}.
+	 * Visit a parse tree produced by the {@code dis}
+	 * labeled alternative in {@link FilterParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSne(@NotNull FilterParser.SneContext ctx);
+	Result visitDis(@NotNull FilterParser.DisContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#sle}.
+	 * Visit a parse tree produced by the {@code boolean}
+	 * labeled alternative in {@link FilterParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSle(@NotNull FilterParser.SleContext ctx);
+	Result visitBoolean(@NotNull FilterParser.BooleanContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#isNotEmpty}.
+	 * Visit a parse tree produced by the {@code sne}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIsNotEmpty(@NotNull FilterParser.IsNotEmptyContext ctx);
+	Result visitSne(@NotNull FilterParser.SneContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#op}.
+	 * Visit a parse tree produced by the {@code sle}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOp(@NotNull FilterParser.OpContext ctx);
+	Result visitSle(@NotNull FilterParser.SleContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#ilike}.
+	 * Visit a parse tree produced by the {@code isNotEmpty}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIlike(@NotNull FilterParser.IlikeContext ctx);
+	Result visitIsNotEmpty(@NotNull FilterParser.IsNotEmptyContext ctx);
+
+	/**
+	 * Visit a parse tree produced by the {@code op}
+	 * labeled alternative in {@link FilterParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Result visitOp(@NotNull FilterParser.OpContext ctx);
+
+	/**
+	 * Visit a parse tree produced by the {@code ilike}
+	 * labeled alternative in {@link FilterParser#oper}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Result visitIlike(@NotNull FilterParser.IlikeContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link FilterParser#qualifiedName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitQualifiedName(@NotNull FilterParser.QualifiedNameContext ctx);
+	Result visitQualifiedName(@NotNull FilterParser.QualifiedNameContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#neP}.
+	 * Visit a parse tree produced by the {@code neP}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNeP(@NotNull FilterParser.NePContext ctx);
+	Result visitNeP(@NotNull FilterParser.NePContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#ltP}.
+	 * Visit a parse tree produced by the {@code ltP}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLtP(@NotNull FilterParser.LtPContext ctx);
+	Result visitLtP(@NotNull FilterParser.LtPContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link FilterParser#init}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInit(@NotNull FilterParser.InitContext ctx);
+	Result visitInit(@NotNull FilterParser.InitContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#gtP}.
+	 * Visit a parse tree produced by the {@code gtP}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGtP(@NotNull FilterParser.GtPContext ctx);
+	Result visitGtP(@NotNull FilterParser.GtPContext ctx);
 
 	/**
 	 * Visit a parse tree produced by {@link FilterParser#booleanLiteral}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBooleanLiteral(@NotNull FilterParser.BooleanLiteralContext ctx);
+	Result visitBooleanLiteral(@NotNull FilterParser.BooleanLiteralContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#like}.
+	 * Visit a parse tree produced by the {@code like}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLike(@NotNull FilterParser.LikeContext ctx);
+	Result visitLike(@NotNull FilterParser.LikeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#decimal}.
+	 * Visit a parse tree produced by the {@code decimal}
+	 * labeled alternative in {@link FilterParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDecimal(@NotNull FilterParser.DecimalContext ctx);
+	Result visitDecimal(@NotNull FilterParser.DecimalContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#leP}.
+	 * Visit a parse tree produced by the {@code leP}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLeP(@NotNull FilterParser.LePContext ctx);
+	Result visitLeP(@NotNull FilterParser.LePContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#bkt}.
+	 * Visit a parse tree produced by the {@code bkt}
+	 * labeled alternative in {@link FilterParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBkt(@NotNull FilterParser.BktContext ctx);
+	Result visitBkt(@NotNull FilterParser.BktContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#le}.
+	 * Visit a parse tree produced by the {@code le}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLe(@NotNull FilterParser.LeContext ctx);
+	Result visitLe(@NotNull FilterParser.LeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#string}.
+	 * Visit a parse tree produced by the {@code string}
+	 * labeled alternative in {@link FilterParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitString(@NotNull FilterParser.StringContext ctx);
+	Result visitString(@NotNull FilterParser.StringContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#ne}.
+	 * Visit a parse tree produced by the {@code ne}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNe(@NotNull FilterParser.NeContext ctx);
+	Result visitNe(@NotNull FilterParser.NeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#seq}.
+	 * Visit a parse tree produced by the {@code seq}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSeq(@NotNull FilterParser.SeqContext ctx);
+	Result visitSeq(@NotNull FilterParser.SeqContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#gt}.
+	 * Visit a parse tree produced by the {@code gt}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGt(@NotNull FilterParser.GtContext ctx);
+	Result visitGt(@NotNull FilterParser.GtContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#sge}.
+	 * Visit a parse tree produced by the {@code sge}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSge(@NotNull FilterParser.SgeContext ctx);
+	Result visitSge(@NotNull FilterParser.SgeContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#eqP}.
+	 * Visit a parse tree produced by the {@code eqP}
+	 * labeled alternative in {@link FilterParser#oper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEqP(@NotNull FilterParser.EqPContext ctx);
+	Result visitEqP(@NotNull FilterParser.EqPContext ctx);
 
 	/**
-	 * Visit a parse tree produced by {@link FilterParser#eq}.
+	 * Visit a parse tree produced by {@link FilterParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEq(@NotNull FilterParser.EqContext ctx);
+	Result visitLiteral(@NotNull FilterParser.LiteralContext ctx);
+
+	/**
+	 * Visit a parse tree produced by the {@code eq}
+	 * labeled alternative in {@link FilterParser#oper}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	Result visitEq(@NotNull FilterParser.EqContext ctx);
 }
