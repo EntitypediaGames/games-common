@@ -31,8 +31,8 @@ import java.util.*;
  * Supported boolean operators: not, and, or.
  * </p>
  * <p>
- * Supported operators: eq, eqP, ge, geP, gt, gtP, like, ilike, le, leP, lt, ltP, ne, neP, seq, sge, sgt, sle, slt, sne, isEmpty, isNotEmpty, isNotNull, isNull.
- * For details on the operators see {@link org.hibernate.criterion.Restrictions} class. xxProperty operators are abbreviated as xxP. sizexx operators are abbreviated as sxx
+ * Supported operators: eq, eqP, ge, geP, gt, gtP, like, ilike, le, leP, lt, ltP, ne, neP, sizeEq, sizeGe, sizeGt, sizeLe, sizeLt, sizeNe, isEmpty, isNotEmpty, isNotNull, isNull.
+ * For details on the operators see {@link org.hibernate.criterion.Restrictions} class. xxProperty operators are abbreviated as xxP.
  * </p>
  *
  * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
