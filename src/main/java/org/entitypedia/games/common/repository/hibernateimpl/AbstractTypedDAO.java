@@ -7,9 +7,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @param <T>  - data type that the DAO serves
