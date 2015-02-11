@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * Generic DAO which handles basic methods.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public abstract class GenericDAO implements IGenericDAO {
 

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public interface ITypedDAO<T, PK extends Serializable> extends IGenericDAO {
 
@@ -33,6 +33,7 @@ public interface ITypedDAO<T, PK extends Serializable> extends IGenericDAO {
     /**
      * Returns the number of objects satisfying the criteria.
      *
+     * @param criteria criteria
      * @return the number of objects satisfying the criteria
      */
     long count(Collection<Criterion> criteria);
@@ -40,6 +41,8 @@ public interface ITypedDAO<T, PK extends Serializable> extends IGenericDAO {
     /**
      * Returns the number of objects satisfying the criteria.
      *
+     * @param criteria criteria
+     * @param aliases  table aliases
      * @return the number of objects satisfying the criteria
      */
     long count(Collection<Criterion> criteria, Map<String, String> aliases);
@@ -73,10 +76,10 @@ public interface ITypedDAO<T, PK extends Serializable> extends IGenericDAO {
      * Find a <code>page</code> of objects that satisfy given <code>filter</code>,
      * returning objects in a specified <code>order</code>.
      *
-     * @param filter     A set of criteria that defines the restrictions on the list
-     *                   of objects to be retrieved. See {@link org.entitypedia.games.common.repository.hibernateimpl.filter.FilterCriteriaParser} for syntax.
-     * @param page       If not null defines a specific page to be retrieved
-     * @param order      Optional list of ordering criteria
+     * @param filter A set of criteria that defines the restrictions on the list
+     *               of objects to be retrieved. See {@link org.entitypedia.games.common.repository.hibernateimpl.filter.FilterCriteriaParser} for syntax.
+     * @param page   If not null defines a specific page to be retrieved
+     * @param order  Optional list of ordering criteria
      * @return The resulting page of objects.
      */
     ResultsPage<T> find(Page page, String filter, String order);

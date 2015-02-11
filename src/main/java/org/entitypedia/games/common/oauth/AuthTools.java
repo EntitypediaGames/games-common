@@ -1,7 +1,7 @@
 package org.entitypedia.games.common.oauth;
 
 import org.entitypedia.games.common.exceptions.AuthenticatedUserRequiredException;
-import org.entitypedia.games.common.model.WordGameUser;
+import org.entitypedia.games.common.model.GameUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Authentication tools.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class AuthTools {
 
@@ -26,16 +26,17 @@ public class AuthTools {
     /**
      * Returns currently authenticated user or null if there isn't one.
      *
+     * @param <T> type
      * @return currently authenticated user or null if there isn't one
      */
     @SuppressWarnings("unchecked")
-    public static <T extends WordGameUser> T findCurrentUser() {
+    public static <T extends GameUser> T findCurrentUser() {
         T result = null;
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (null != securityContext) {
             Authentication a = securityContext.getAuthentication();
             if (null != a) {
-                if (a.getPrincipal() instanceof WordGameUser) {
+                if (a.getPrincipal() instanceof GameUser) {
                     result = (T) a.getPrincipal();
                     log.trace("Read user from securityContext.getAuthentication: {}", result);
                 }
@@ -47,9 +48,10 @@ public class AuthTools {
     /**
      * Returns currently authenticated user or throws an exception if there isn't one.
      *
+     * @param <T> type
      * @return currently authenticated user or throws an exception if there isn't one
      */
-    public static <T extends WordGameUser> T getCurrentUser() {
+    public static <T extends GameUser> T getCurrentUser() {
         T result = findCurrentUser();
         if (null == result) {
             throw new AuthenticatedUserRequiredException();

@@ -5,7 +5,7 @@ import org.apache.log4j.spi.LoggingEvent;
 
 /**
  * From http://java.dzone.com/articles/monitoring-declarative-transac?page=0,1
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class TransactionIndicatingFilter extends Filter {
     @Override

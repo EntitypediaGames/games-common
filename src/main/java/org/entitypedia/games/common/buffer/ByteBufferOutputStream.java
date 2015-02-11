@@ -40,6 +40,8 @@ extends OutputStream
 
     /**
      *  Creates an instance that repositions the passed buffer to its start.
+     *
+     *  @param buf input byte buffer
      */
     public ByteBufferOutputStream(ByteBuffer buf)
     {
@@ -50,6 +52,9 @@ extends OutputStream
     /**
      *  Creates an instance that repositions the passed buffer to the specified
      *  index.
+     *
+     *  @param buf input byte buffer
+     *  @param index target position
      */
     public ByteBufferOutputStream(ByteBuffer buf, int index)
     {

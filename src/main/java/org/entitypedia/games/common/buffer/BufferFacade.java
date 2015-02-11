@@ -29,6 +29,9 @@ public interface BufferFacade
     /**
      *  Returns the single byte at the specified index (relative to the
      *  relocation base).
+     *
+     *  @param index starting index
+     *  @return the single byte at the specified index
      */
     public byte get(long index);
 
@@ -36,6 +39,9 @@ public interface BufferFacade
     /**
      *  Updates the single byte at the specified index (relative to the
      *  relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void put(long index, byte value);
 
@@ -43,6 +49,9 @@ public interface BufferFacade
     /**
      *  Returns the 2-byte <code>short</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @return the 2-byte <code>short</code> value at the specified index
      */
     public short getShort(long index);
 
@@ -50,6 +59,9 @@ public interface BufferFacade
     /**
      *  Sets the 2-byte <code>short</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void putShort(long index, short value);
 
@@ -57,6 +69,9 @@ public interface BufferFacade
     /**
      *  Returns the 4-byte <code>int</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @return the 4-byte <code>int</code> value at the specified index
      */
     public int getInt(long index);
 
@@ -64,6 +79,9 @@ public interface BufferFacade
     /**
      *  Sets the 4-byte <code>int</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void putInt(long index, int value);
 
@@ -71,6 +89,9 @@ public interface BufferFacade
     /**
      *  Returns the 8-byte <code>long</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @return the 8-byte <code>long</code> value at the specified index
      */
     public long getLong(long index);
 
@@ -78,6 +99,9 @@ public interface BufferFacade
     /**
      *  Sets the 8-byte <code>long</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void putLong(long index, long value);
 
@@ -85,6 +109,9 @@ public interface BufferFacade
     /**
      *  Returns the 4-byte <code>float</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @return the 4-byte <code>float</code> value at the specified index
      */
     public float getFloat(long index);
 
@@ -92,6 +119,9 @@ public interface BufferFacade
     /**
      *  Sets the 4-byte <code>float</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void putFloat(long index, float value);
 
@@ -99,6 +129,9 @@ public interface BufferFacade
     /**
      *  Returns the 8-byte <code>double</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @return the 8-byte <code>double</code> value at the specified index
      */
     public double getDouble(long index);
 
@@ -106,6 +139,9 @@ public interface BufferFacade
     /**
      *  Sets the 8-byte <code>double</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void putDouble(long index, double value);
 
@@ -113,6 +149,9 @@ public interface BufferFacade
     /**
      *  Returns the 2-byte <code>char</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @return the 2-byte <code>char</code> value at the specified index
      */
     public char getChar(long index);
 
@@ -120,6 +159,9 @@ public interface BufferFacade
     /**
      *  Sets the 2-byte <code>char</code> value at the specified index
      *  (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input value
      */
     public void putChar(long index, char value);
 
@@ -127,6 +169,10 @@ public interface BufferFacade
     /**
      *  Returns an array containing the <code>len</code> bytes starting
      *  at the specified index (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param len array length
+     *  @return bytes starting at the specified index
      */
     public byte[] getBytes(long index, int len);
 
@@ -134,6 +180,9 @@ public interface BufferFacade
     /**
      *  Inserts the specified array into the buffer, starting at the given
      *  index (relative to the relocation base).
+     *
+     *  @param index starting index
+     *  @param value input array
      */
     public void putBytes(long index, byte[] value);
 
@@ -148,12 +197,17 @@ public interface BufferFacade
      *  normal <code>ByteBuffer</code>, the limit will be determined by the
      *  size of the original buffer. For a <code>MappedFileBuffer</code>,
      *  the limit will depend on the particular segment containing the offset.
+     *
+     *  @param index starting index
+     *  @return a slice of the underlying buffer
      */
     public ByteBuffer slice(long index);
 
 
     /**
      *  Returns the capacity of the wrapped buffer.
+     *
+     *  @return the capacity of the wrapped buffer
      */
     public long capacity();
 
@@ -168,6 +222,8 @@ public interface BufferFacade
      *  BufferFacadeFactory} does support limits, but the threadsafe facade
      *  only supports limits <em>that were set before the first facade method
      *  was invoked</em> (because it clones the buffer).
+     *
+     *  @return the limit of the buffer
      */
     public long limit();
 }

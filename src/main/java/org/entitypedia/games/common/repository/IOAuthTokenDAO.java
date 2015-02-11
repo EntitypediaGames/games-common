@@ -4,7 +4,7 @@ import org.entitypedia.games.common.repository.ITypedDAO;
 import org.entitypedia.games.common.model.OAuthToken;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public interface IOAuthTokenDAO extends ITypedDAO<OAuthToken, Long> {
 

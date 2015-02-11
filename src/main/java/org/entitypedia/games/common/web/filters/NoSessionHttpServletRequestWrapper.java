@@ -5,13 +5,14 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class NoSessionHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * Constructs a request object wrapping the given request.
      *
+     * @param request request
      * @throws IllegalArgumentException if the request is null
      */
     public NoSessionHttpServletRequestWrapper(HttpServletRequest request) {

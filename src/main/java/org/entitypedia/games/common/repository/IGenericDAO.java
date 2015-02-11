@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Interface for generic DAO implementation.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public interface IGenericDAO {
 
@@ -21,6 +21,7 @@ public interface IGenericDAO {
      * Persists the given object in the DB.
      *
      * @param object The object to be saved in the DB
+     * @param <T>    type
      * @return The newly created object
      */
     <T> T create(T object);
@@ -29,6 +30,7 @@ public interface IGenericDAO {
      * Updates the given object.
      *
      * @param object The object to be updated
+     * @param <T>    type
      * @return The updated object
      */
     <T> T update(T object);
@@ -38,6 +40,7 @@ public interface IGenericDAO {
      *
      * @param targetType The object Type
      * @param id         The identifier of the object
+     * @param <T>        type
      * @return The object with the given identifier if it exists, null otherwise
      */
     <T> T read(Class<T> targetType, Serializable id);
@@ -46,6 +49,7 @@ public interface IGenericDAO {
      * Returns the number of objects of type T.
      *
      * @param targetType The object Type
+     * @param <T>        type
      * @return Returns the number of objects of type T
      */
     <T> long count(Class<T> targetType);
@@ -54,6 +58,8 @@ public interface IGenericDAO {
      * Returns the number of objects of type T satisfying the criteria.
      *
      * @param targetType The object Type
+     * @param criteria   criteria
+     * @param <T>        type
      * @return Returns the number of objects of type T
      */
     <T> long count(Class<T> targetType, Collection<Criterion> criteria);
@@ -62,6 +68,9 @@ public interface IGenericDAO {
      * Returns the number of objects of type T satisfying the criteria.
      *
      * @param targetType The object Type
+     * @param criteria   criteria
+     * @param aliases    table aliases
+     * @param <T>        type
      * @return Returns the number of objects of type T
      */
     <T> long count(Class<T> targetType, Collection<Criterion> criteria, Map<String, String> aliases);
@@ -70,6 +79,7 @@ public interface IGenericDAO {
      * Deletes the given persistent entity.
      *
      * @param obj The object to be deleted
+     * @param <T> type
      */
     <T> void delete(T obj);
 
@@ -82,6 +92,7 @@ public interface IGenericDAO {
      * @param page         If not null defines a specific page to be retrieved
      * @param sortCriteria Optional list of ordering criteria (expressed as a list of property
      *                     names, always ascending)
+     * @param <T>          type
      * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
      */
     <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Order... sortCriteria);
@@ -96,6 +107,7 @@ public interface IGenericDAO {
      * @param sortCriteria Optional list of ordering criteria (expressed as a list of property
      *                     names, always ascending)
      * @param aliases      list of aliases used in the query
+     * @param <T>          type
      * @return The list of objects of type T that answer the given collection of {@link org.hibernate.criterion.Criterion}.
      */
     <T> List<T> find(Class<T> targetType, Collection<Criterion> criteria, Page page, Map<String, String> aliases, Order... sortCriteria);
@@ -109,6 +121,7 @@ public interface IGenericDAO {
      *                   of objects to be retrieved. See {@link org.entitypedia.games.common.repository.hibernateimpl.filter.FilterCriteriaParser} for syntax.
      * @param page       If not null defines a specific page to be retrieved
      * @param order      Optional list of ordering criteria
+     * @param <T>        type
      * @return The resulting page of objects of type T.
      */
     <T> ResultsPage<T> find(Class<T> targetType, Page page, String filter, String order);

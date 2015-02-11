@@ -1,6 +1,6 @@
 package org.entitypedia.games.common.oauth;
 
-import org.entitypedia.games.common.model.WordGameUser;
+import org.entitypedia.games.common.model.GameUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
@@ -16,7 +16,7 @@ import java.util.concurrent.*;
 /**
  * Self-cleaning token storage.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerTokenServices {
     // keep in mind tokens depend on currently authenticated principal... SecurityContext.getAuthentication...
@@ -54,7 +54,7 @@ public class InMemorySelfCleaningConsumerTokenServices implements OAuthConsumerT
     public OAuthConsumerToken getToken(String resourceId) throws AuthenticationException {
         OAuthConsumerToken result = null;
 
-        WordGameUser user = AuthTools.findCurrentUser();
+        GameUser user = AuthTools.findCurrentUser();
         if (null != user) {
             OAuthConsumerTokenHolder t = tokens.get(user.getUid() + "\t" + resourceId);
             if (null != t) {

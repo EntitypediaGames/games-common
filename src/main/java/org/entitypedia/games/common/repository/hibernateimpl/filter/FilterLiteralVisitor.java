@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class FilterLiteralVisitor extends FilterBaseVisitor<Object> {
 

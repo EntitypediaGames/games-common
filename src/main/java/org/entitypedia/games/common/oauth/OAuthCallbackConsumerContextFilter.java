@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 /**
  * OAuthCallbackConsumerContextFilter always adds oauth_callback.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class OAuthCallbackConsumerContextFilter extends OAuthConsumerContextFilter {
 

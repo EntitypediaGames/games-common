@@ -8,7 +8,7 @@ import java.util.TreeMap;
 /**
  * A simple Trie node implementation for bootstrapping packed trie. Based on the code from Wikipedia.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class BasicTrieNode {
 

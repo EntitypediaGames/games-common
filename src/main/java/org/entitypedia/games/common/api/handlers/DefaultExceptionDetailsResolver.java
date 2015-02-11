@@ -17,7 +17,7 @@ package org.entitypedia.games.common.api.handlers;
 
 import org.entitypedia.games.common.exceptions.ExceptionDetails;
 import org.entitypedia.games.common.exceptions.HTTPResponseStatus;
-import org.entitypedia.games.common.exceptions.WordGameException;
+import org.entitypedia.games.common.exceptions.GameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
@@ -46,7 +46,7 @@ import java.util.Map;
  * {@link org.entitypedia.games.common.exceptions.ExceptionDetails} instances.
  *
  * @author Les Hazlewood
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class DefaultExceptionDetailsResolver implements ExceptionDetailsResolver, MessageSourceAware {
 
@@ -129,8 +129,8 @@ public class DefaultExceptionDetailsResolver implements ExceptionDetailsResolver
             } else {
                 result.setExceptionClass(template.getExceptionClass());
             }
-            if (ex instanceof WordGameException) {
-                result.setParams(((WordGameException) ex).getParams());
+            if (ex instanceof GameException) {
+                result.setParams(((GameException) ex).getParams());
             }
         }
 
@@ -270,7 +270,7 @@ public class DefaultExceptionDetailsResolver implements ExceptionDetailsResolver
     /**
      * Returns the config-time 'template' ExceptionDetails instance configured for the specified Exception, or
      * {@code null} if a match was not found.
-     * <p/>
+     * <p>
      * The config-time template is used as the basis for the ExceptionDetails constructed at runtime.
      *
      * @param ex exception

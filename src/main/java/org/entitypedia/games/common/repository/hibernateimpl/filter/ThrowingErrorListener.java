@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.misc.Nullable;
 import org.entitypedia.games.common.exceptions.FilterParsingException;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class ThrowingErrorListener extends BaseErrorListener {
 

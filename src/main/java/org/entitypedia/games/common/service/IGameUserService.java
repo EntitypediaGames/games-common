@@ -1,11 +1,11 @@
 package org.entitypedia.games.common.service;
 
-import org.entitypedia.games.common.model.WordGameUser;
+import org.entitypedia.games.common.model.GameUser;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
-public interface IWordGameUserService<T extends WordGameUser> {
+public interface IGameUserService<T extends GameUser> {
 
     /**
      * Imports user from the framework or returns existing one with updated password.

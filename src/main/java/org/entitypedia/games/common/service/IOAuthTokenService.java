@@ -3,7 +3,7 @@ package org.entitypedia.games.common.service;
 import org.springframework.security.oauth.consumer.OAuthConsumerToken;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public interface IOAuthTokenService {
 

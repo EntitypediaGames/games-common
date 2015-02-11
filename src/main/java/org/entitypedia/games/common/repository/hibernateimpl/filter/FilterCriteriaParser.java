@@ -35,7 +35,7 @@ import java.util.*;
  * For details on the operators see {@link org.hibernate.criterion.Restrictions} class. xxProperty operators are abbreviated as xxP.
  * </p>
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class FilterCriteriaParser {
 

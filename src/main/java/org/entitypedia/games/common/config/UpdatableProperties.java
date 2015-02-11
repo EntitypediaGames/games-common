@@ -18,7 +18,7 @@ import java.util.Properties;
  * Initializes Spring Environment to add itself as a property source.
  * Itself it loads properties using commons PropertiesConfiguration from a file in classpath
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class UpdatableProperties {
 

@@ -8,7 +8,7 @@ import org.springframework.security.oauth.consumer.OAuthConsumerToken;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class OAuthTokenService implements IOAuthTokenService {
 

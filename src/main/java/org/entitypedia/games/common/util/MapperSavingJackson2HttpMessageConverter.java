@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class MapperSavingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
 

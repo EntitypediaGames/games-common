@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * @param <T>  - data type that the DAO serves
  * @param <PK> - type of the primary key
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public abstract class AbstractTypedDAO<T, PK extends Serializable> extends GenericDAO implements ITypedDAO<T, PK> {
 

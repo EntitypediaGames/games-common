@@ -3,7 +3,7 @@ package org.entitypedia.games.common.tries;
 /**
  * A simple Trie implementation to bootstrap packed trie. Based on the code from Wikipedia.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class BasicTrie {
 

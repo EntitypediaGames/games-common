@@ -41,6 +41,8 @@ extends InputStream
     /**
      *  Creates an instance that positions the stream at the start of the
      *  buffer.
+     *
+     *  @param buf input byte buffer
      */
     public ByteBufferInputStream(ByteBuffer buf)
     {
@@ -50,6 +52,9 @@ extends InputStream
 
     /**
      *  Creates an instance that positions the stream at the specified offset.
+     *
+     *  @param buf input byte buffer
+     *  @param off target position
      */
     public ByteBufferInputStream(ByteBuffer buf, int off)
     {

@@ -1,14 +1,14 @@
 package org.entitypedia.games.common.oauth;
 
-import org.entitypedia.games.common.model.WordGameUser;
+import org.entitypedia.games.common.model.GameUser;
 import org.entitypedia.games.common.service.IOAuthTokenService;
-import org.entitypedia.games.common.service.IWordGameUserService;
+import org.entitypedia.games.common.service.IGameUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth.consumer.OAuthConsumerToken;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class DBConsumerTokenServices extends InMemorySelfCleaningConsumerTokenServices {
     // keep in mind tokens depend on currently authenticated principal... SecurityContext.getAuthentication...
@@ -24,14 +24,14 @@ public class DBConsumerTokenServices extends InMemorySelfCleaningConsumerTokenSe
     private IOAuthTokenService tokenService;
 
     @Autowired
-    private IWordGameUserService userService;
+    private IGameUserService userService;
 
     @Override
     public OAuthConsumerToken getToken(String resourceId) throws AuthenticationException {
         OAuthConsumerToken result = super.getToken(resourceId);
 
         // give access tokens only to authenticated users
-        WordGameUser user = AuthTools.findCurrentUser();
+        GameUser user = AuthTools.findCurrentUser();
         if (null == result && null != user) {
             result = tokenService.getTokenByUIDAndResource(user.getUid(), resourceId);
         }

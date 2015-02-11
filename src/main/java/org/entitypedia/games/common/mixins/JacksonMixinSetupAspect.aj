@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Applies mixins from annotations to Jackson Mapper.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public aspect JacksonMixinSetupAspect {
 

@@ -10,14 +10,14 @@ import java.util.*;
 
 /**
  * Packed Trie implementation inspired by
- * <p/>
+ * <p>
  * Ulrich Germann, Eric Joanis, Samuel Larkin (2009).
  * "Tightly packed tries: how to fit large models into memory, and make them load fast, too" .
  * http://www.aclweb.org/anthology/W/W09/W09-1505.pdf
  * ACL Workshops: Proceedings of the Workshop on Software Engineering, Testing, and Quality Assurance for Natural Language Processing.
  * Association for Computational Linguistics. pp. 31–39.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class PackedTrie {
 
@@ -85,6 +85,7 @@ public class PackedTrie {
      *
      * @param trie input trie
      * @param out  output stream
+     * @throws IOException IOException
      */
     public static void pack(BasicTrie trie, OutputStream out) throws IOException {
         // max 20 bytes per child = two variable length longs, max 10 bytes each
@@ -139,6 +140,7 @@ public class PackedTrie {
      * @param node node to write
      * @param out  stream to write to
      * @return number of bytes written
+     * @throws IOException IOException
      */
     private static long writeNode(ByteArrayOutputStream childrenStream, BasicTrieNode node, OutputStream out) throws IOException {
 //        0  13 offset of root node                             // save root offset at the end in MSB 1 bytes (root should have children and the last has offset in MSB 0 bytes
@@ -261,7 +263,7 @@ public class PackedTrie {
      * @param buffer buffer where to read from
      * @param offset where to start reading
      * @return 64-bit integer
-     * @throws IOException
+     * @throws IOException IOException
      */
     private long readVarLenLong01(BufferFacade buffer, long offset) throws IOException {
         int shift = 0;
@@ -287,7 +289,7 @@ public class PackedTrie {
      * Writes 64-bit integer encoded as series of MSB0 bytes with the last MSB1 byte.
      *
      * @param out stream to write to
-     * @throws IOException
+     * @throws IOException IOException
      */
     private static void writeVarLenLong1(long value, OutputStream out) throws IOException {
         while (true) {
@@ -308,7 +310,7 @@ public class PackedTrie {
      * @param offset  where to start reading
      * @param ceiling where to stop reading, exclusive
      * @return 64-bit integer
-     * @throws IOException
+     * @throws IOException IOException
      */
     private static long readVarLenLong1(BufferFacade buffer, long offset, long ceiling) throws IOException {
         int shift = 0;
@@ -338,7 +340,7 @@ public class PackedTrie {
      * @param offset where to start reading
      * @param floor  where to stop reading, exclusive
      * @return 64-bit integer
-     * @throws IOException
+     * @throws IOException IOException
      */
     private long readVarLenLong1Back(BufferFacade buffer, long offset, long floor) throws IOException {
         int shift = 0;
@@ -364,7 +366,7 @@ public class PackedTrie {
      * Writes 64-bit integer encoded as a series of MSB0 bytes.
      *
      * @param out stream to write to
-     * @throws IOException
+     * @throws IOException IOException
      */
     private static void writeVarLenLong0(long value, OutputStream out) throws IOException {
         while (true) {
@@ -385,7 +387,7 @@ public class PackedTrie {
      * @param offset  where to start reading
      * @param ceiling where to stop reading, exclusive
      * @return 64-bit integer
-     * @throws IOException
+     * @throws IOException IOException
      */
     private static long readVarLenLong0(BufferFacade buffer, long offset, long ceiling) throws IOException {
         int shift = 0;
@@ -415,7 +417,7 @@ public class PackedTrie {
      * @param offset where to start reading
      * @param floor  where to stop reading, exclusive
      * @return 64-bit integer
-     * @throws IOException
+     * @throws IOException IOException
      */
     private static long readVarLenLong0Back(BufferFacade buffer, long offset, long floor) throws IOException {
         int shift = 0;
@@ -446,7 +448,7 @@ public class PackedTrie {
      * @param low    lower boundary, inclusive
      * @param high   higher boundary, exclusive
      * @return offset
-     * @throws IOException
+     * @throws IOException IOException
      */
     private static long binarySearchChildren(BufferFacade buffer, char c, long low, long high) throws IOException {
         while (low < high) {
@@ -481,9 +483,10 @@ public class PackedTrie {
 
     /**
      * Returns value corresponding to key <code>k</code>.
+     *
      * @param k key
      * @return value corresponding to key <code>k</code>
-     * @throws IOException
+     * @throws IOException IOException
      */
     public Long get(String k) throws IOException {
         if (null == k) {
@@ -548,8 +551,8 @@ public class PackedTrie {
      * Iterates over all entries where key fits the <code>pattern</code>, respecting page boundaries.
      * The _ (underscore) is a mask character in the pattern.
      *
-     * @param pattern pattern
-     * @param pageNo page number, 0-based
+     * @param pattern  pattern
+     * @param pageNo   page number, 0-based
      * @param pageSize page size
      * @return iterator
      */
@@ -572,8 +575,8 @@ public class PackedTrie {
      * Iterates over all values where key fits the <code>pattern</code>, respecting page boundaries.
      * The _ (underscore) is a mask character in the pattern.
      *
-     * @param pattern pattern
-     * @param pageNo page number, 0-based
+     * @param pattern  pattern
+     * @param pageNo   page number, 0-based
      * @param pageSize page size
      * @return iterator
      */

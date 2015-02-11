@@ -56,7 +56,8 @@ implements BufferFacade, Cloneable
      *
      *  @param  file        The file to open; must be accessible to user.
      *
-     *  @throws IllegalArgumentException if <code>segmentSize</code> is > 1GB.
+     *  @throws IllegalArgumentException if <code>segmentSize</code> is &gt; 1GB.
+     *  @throws IOException IOException
      */
     public MappedFileBuffer(File file)
     throws IOException
@@ -74,7 +75,8 @@ implements BufferFacade, Cloneable
      *                      read-write access, <code>false</code> to open
      *                      with read-only access.
      *
-     *  @throws IllegalArgumentException if <code>segmentSize</code> is > 1GB.
+     *  @throws IllegalArgumentException if <code>segmentSize</code> is &gt; 1GB.
+     *  @throws IOException IOException
      */
     public MappedFileBuffer(File file, boolean readWrite)
     throws IOException
@@ -95,7 +97,8 @@ implements BufferFacade, Cloneable
      *                      read-write access, <code>false</code> to open
      *                      with read-only access.
      *
-     *  @throws IllegalArgumentException if <code>segmentSize</code> is > 1GB.
+     *  @throws IllegalArgumentException if <code>segmentSize</code> is &gt; 1GB.
+     *  @throws IOException IOException
      */
     public MappedFileBuffer(File file, int segmentSize, boolean readWrite)
     throws IOException
@@ -170,6 +173,8 @@ implements BufferFacade, Cloneable
 
     /**
      *  Returns the file that is mapped by this buffer.
+     *
+     *  @return the file that is mapped by this buffer
      */
     public File file()
     {
@@ -179,6 +184,8 @@ implements BufferFacade, Cloneable
 
     /**
      *  Indicates whether this buffer is read-write or read-only.
+     *
+     *  @return whether this buffer is read-write or read-only
      */
     public boolean isWritable()
     {
@@ -189,6 +196,8 @@ implements BufferFacade, Cloneable
     /**
      *  Returns the byte-order of this buffer (actually, the order of the first
      *  child buffer; they should all be the same).
+     *
+     *  @return byte order
      */
     public ByteOrder getByteOrder()
     {
@@ -198,6 +207,8 @@ implements BufferFacade, Cloneable
 
     /**
      *  Sets the order of this buffer (propagated to all child buffers).
+     *
+     *  @param order byte order
      */
     public void setByteOrder(ByteOrder order)
     {
@@ -342,6 +353,9 @@ implements BufferFacade, Cloneable
      *  storing them in a newly created <code>byte[]</code>. Will span
      *  segments if necessary to retrieve the requested number of bytes.
      *
+     *  @param index starting index
+     *  @param len byte count
+     *  @return byte array
      *  @throws IndexOutOfBoundsException if the request would read past
      *          the end of file.
      */
@@ -358,6 +372,11 @@ implements BufferFacade, Cloneable
      *  offset. Returns the array as a convenience. Will span segments as
      *  needed.
      *
+     *  @param index starting index
+     *  @param array bytes to get
+     *  @param off starting offset
+     *  @param len byte count
+     *  @return byte array
      *  @throws IndexOutOfBoundsException if the request would read past
      *          the end of file.
      */
@@ -380,6 +399,8 @@ implements BufferFacade, Cloneable
      *  Stores the contents of the passed byte array, starting at the given index.
      *  Will span segments as needed.
      *
+     *  @param index starting index
+     *  @param value bytes to store
      *  @throws IndexOutOfBoundsException if the request would write past
      *          the end of file.
      */
@@ -393,6 +414,10 @@ implements BufferFacade, Cloneable
      *  Stores a section of the passed byte array, defined by <code>off</code> and
      *  <code>len</code>, starting at the given index. Will span segments as needed.
      *
+     *  @param index starting index
+     *  @param value bytes to store
+     *  @param off starting offset
+     *  @param len byte count
      *  @throws IndexOutOfBoundsException if the request would write past
      *          the end of file.
      */
@@ -411,7 +436,7 @@ implements BufferFacade, Cloneable
 
 
     /**
-     *  Creates a new buffer, whose size will be >= segment size, starting at
+     *  Creates a new buffer, whose size will be &gt;= segment size, starting at
      *  the specified offset.
      */
     public ByteBuffer slice(long index)

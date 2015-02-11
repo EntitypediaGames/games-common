@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.entitypedia.games</groupId>
         <artifactId>entitypedia-games-parent</artifactId>
-        <version>13</version>
+        <version>14-SNAPSHOT</version>
     </parent>
 
     <artifactId>entitypedia-games-common</artifactId>
@@ -13,60 +13,42 @@
     <version>1.4.19-SNAPSHOT</version>
 
     <name>Entitypedia Games Common</name>
-    <description>Entitypedia Games and Framework common classes and utility classes</description>
-    <url>http://games.entitypedia.org/</url>
+    <description>Entitypedia Games and Framework common and utility classes</description>
+    <url>https://github.com/EntitypediaGames/games-common</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/EntitypediaGames/games-common/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/EntitypediaGames/games-common.git</connection>
+        <developerConnection>scm:git:git@github.com:EntitypediaGames/games-common.git</developerConnection>
+        <url>https://github.com/EntitypediaGames/games-common</url>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/EntitypediaGames/games-common/issues</url>
+    </issueManagement>
 
     <properties>
         <antlr4.version>4.4</antlr4.version>
     </properties>
 
-    <scm>
-        <connection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk</connection>
-        <developerConnection>scm:svn:https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/trunk
-        </developerConnection>
-        <url>https://dev.entitypedia.org/svn/entitypedia/apps/word-games-common/</url>
-    </scm>
-
-    <repositories>
-        <repository>
-            <id>entitypedia</id>
-            <layout>default</layout>
-            <name>Entitypedia Maven Repository</name>
-            <url>https://dev.entitypedia.org/archiva/repository/internal/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>entitypedia-snapshots</id>
-            <layout>default</layout>
-            <name>Entitypedia Maven Snapshot Repository</name>
-            <url>https://dev.entitypedia.org/archiva/repository/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entitypedia-games-common-model</artifactId>
-            <version>1.0.13</version>
+            <version>1.0.14-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>entitypedia-games-client</artifactId>
-            <version>1.0.13</version>
+            <artifactId>entitypedia-games-common-client</artifactId>
+            <version>1.0.14-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -321,42 +303,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

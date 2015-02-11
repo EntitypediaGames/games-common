@@ -3,7 +3,7 @@ package org.entitypedia.games.common.util.logging;
 /**
  * From http://java.dzone.com/articles/monitoring-declarative-transac?page=0,1
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class TransactionIndicatingUtil {
     private final static String TSM_CLASSNAME = "org.springframework.transaction.support.TransactionSynchronizationManager";

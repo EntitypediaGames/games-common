@@ -43,9 +43,8 @@ import java.util.List;
  * Renders a response with a RESTful Error representation based on the error format discussed in
  * <a href="http://www.stormpath.com/blog/spring-mvc-rest-exception-handling-best-practices-part-1">
  * Spring MVC Rest Exception Handling Best Practices.</a>
- * <p/>
+ * <p>
  * At a high-level, this implementation functions as follows:
- * <p/>
  * <ol>
  * <li>Upon encountering an Exception, the configured {@link ExceptionDetailsResolver} is consulted to resolve the
  * exception into a {@link org.entitypedia.games.common.exceptions.ExceptionDetails} instance.</li>
@@ -59,10 +58,9 @@ import java.util.List;
  * returns {@code null} to indicate other ExceptionResolvers potentially further in the resolution chain should
  * handle the exception instead.</li>
  * </ol>
- * <p/>
  * <h3>Defaults</h3>
  * This implementation has the following property defaults:
- * <table>
+ * <table summary="property defaults">
  * <tr>
  * <th>Property</th>
  * <th>Instance</th>
@@ -80,10 +78,10 @@ import java.util.List;
  * <a href="http://static.springsource.org/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-config-enable">defined here</a> (specifically item #5)</td>
  * </tr>
  * </table>
- * <p/>
+ * <p>
  *
  * @author Les Hazlewood
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  * @see DefaultExceptionDetailsResolver
  * @see HttpMessageConverter
  */
@@ -130,7 +128,7 @@ public class ExceptionDetailsExceptionResolver extends AbstractHandlerExceptionR
     /**
      * Actually resolve the given exception that got thrown during on handler execution, returning a ModelAndView that
      * represents a specific error page if appropriate.
-     * <p/>
+     * <p>
      * May be overridden in subclasses, in order to apply specific
      * exception checks. Note that this template method will be invoked <i>after</i> checking whether this resolved applies
      * ("mappedHandlers" etc), so an implementation may simply proceed with its actual exception handling.

@@ -5,7 +5,7 @@ import org.entitypedia.games.common.repository.IOAuthTokenDAO;
 import org.hibernate.criterion.Restrictions;
 
 /**
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public class OAuthTokenDAO extends AbstractTypedDAO<OAuthToken, Long> implements IOAuthTokenDAO {
 

@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Pairs mixin and its target class.
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JacksonMixin {
@@ -27,6 +27,8 @@ public @interface JacksonMixin {
 
     /**
      * Mixin application condition. Defaults to applying.
+     *
+     * @return application condition.
      */
     String condition() default "";
 }

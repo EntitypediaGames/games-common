@@ -38,6 +38,9 @@ public class BufferFacadeFactory
     /**
      *  Creates an instance that accesses a standard <code>ByteBuffer</code>.
      *  All indexes are limited to <code>Integer.MAX_VALUE</code>.
+     *
+     *  @param buf input buffer
+     *  @return buffer instance
      */
     public static BufferFacade create(ByteBuffer buf)
     {
@@ -51,6 +54,10 @@ public class BufferFacadeFactory
      *  value is specified as a <code>long</code> (for consistency with other
      *  methods), it is limited to <code>Integer.MAX_VALUE</code> and all
      *  indexes are limited to <code>Integer.MAX_VALUE - base</code>.
+     *
+     *  @param buf input buffer
+     *  @param base base value
+     *  @return buffer instance
      */
     public static BufferFacade create(ByteBuffer buf, long base)
     {
@@ -63,6 +70,9 @@ public class BufferFacadeFactory
      *  All indexes are limited to <code>Integer.MAX_VALUE</code>.
      *  <p>
      *  See {@link ByteBufferThreadLocal} for important caveats.
+     *
+     *  @param buf input buffer
+     *  @return buffer instance
      */
     public static BufferFacade createThreadsafe(ByteBuffer buf)
     {
@@ -80,6 +90,10 @@ public class BufferFacadeFactory
      *  Because this method will create independent buffers for each thread, the
      *  <code>limit()</code> method may return different values. Setting a limit on
      *  the underlying buffer will not affect buffers that have already been created.
+     *
+     *  @param buf input buffer
+     *  @param base base value
+     *  @return buffer instance
      */
     public static BufferFacade createThreadsafe(ByteBuffer buf, long base)
     {
@@ -89,6 +103,9 @@ public class BufferFacadeFactory
 
     /**
      *  Creates an instance that accesses a {@link MappedFileBuffer}.
+     *
+     *  @param buf input buffer
+     *  @return buffer instance
      */
     public static BufferFacade create(MappedFileBuffer buf)
     {
@@ -100,6 +117,10 @@ public class BufferFacadeFactory
     /**
      *  Creates an instance that accesses a {@link MappedFileBuffer}, with
      *  with offsets relative to the specified base value.
+     *
+     *  @param buf input buffer
+     *  @param base base value
+     *  @return buffer instance
      */
     public static BufferFacade create(MappedFileBuffer buf, long base)
     {
@@ -109,6 +130,9 @@ public class BufferFacadeFactory
 
     /**
      *  Creates a thread-safe instance that accesses a {@link MappedFileBuffer}.
+     *
+     *  @param buf input buffer
+     *  @return buffer instance
      */
     public static BufferFacade createThreadsafe(MappedFileBuffer buf)
     {
@@ -119,6 +143,10 @@ public class BufferFacadeFactory
     /**
      *  Creates a thread-safe instance that accesses a {@link MappedFileBuffer},
      *  with offsets relative to the specified base  value.
+     *
+     *  @param buf input buffer
+     *  @param base base value
+     *  @return buffer instance
      */
     public static BufferFacade createThreadsafe(MappedFileBuffer buf, long base)
     {

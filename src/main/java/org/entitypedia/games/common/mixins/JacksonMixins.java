@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
  *   &#64;JacksonMixin(target = CrosswordUser.class, mixin = CrosswordUserMixin.class)
  *   })
  * </pre>
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface JacksonMixins {

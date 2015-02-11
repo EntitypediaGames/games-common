@@ -11,7 +11,7 @@ import java.nio.channels.WritableByteChannel;
 /**
  * From http://thomaswabner.wordpress.com/2007/10/09/fast-stream-copy-using-javanio-channels/
  *
- * @author <a rel="author" href="http://autayeu.com/">Aliaksandr Autayeu</a>
+ * @author <a href="http://autayeu.com/">Aliaksandr Autayeu</a>
  */
 public final class ChannelTools {
 
