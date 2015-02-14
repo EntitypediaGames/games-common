@@ -44,7 +44,6 @@ public class GamesFrameworkHttpClientBuilder {
                 RequestConfig.custom()
                         .setConnectTimeout(60000)
                         .setSocketTimeout(60000)
-                        .setStaleConnectionCheckEnabled(false)
                         .build()
         );
 
@@ -59,6 +58,7 @@ public class GamesFrameworkHttpClientBuilder {
         cm.setDefaultSocketConfig(defaultSocketConfig);
         cm.setMaxTotal(20);
         cm.setDefaultMaxPerRoute(10);
+		cm.setValidateAfterInactivity(-1);
         this.connectionManager = cm;
         builder.setConnectionManager(getConnectionManager());
 
