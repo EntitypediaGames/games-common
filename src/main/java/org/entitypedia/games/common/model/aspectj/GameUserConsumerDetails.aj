@@ -1,6 +1,7 @@
-package org.entitypedia.games.common.model;
+package org.entitypedia.games.common.model.aspectj;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.entitypedia.games.common.model.GameUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth.common.signature.SignatureSecret;
