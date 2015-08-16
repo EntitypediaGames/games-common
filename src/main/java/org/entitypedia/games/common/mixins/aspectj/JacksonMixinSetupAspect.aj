@@ -141,7 +141,7 @@ public aspect JacksonMixinSetupAspect {
             // set up mapper
             ObjectMapper mapper = new HibernateAwareObjectMapper();
             for (JacksonMixin mixin : mixins) {
-                mapper.addMixInAnnotations(mixin.target(), mixin.mixin());
+                mapper = mapper.addMixIn(mixin.target(), mixin.mixin());
             }
 
             log.debug("Applying mixins {} to {}", Arrays.toString(mixinsToStringArray(mixins)), converter);
