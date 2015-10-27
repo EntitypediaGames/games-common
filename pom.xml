@@ -10,7 +10,7 @@
 
     <artifactId>entitypedia-games-common</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.19-SNAPSHOT</version>
+    <version>1.4.19</version>
 
     <name>Entitypedia Games Common</name>
     <description>Entitypedia Games and Framework common and utility classes</description>
@@ -27,7 +27,8 @@
         <connection>scm:git:https://github.com/EntitypediaGames/games-common.git</connection>
         <developerConnection>scm:git:git@github.com:EntitypediaGames/games-common.git</developerConnection>
         <url>https://github.com/EntitypediaGames/games-common</url>
-    </scm>
+      <tag>entitypedia-games-common-1.4.19</tag>
+  </scm>
 
     <issueManagement>
         <system>Github</system>
